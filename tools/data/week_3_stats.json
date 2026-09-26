@@ -685,13 +685,13 @@
       "longest": 0.0,
       "pace": "-",
       "elev": "-",
-      "monthly_target": 80.0,
+      "monthly_target": 100.0,
       "pct_weekly": 0.0,
-      "pct_monthly": 83.25,
+      "pct_monthly": 66.6,
       "status": "⚪️ 0 km Logged",
       "cum_distance": 66.6,
       "cum_runs": 7,
-      "cum_status": "🟢 Ahead"
+      "cum_status": "🟡 Slightly Behind"
     },
     "Chris Bloxham": {
       "distance": 0.0,

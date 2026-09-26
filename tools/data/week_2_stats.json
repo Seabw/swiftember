@@ -251,9 +251,9 @@
       "longest": 19.0,
       "pace": "5:04 /km",
       "elev": "143 m",
-      "monthly_target": 80.0,
-      "pct_weekly": 185.0,
-      "pct_monthly": 83.25,
+      "monthly_target": 100.0,
+      "pct_weekly": 148.0,
+      "pct_monthly": 66.6,
       "status": "🟢 Ahead",
       "cum_distance": 66.6,
       "cum_runs": 7,
@@ -727,13 +727,13 @@
       "longest": 4.97,
       "pace": "-",
       "elev": "-",
-      "monthly_target": 10.0,
-      "pct_weekly": 198.8,
-      "pct_monthly": 49.7,
-      "status": "🟢 Ahead",
+      "monthly_target": 25.0,
+      "pct_weekly": 79.52,
+      "pct_monthly": 19.88,
+      "status": "🟡 Slightly Behind",
       "cum_distance": 4.97,
       "cum_runs": 1,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🔴 Behind"
     },
     "Rimon Ali": {
       "distance": 15.93,
@@ -811,13 +811,13 @@
       "longest": 0.0,
       "pace": "-",
       "elev": "-",
-      "monthly_target": 30.0,
+      "monthly_target": 50.0,
       "pct_weekly": 0.0,
-      "pct_monthly": 57.67,
+      "pct_monthly": 34.6,
       "status": "⚪️ 0 km Logged",
       "cum_distance": 17.3,
       "cum_runs": 2,
-      "cum_status": "🟢 Ahead"
+      "cum_status": "🟡 Slightly Behind"
     },
     "Ibrahim Subdurally-Plon": {
       "distance": 0.0,
