@@ -349,13 +349,13 @@
       "longest": 10.0,
       "pace": "5:48 /km",
       "elev": "155 m",
-      "monthly_target": 50.0,
-      "pct_weekly": 199.2,
-      "pct_monthly": 111.6,
+      "monthly_target": 51.0,
+      "pct_weekly": 195.29,
+      "pct_monthly": 109.41,
       "status": "🟢 Ahead",
       "cum_distance": 55.8,
       "cum_runs": 7,
-      "cum_status": "🟢 Ahead"
+      "cum_status": "🟢 On Track"
     },
     "Matt Mackinnon-Coleman": {
       "distance": 24.3,
