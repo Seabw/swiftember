@@ -727,13 +727,13 @@
       "longest": 0.0,
       "pace": "-",
       "elev": "-",
-      "monthly_target": 40.0,
+      "monthly_target": 50.0,
       "pct_weekly": 0.0,
-      "pct_monthly": 77.25,
+      "pct_monthly": 61.8,
       "status": "⚪️ 0 km Logged",
       "cum_distance": 30.9,
       "cum_runs": 4,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟡 Slightly Behind"
     },
     "Ibrahim Subdurally-Plon": {
       "distance": 0.0,
