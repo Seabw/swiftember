@@ -1,11 +1,11 @@
 {
   "week": 1,
-  "total_registered": 64,
-  "active_count": 55,
-  "total_distance": 1578.13,
-  "total_runs": 166,
-  "cum_distance": 1578.13,
-  "cum_runs": 166,
+  "total_registered": 66,
+  "active_count": 57,
+  "total_distance": 1668.93,
+  "total_runs": 171,
+  "cum_distance": 1668.93,
+  "cum_runs": 171,
   "runners": {
     "Bo Wang": {
       "distance": 86.1,
@@ -173,6 +173,34 @@
       "status": "🟢 Ahead",
       "cum_distance": 49.3,
       "cum_runs": 3,
+      "cum_status": "🟢 Ahead"
+    },
+    "Tim Reeves": {
+      "distance": 47.1,
+      "runs": 3,
+      "longest": 32.0,
+      "pace": "6:33 /km",
+      "elev": "270 m",
+      "monthly_target": 150.0,
+      "pct_weekly": 125.6,
+      "pct_monthly": 31.4,
+      "status": "🟢 Ahead",
+      "cum_distance": 47.1,
+      "cum_runs": 3,
+      "cum_status": "🟢 Ahead"
+    },
+    "Helen Williams": {
+      "distance": 43.7,
+      "runs": 2,
+      "longest": 35.0,
+      "pace": "6:51 /km",
+      "elev": "312 m",
+      "monthly_target": 125.0,
+      "pct_weekly": 139.84,
+      "pct_monthly": 34.96,
+      "status": "🟢 Ahead",
+      "cum_distance": 43.7,
+      "cum_runs": 2,
       "cum_status": "🟢 Ahead"
     },
     "Anthony Morgan": {

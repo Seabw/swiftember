@@ -1,11 +1,11 @@
 {
   "week": 3,
-  "total_registered": 64,
-  "active_count": 48,
-  "total_distance": 1175.13,
-  "total_runs": 149,
-  "cum_distance": 4465.29,
-  "cum_runs": 487,
+  "total_registered": 66,
+  "active_count": 50,
+  "total_distance": 1216.43,
+  "total_runs": 154,
+  "cum_distance": 4662.49,
+  "cum_runs": 502,
   "runners": {
     "Jack Dean": {
       "distance": 74.3,
@@ -329,6 +329,20 @@
       "cum_runs": 6,
       "cum_status": "🟡 Slightly Behind"
     },
+    "Helen Williams": {
+      "distance": 21.0,
+      "runs": 3,
+      "longest": 9.5,
+      "pace": "6:23 /km",
+      "elev": "284 m",
+      "monthly_target": 125.0,
+      "pct_weekly": 67.2,
+      "pct_monthly": 74.24,
+      "status": "🟡 Slightly Behind",
+      "cum_distance": 92.8,
+      "cum_runs": 8,
+      "cum_status": "🟢 On Track"
+    },
     "James S": {
       "distance": 20.7,
       "runs": 3,
@@ -384,6 +398,20 @@
       "cum_distance": 65.7,
       "cum_runs": 9,
       "cum_status": "🟢 Ahead"
+    },
+    "Tim Reeves": {
+      "distance": 20.3,
+      "runs": 2,
+      "longest": 11.0,
+      "pace": "5:58 /km",
+      "elev": "163 m",
+      "monthly_target": 150.0,
+      "pct_weekly": 54.13,
+      "pct_monthly": 69.6,
+      "status": "🔴 Behind",
+      "cum_distance": 104.4,
+      "cum_runs": 7,
+      "cum_status": "🟢 On Track"
     },
     "Anthony Morgan": {
       "distance": 19.8,

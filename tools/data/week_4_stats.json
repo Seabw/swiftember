@@ -1,11 +1,11 @@
 {
   "week": 4,
-  "total_registered": 64,
-  "active_count": 50,
-  "total_distance": 1501.7,
-  "total_runs": 154,
-  "cum_distance": 5966.99,
-  "cum_runs": 641,
+  "total_registered": 66,
+  "active_count": 52,
+  "total_distance": 1598.3,
+  "total_runs": 159,
+  "cum_distance": 6260.79,
+  "cum_runs": 661,
   "runners": {
     "Thomas Glave": {
       "distance": 86.8,
@@ -147,6 +147,20 @@
       "cum_runs": 8,
       "cum_status": "🟢 Ahead"
     },
+    "Helen Williams": {
+      "distance": 48.7,
+      "runs": 3,
+      "longest": 42.4,
+      "pace": "6:45 /km",
+      "elev": "131 m",
+      "monthly_target": 125.0,
+      "pct_weekly": 155.84,
+      "pct_monthly": 113.2,
+      "status": "🟢 Ahead",
+      "cum_distance": 141.5,
+      "cum_runs": 11,
+      "cum_status": "🟢 Ahead"
+    },
     "Adam Bown": {
       "distance": 48.1,
       "runs": 5,
@@ -159,6 +173,20 @@
       "status": "🟢 On Track",
       "cum_distance": 187.5,
       "cum_runs": 19,
+      "cum_status": "🟢 On Track"
+    },
+    "Tim Reeves": {
+      "distance": 47.9,
+      "runs": 2,
+      "longest": 42.8,
+      "pace": "6:38 /km",
+      "elev": "96 m",
+      "monthly_target": 150.0,
+      "pct_weekly": 127.73,
+      "pct_monthly": 101.53,
+      "status": "🟢 Ahead",
+      "cum_distance": 152.3,
+      "cum_runs": 9,
       "cum_status": "🟢 On Track"
     },
     "Matthew Rushton": {

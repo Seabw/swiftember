@@ -1,11 +1,11 @@
 {
   "week": 2,
-  "total_registered": 64,
-  "active_count": 55,
-  "total_distance": 1712.03,
-  "total_runs": 172,
-  "cum_distance": 3290.16,
-  "cum_runs": 338,
+  "total_registered": 66,
+  "active_count": 57,
+  "total_distance": 1777.13,
+  "total_runs": 177,
+  "cum_distance": 3446.06,
+  "cum_runs": 348,
   "runners": {
     "Jake Colbourn": {
       "distance": 109.0,
@@ -259,6 +259,20 @@
       "cum_runs": 7,
       "cum_status": "🟢 Ahead"
     },
+    "Tim Reeves": {
+      "distance": 37.0,
+      "runs": 2,
+      "longest": 30.0,
+      "pace": "6:55 /km",
+      "elev": "489 m",
+      "monthly_target": 150.0,
+      "pct_weekly": 98.67,
+      "pct_monthly": 56.07,
+      "status": "🟢 On Track",
+      "cum_distance": 84.1,
+      "cum_runs": 5,
+      "cum_status": "🟢 Ahead"
+    },
     "Adam Bown": {
       "distance": 33.5,
       "runs": 4,
@@ -356,6 +370,20 @@
       "cum_distance": 50.6,
       "cum_runs": 7,
       "cum_status": "🟢 On Track"
+    },
+    "Helen Williams": {
+      "distance": 28.1,
+      "runs": 3,
+      "longest": 15.0,
+      "pace": "6:26 /km",
+      "elev": "147 m",
+      "monthly_target": 125.0,
+      "pct_weekly": 89.92,
+      "pct_monthly": 57.44,
+      "status": "🟡 Slightly Behind",
+      "cum_distance": 71.8,
+      "cum_runs": 5,
+      "cum_status": "🟢 Ahead"
     },
     "Lee Singleton": {
       "distance": 27.2,
