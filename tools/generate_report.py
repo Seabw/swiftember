@@ -431,6 +431,60 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             </tr>
         """
 
+    # HTML Rows - Top 5 Fastest Pacers of the Week
+    valid_pacers = [m for m in weekly_active if parse_pace(m.get("pace", "")) < 99999 and m.get("distance", 0) > 0]
+    top_5_pacers = sorted(valid_pacers, key=lambda x: parse_pace(x["pace"]))[:5]
+    fastest_rows = ""
+    medals = ["🥇 1", "🥈 2", "🥉 3", "4", "5"]
+    for idx, r in enumerate(top_5_pacers):
+        rank_str = medals[idx] if idx < len(medals) else str(idx + 1)
+        rank_cls = "rank-1" if idx == 0 else ""
+        pct_m = r['pct_monthly']
+        if r['cum_distance'] >= r['monthly_target']:
+            badge_html = f'<span class="status-badge badge-ahead">🎉 Done ({pct_m:.1f}%)</span>'
+        else:
+            cum_expected = r['monthly_target'] * (week_num / 4.0)
+            badge_cls = "badge-track" if r['cum_distance'] >= (cum_expected * 0.9) else "badge-slight"
+            badge_html = f'<span class="status-badge {badge_cls}">{r["cum_distance"]:.1f} / {r["monthly_target"]:.0f} km ({pct_m:.1f}%)</span>'
+
+        fastest_rows += f"""
+            <tr>
+                <td class="text-center" style="font-weight: 700;">{rank_str}</td>
+                <td style="font-weight: 600;">{r['registered_name']}</td>
+                <td class="text-center"><span class="pace-badge {rank_cls}">⚡️ {r['pace']}</span></td>
+                <td class="text-right" style="font-weight: 700;">{r['distance']:.1f} km</td>
+                <td class="text-center">{r['runs']}</td>
+                <td class="text-right">{r['longest']:.1f} km</td>
+                <td class="text-right">{r['elev']}</td>
+                <td class="text-center">{badge_html}</td>
+            </tr>
+        """
+
+    fastest_pacers_html = ""
+    if fastest_rows:
+        fastest_pacers_html = f"""
+    <div class="fastest-section" style="page-break-inside: avoid; break-inside: avoid; margin-top: 14px; margin-bottom: 8px;">
+        <div class="section-title" style="margin-top: 0;">⚡️ TOP 5 FASTEST PACERS OF THE WEEK</div>
+        <table class="fastest-table">
+            <thead>
+                <tr>
+                    <th class="text-center" style="width: 44px;">Rank</th>
+                    <th>Runner Name</th>
+                    <th class="text-center">Average Pace</th>
+                    <th class="text-right">Week Logged</th>
+                    <th class="text-center">Runs</th>
+                    <th class="text-right">Longest Run</th>
+                    <th class="text-right">Elevation</th>
+                    <th class="text-center">Challenge Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {fastest_rows}
+            </tbody>
+        </table>
+    </div>
+        """
+
     # HTML Rows - Full Swiftember Report (Cumulative Challenge Tracking: Month Pledge, Total MTD, Remaining)
     all_sorted = sorted(matched_runners, key=lambda x: (x["cum_distance"] > 0, x["pct_monthly"], x["cum_distance"]), reverse=True)
     roster_rows = ""
@@ -756,6 +810,46 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             font-size: 11.5px;
             padding: 2.5px 8px;
         }}
+        table.fastest-table {{ font-size: 15px; width: 100%; border-collapse: collapse; margin-bottom: 6px; }}
+        table.fastest-table th {{
+            font-size: 12px;
+            padding: 5px 8px;
+            letter-spacing: 0.5px;
+            background: linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
+            color: #334155;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-top: 1px solid #cbd5e1;
+            border-bottom: 2px solid #cbd5e1;
+        }}
+        table.fastest-table td {{
+            padding: 4px 8px;
+            font-size: 15px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e293b;
+            vertical-align: middle;
+        }}
+        table.fastest-table tr:nth-child(even) td {{ background-color: #fafafa; }}
+        table.fastest-table .status-badge {{
+            font-size: 11.5px;
+            padding: 2.5px 8px;
+        }}
+        .pace-badge {{
+            display: inline-block;
+            background: #ede9fe;
+            color: #5b21b6;
+            font-weight: 800;
+            padding: 2.5px 8px;
+            border-radius: 6px;
+            font-size: 14px;
+            letter-spacing: 0.2px;
+        }}
+        .pace-badge.rank-1 {{
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+            box-shadow: 0 1px 3px rgba(245, 158, 11, 0.2);
+        }}
         .progress-cell {{
             display: flex;
             flex-direction: column;
@@ -1071,6 +1165,8 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             {target_rows}
         </tbody>
     </table>
+
+    {fastest_pacers_html}
 
     {middle_section}
 
