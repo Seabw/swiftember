@@ -19,7 +19,9 @@
       "status": "🟡 Slightly Behind",
       "cum_distance": 282.1,
       "cum_runs": 24,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 1343,
+      "cum_pace": "7:21 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Barry Cassidy": {
       "distance": 26.1,
@@ -33,7 +35,9 @@
       "status": "🟢 On Track",
       "cum_distance": 104.7,
       "cum_runs": 11,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 431,
+      "cum_pace": "5:12 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Adam Bown": {
       "distance": 20.6,
@@ -47,7 +51,9 @@
       "status": "🔴 Behind",
       "cum_distance": 208.1,
       "cum_runs": 21,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 1727,
+      "cum_pace": "4:45 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Farrell Baker": {
       "distance": 16.7,
@@ -61,7 +67,9 @@
       "status": "🟡 Slightly Behind",
       "cum_distance": 109.0,
       "cum_runs": 15,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 559,
+      "cum_pace": "5:15 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Jimmy Simpson": {
       "distance": 16.2,
@@ -75,7 +83,9 @@
       "status": "🟡 Slightly Behind",
       "cum_distance": 99.8,
       "cum_runs": 16,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 684,
+      "cum_pace": "6:22 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "John Simpson": {
       "distance": 15.0,
@@ -89,7 +99,9 @@
       "status": "🟡 Slightly Behind",
       "cum_distance": 123.0,
       "cum_runs": 14,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 789,
+      "cum_pace": "5:11 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Alice Wilkinson": {
       "distance": 12.4,
@@ -103,7 +115,9 @@
       "status": "🔴 Behind",
       "cum_distance": 132.6,
       "cum_runs": 10,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 727,
+      "cum_pace": "8:38 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Laura Rafailov": {
       "distance": 12.0,
@@ -117,7 +131,9 @@
       "status": "🔴 Behind",
       "cum_distance": 101.8,
       "cum_runs": 14,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 666,
+      "cum_pace": "6:56 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Scott Brough": {
       "distance": 10.1,
@@ -131,7 +147,9 @@
       "status": "🔴 Behind",
       "cum_distance": 107.8,
       "cum_runs": 13,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 662,
+      "cum_pace": "5:59 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Tom Garlick": {
       "distance": 10.0,
@@ -145,7 +163,9 @@
       "status": "🔴 Behind",
       "cum_distance": 25.6,
       "cum_runs": 4,
-      "cum_status": "🔴 Behind"
+      "cum_elev": 67,
+      "cum_pace": "5:10 /km",
+      "cum_status": "🔴 Behind (34.1%)"
     },
     "Pete Hall": {
       "distance": 10.0,
@@ -159,7 +179,9 @@
       "status": "🔴 Behind",
       "cum_distance": 85.4,
       "cum_runs": 11,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 464,
+      "cum_pace": "5:41 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Adrián Nieves": {
       "distance": 10.0,
@@ -173,7 +195,9 @@
       "status": "🟢 Ahead",
       "cum_distance": 51.71,
       "cum_runs": 9,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 217,
+      "cum_pace": "6:43 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Lee Singleton": {
       "distance": 8.4,
@@ -187,7 +211,9 @@
       "status": "🔴 Behind",
       "cum_distance": 102.0,
       "cum_runs": 13,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 863,
+      "cum_pace": "6:14 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Andrea Bohn": {
       "distance": 6.9,
@@ -201,7 +227,9 @@
       "status": "🟡 Slightly Behind",
       "cum_distance": 63.1,
       "cum_runs": 21,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 17,
+      "cum_pace": "7:57 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Jack Dean": {
       "distance": 6.5,
@@ -215,7 +243,9 @@
       "status": "🔴 Behind",
       "cum_distance": 244.0,
       "cum_runs": 22,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 1908,
+      "cum_pace": "5:09 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "James S": {
       "distance": 6.3,
@@ -229,7 +259,9 @@
       "status": "🔴 Behind",
       "cum_distance": 79.8,
       "cum_runs": 12,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 547,
+      "cum_pace": "5:20 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Matt Mackinnon-Coleman": {
       "distance": 6.3,
@@ -243,7 +275,9 @@
       "status": "🔴 Behind",
       "cum_distance": 102.4,
       "cum_runs": 13,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 874,
+      "cum_pace": "5:25 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Sam Gower": {
       "distance": 6.2,
@@ -257,7 +291,9 @@
       "status": "🔴 Behind",
       "cum_distance": 103.4,
       "cum_runs": 16,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 818,
+      "cum_pace": "5:51 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Mark Blakeman": {
       "distance": 5.7,
@@ -271,7 +307,9 @@
       "status": "🔴 Behind",
       "cum_distance": 215.0,
       "cum_runs": 18,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 1166,
+      "cum_pace": "5:43 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Alexander Brown": {
       "distance": 5.7,
@@ -285,7 +323,9 @@
       "status": "🔴 Behind",
       "cum_distance": 233.2,
       "cum_runs": 19,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 1354,
+      "cum_pace": "5:39 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Joshua Savage": {
       "distance": 5.7,
@@ -299,7 +339,9 @@
       "status": "🔴 Behind",
       "cum_distance": 201.4,
       "cum_runs": 18,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 2759,
+      "cum_pace": "5:28 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Joe Pinder": {
       "distance": 5.7,
@@ -313,7 +355,9 @@
       "status": "🔴 Behind",
       "cum_distance": 208.2,
       "cum_runs": 17,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 1324,
+      "cum_pace": "6:11 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Ian Allen 🏳️‍🌈": {
       "distance": 5.7,
@@ -327,7 +371,9 @@
       "status": "🔴 Behind",
       "cum_distance": 217.6,
       "cum_runs": 21,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 1754,
+      "cum_pace": "6:02 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Tim Reeves": {
       "distance": 5.7,
@@ -341,7 +387,9 @@
       "status": "🔴 Behind",
       "cum_distance": 158.0,
       "cum_runs": 10,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 1033,
+      "cum_pace": "6:35 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Bo Wang": {
       "distance": 5.7,
@@ -355,7 +403,9 @@
       "status": "🔴 Behind",
       "cum_distance": 228.3,
       "cum_runs": 20,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 694,
+      "cum_pace": "5:11 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Gabriel Stirling": {
       "distance": 5.4,
@@ -369,7 +419,9 @@
       "status": "🔴 Behind",
       "cum_distance": 117.1,
       "cum_runs": 20,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 692,
+      "cum_pace": "5:09 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Benjamin Lane": {
       "distance": 5.0,
@@ -383,7 +435,9 @@
       "status": "🔴 Behind",
       "cum_distance": 106.5,
       "cum_runs": 11,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 680,
+      "cum_pace": "4:58 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Daniel Bridge": {
       "distance": 5.0,
@@ -397,7 +451,9 @@
       "status": "🔴 Behind",
       "cum_distance": 67.5,
       "cum_runs": 8,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 393,
+      "cum_pace": "5:28 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "David Purnell": {
       "distance": 5.0,
@@ -411,7 +467,9 @@
       "status": "🔴 Behind",
       "cum_distance": 89.6,
       "cum_runs": 14,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 654,
+      "cum_pace": "6:36 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Jon Williams": {
       "distance": 5.0,
@@ -425,7 +483,9 @@
       "status": "🔴 Behind",
       "cum_distance": 68.2,
       "cum_runs": 10,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 247,
+      "cum_pace": "5:29 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Ian Bush": {
       "distance": 4.9,
@@ -439,7 +499,9 @@
       "status": "🔴 Behind",
       "cum_distance": 60.7,
       "cum_runs": 8,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 379,
+      "cum_pace": "5:57 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Jake Colbourn": {
       "distance": 3.1,
@@ -453,7 +515,9 @@
       "status": "🔴 Behind",
       "cum_distance": 204.4,
       "cum_runs": 27,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 3074,
+      "cum_pace": "7:01 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Bradley M 🏳️‍🌈💪🏃‍♂️": {
       "distance": 3.0,
@@ -467,7 +531,9 @@
       "status": "🟡 Slightly Behind",
       "cum_distance": 26.11,
       "cum_runs": 5,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 126,
+      "cum_pace": "6:24 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "James Chaundy": {
       "distance": 1.6,
@@ -481,7 +547,9 @@
       "status": "🔴 Behind",
       "cum_distance": 99.8,
       "cum_runs": 13,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 759,
+      "cum_pace": "5:36 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Harvey Degan": {
       "distance": 0.1,
@@ -495,7 +563,9 @@
       "status": "🔴 Behind",
       "cum_distance": 85.5,
       "cum_runs": 10,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 474,
+      "cum_pace": "6:13 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Anthony Morgan": {
       "distance": 0.0,
@@ -509,7 +579,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 135.8,
       "cum_runs": 15,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 992,
+      "cum_pace": "5:16 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Chris Bloxham": {
       "distance": 0.0,
@@ -523,7 +595,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 39.3,
       "cum_runs": 5,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 253,
+      "cum_pace": "6:05 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Chris Dennison": {
       "distance": 0.0,
@@ -537,6 +611,8 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 0.0,
       "cum_runs": 0,
+      "cum_elev": 0,
+      "cum_pace": "--",
       "cum_status": "⚪️ 0 km Logged"
     },
     "Chris W": {
@@ -551,7 +627,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 53.6,
       "cum_runs": 6,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 343,
+      "cum_pace": "6:06 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Christopher Bainbridge": {
       "distance": 0.0,
@@ -565,7 +643,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 264.7,
       "cum_runs": 25,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 1231,
+      "cum_pace": "6:18 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Dean Haycock": {
       "distance": 0.0,
@@ -579,7 +659,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 27.17,
       "cum_runs": 4,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 127,
+      "cum_pace": "5:32 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Helen Williams": {
       "distance": 0.0,
@@ -593,7 +675,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 141.5,
       "cum_runs": 11,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 874,
+      "cum_pace": "6:40 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Ibrahim Subdurally-Plon": {
       "distance": 0.0,
@@ -607,7 +691,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 15.9,
       "cum_runs": 2,
-      "cum_status": "🟡 Slightly Behind"
+      "cum_elev": 69,
+      "cum_pace": "7:19 /km",
+      "cum_status": "🟡 Incomplete (79.5%)"
     },
     "Jack Whitfield": {
       "distance": 0.0,
@@ -621,7 +707,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 41.3,
       "cum_runs": 8,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 339,
+      "cum_pace": "6:04 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "James Evans": {
       "distance": 0.0,
@@ -635,7 +723,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 10.1,
       "cum_runs": 2,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 70,
+      "cum_pace": "6:26 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "James Horne": {
       "distance": 0.0,
@@ -649,7 +739,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 24.9,
       "cum_runs": 3,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 47,
+      "cum_pace": "5:15 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "James JimJay": {
       "distance": 0.0,
@@ -663,6 +755,8 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 0.0,
       "cum_runs": 0,
+      "cum_elev": 0,
+      "cum_pace": "--",
       "cum_status": "⚪️ 0 km Logged"
     },
     "Jay Lamb": {
@@ -677,6 +771,8 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 0.0,
       "cum_runs": 0,
+      "cum_elev": 0,
+      "cum_pace": "--",
       "cum_status": "⚪️ 0 km Logged"
     },
     "Josh Heer": {
@@ -691,7 +787,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 10.0,
       "cum_runs": 1,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 49,
+      "cum_pace": "6:36 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Joshua Burnett": {
       "distance": 0.0,
@@ -705,7 +803,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 95.9,
       "cum_runs": 8,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 642,
+      "cum_pace": "6:09 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Kevin Barnard": {
       "distance": 0.0,
@@ -719,7 +819,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 30.8,
       "cum_runs": 3,
-      "cum_status": "🟡 Slightly Behind"
+      "cum_elev": 18,
+      "cum_pace": "7:29 /km",
+      "cum_status": "🟡 Incomplete (77.0%)"
     },
     "Lex Hooper": {
       "distance": 0.0,
@@ -733,7 +835,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 50.32,
       "cum_runs": 8,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 273,
+      "cum_pace": "6:39 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Marvin Lo": {
       "distance": 0.0,
@@ -747,7 +851,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 41.0,
       "cum_runs": 3,
-      "cum_status": "🟡 Slightly Behind"
+      "cum_elev": 290,
+      "cum_pace": "5:16 /km",
+      "cum_status": "🟡 Incomplete (68.3%)"
     },
     "Matthew Rushton": {
       "distance": 0.0,
@@ -761,7 +867,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 159.2,
       "cum_runs": 12,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 809,
+      "cum_pace": "5:42 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Max D": {
       "distance": 0.0,
@@ -775,7 +883,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 12.49,
       "cum_runs": 2,
-      "cum_status": "🟡 Slightly Behind"
+      "cum_elev": 0,
+      "cum_pace": "--",
+      "cum_status": "🟡 Incomplete (62.5%)"
     },
     "Michael Lakin": {
       "distance": 0.0,
@@ -789,7 +899,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 127.6,
       "cum_runs": 5,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 563,
+      "cum_pace": "7:00 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Neesa": {
       "distance": 0.0,
@@ -803,7 +915,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 50.87,
       "cum_runs": 2,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 0,
+      "cum_pace": "--",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Patrick Ryan": {
       "distance": 0.0,
@@ -817,7 +931,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 58.6,
       "cum_runs": 8,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 548,
+      "cum_pace": "5:34 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Phil Deeley": {
       "distance": 0.0,
@@ -831,7 +947,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 69.7,
       "cum_runs": 14,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 408,
+      "cum_pace": "6:19 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Richard Lakin": {
       "distance": 0.0,
@@ -845,7 +963,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 152.1,
       "cum_runs": 8,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 660,
+      "cum_pace": "6:44 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Richard Wilkes": {
       "distance": 0.0,
@@ -859,7 +979,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 143.9,
       "cum_runs": 9,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 685,
+      "cum_pace": "6:23 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Rimon Ali": {
       "distance": 0.0,
@@ -873,7 +995,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 41.41,
       "cum_runs": 4,
-      "cum_status": "🟡 Slightly Behind"
+      "cum_elev": 30,
+      "cum_pace": "6:37 /km",
+      "cum_status": "🟢 Near Goal (82.8%)"
     },
     "Ross Newman": {
       "distance": 0.0,
@@ -887,7 +1011,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 84.4,
       "cum_runs": 11,
-      "cum_status": "🟢 Ahead"
+      "cum_elev": 629,
+      "cum_pace": "6:07 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Sam Lewis": {
       "distance": 0.0,
@@ -901,7 +1027,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 80.0,
       "cum_runs": 11,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 606,
+      "cum_pace": "5:49 /km",
+      "cum_status": "🎉 Goal Achieved"
     },
     "Simon Stockdale": {
       "distance": 0.0,
@@ -915,7 +1043,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 57.81,
       "cum_runs": 3,
-      "cum_status": "🟡 Slightly Behind"
+      "cum_elev": 257,
+      "cum_pace": "5:55 /km",
+      "cum_status": "🟡 Incomplete (72.3%)"
     },
     "Tom dawson": {
       "distance": 0.0,
@@ -929,7 +1059,9 @@
       "status": "⚪️ 0 km Logged",
       "cum_distance": 45.6,
       "cum_runs": 5,
-      "cum_status": "🟢 On Track"
+      "cum_elev": 180,
+      "cum_pace": "6:27 /km",
+      "cum_status": "🎉 Goal Achieved"
     }
   }
 }

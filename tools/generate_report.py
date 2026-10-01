@@ -39,6 +39,25 @@ def normalize(s):
     s = re.sub(r'[^\w\s]', '', s)
     return unicodedata.normalize('NFKD', s).encode('ASCII', 'ignore').decode('utf-8').strip().lower()
 
+def parse_elev_val(e_str):
+    if not e_str or str(e_str) in ['--', '-']:
+        return 0
+    nums = re.findall(r'\d+', str(e_str).replace(',', ''))
+    return int(nums[0]) if nums else 0
+
+def parse_pace_val(p_str):
+    if not p_str or str(p_str) in ['--', '-']:
+        return None
+    m = re.match(r'(\d+):(\d+)', str(p_str))
+    return int(m.group(1))*60 + int(m.group(2)) if m else None
+
+def format_pace_val(secs):
+    if not secs or secs >= 99999:
+        return '--'
+    m = int(round(secs)) // 60
+    s = int(round(secs)) % 60
+    return f'{m}:{s:02d} /km'
+
 def load_roster():
     with open(ROSTER_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -157,6 +176,8 @@ def save_week_stats(week_num, matched_runners):
             "status": r["status"],
             "cum_distance": round(r["cum_distance"], 2),
             "cum_runs": r["cum_runs"],
+            "cum_elev": r.get("cum_elev", 0),
+            "cum_pace": r.get("cum_pace_str", "-"),
             "cum_status": r["cum_status"]
         }
         
@@ -175,10 +196,10 @@ def save_week_stats(week_num, matched_runners):
         json.dump(out_obj, f, indent=2, ensure_ascii=False)
     print(f"[INFO] Archived Week {week_num} stats to {stat_file}")
 
-def process_swiftember_data(strava_entries, roster, aliases, week_num=1, historical_stats=None):
+def process_swiftember_data(strava_entries, roster, aliases, week_num=1, historical_stats=None, is_final=False):
     matched_runners = []
     unmatched_registered = list(roster.keys())
-    expected_week_fraction = min(1.0, week_num / 4.0)
+    expected_week_fraction = 1.0 if is_final else min(1.0, week_num / 4.0)
     
     if historical_stats is None:
         historical_stats = {}
@@ -203,6 +224,9 @@ def process_swiftember_data(strava_entries, roster, aliases, week_num=1, histori
                     break
                     
         if found:
+            this_elev = parse_elev_val(s.get("elev", ""))
+            this_pace_s = parse_pace_val(s.get("pace", ""))
+
             existing = next((m for m in matched_runners if m["registered_name"] == found), None)
             if existing:
                 existing["distance"] = round(existing["distance"] + s["distance"], 2)
@@ -210,7 +234,15 @@ def process_swiftember_data(strava_entries, roster, aliases, week_num=1, histori
                 existing["longest"] = max(existing["longest"], s["longest"])
                 existing["cum_distance"] = round(existing["cum_distance"] + s["distance"], 2)
                 existing["cum_runs"] += s["runs"]
+                existing["cum_elev"] += this_elev
+                existing["cum_longest"] = max(existing["cum_longest"], s["longest"])
                 
+                if this_pace_s and s["distance"] > 0:
+                    existing["_pace_sec_dist"] += this_pace_s * s["distance"]
+                    existing["_pace_dist"] += s["distance"]
+                    existing["cum_pace_s"] = existing["_pace_sec_dist"] / existing["_pace_dist"]
+                    existing["cum_pace_str"] = format_pace_val(existing["cum_pace_s"])
+
                 monthly_target = existing["monthly_target"]
                 weekly_quota = existing["weekly_target"]
                 existing["pct_monthly"] = (existing["cum_distance"] / monthly_target) * 100.0 if monthly_target > 0 else 0.0
@@ -227,20 +259,32 @@ def process_swiftember_data(strava_entries, roster, aliases, week_num=1, histori
                 else:
                     existing["status"] = "🔴 Behind"
                     
-                cum_expected = monthly_target * expected_week_fraction
-                pct_of_expected = (existing["cum_distance"] / cum_expected) * 100.0 if cum_expected > 0 else 0.0
-                if existing["cum_distance"] == 0:
-                    existing["cum_status"] = "⚪️ 0 km Logged"
-                elif existing["cum_distance"] >= monthly_target:
-                    existing["cum_status"] = "🟢 Ahead"
-                elif pct_of_expected >= 110.0:
-                    existing["cum_status"] = "🟢 Ahead"
-                elif pct_of_expected >= 90.0:
-                    existing["cum_status"] = "🟢 On Track"
-                elif pct_of_expected >= 60.0:
-                    existing["cum_status"] = "🟡 Slightly Behind"
+                if is_final:
+                    if existing["cum_distance"] == 0:
+                        existing["cum_status"] = "⚪️ 0 km Logged"
+                    elif existing["cum_distance"] >= monthly_target:
+                        existing["cum_status"] = "🎉 Goal Achieved"
+                    elif existing["pct_monthly"] >= 80.0:
+                        existing["cum_status"] = f"🟢 Near Goal ({existing['pct_monthly']:.1f}%)"
+                    elif existing["pct_monthly"] >= 50.0:
+                        existing["cum_status"] = f"🟡 Incomplete ({existing['pct_monthly']:.1f}%)"
+                    else:
+                        existing["cum_status"] = f"🔴 Behind ({existing['pct_monthly']:.1f}%)"
                 else:
-                    existing["cum_status"] = "🔴 Behind"
+                    cum_expected = monthly_target * expected_week_fraction
+                    pct_of_expected = (existing["cum_distance"] / cum_expected) * 100.0 if cum_expected > 0 else 0.0
+                    if existing["cum_distance"] == 0:
+                        existing["cum_status"] = "⚪️ 0 km Logged"
+                    elif existing["cum_distance"] >= monthly_target:
+                        existing["cum_status"] = "🟢 Ahead"
+                    elif pct_of_expected >= 110.0:
+                        existing["cum_status"] = "🟢 Ahead"
+                    elif pct_of_expected >= 90.0:
+                        existing["cum_status"] = "🟢 On Track"
+                    elif pct_of_expected >= 60.0:
+                        existing["cum_status"] = "🟡 Slightly Behind"
+                    else:
+                        existing["cum_status"] = "🔴 Behind"
                 continue
 
             if found in unmatched_registered:
@@ -252,13 +296,25 @@ def process_swiftember_data(strava_entries, roster, aliases, week_num=1, histori
             hist_list = historical_stats.get(found, [])
             prior_dist = sum(h.get("distance", 0.0) for h in hist_list)
             prior_runs = sum(h.get("runs", 0) for h in hist_list)
-            
+            prior_elev = sum(parse_elev_val(h.get("elev", "")) for h in hist_list)
+            prior_longest = max([h.get("longest", 0.0) for h in hist_list], default=0.0)
+            prior_pace_sec_dist = sum(parse_pace_val(h.get("pace", "")) * h.get("distance", 0.0) for h in hist_list if parse_pace_val(h.get("pace", "")) and h.get("distance", 0.0) > 0)
+            prior_pace_dist = sum(h.get("distance", 0.0) for h in hist_list if parse_pace_val(h.get("pace", "")) and h.get("distance", 0.0) > 0)
+
             this_dist = s["distance"]
             this_runs = s["runs"]
+            this_longest = s["longest"]
             
-            cum_dist = prior_dist + this_dist
+            cum_dist = round(prior_dist + this_dist, 2)
             cum_runs = prior_runs + this_runs
+            cum_elev = prior_elev + this_elev
+            cum_longest = max(prior_longest, this_longest)
             
+            tot_pace_d = prior_pace_dist + (this_dist if this_pace_s and this_dist > 0 else 0.0)
+            tot_pace_sd = prior_pace_sec_dist + (this_pace_s * this_dist if this_pace_s and this_dist > 0 else 0.0)
+            cum_pace_s = (tot_pace_sd / tot_pace_d) if tot_pace_d > 0 else 99999
+            cum_pace_str = format_pace_val(cum_pace_s) if tot_pace_d > 0 else "--"
+
             pct_monthly = (cum_dist / monthly_target) * 100.0 if monthly_target > 0 else 0.0
             pct_weekly = (this_dist / weekly_quota) * 100.0 if weekly_quota > 0 else 0.0
             
@@ -274,21 +330,32 @@ def process_swiftember_data(strava_entries, roster, aliases, week_num=1, histori
             else:
                 week_status = "🔴 Behind"
                 
-            # Cumulative pacing status for overall challenge (Full Swiftember Report)
-            cum_expected = monthly_target * expected_week_fraction
-            pct_of_expected = (cum_dist / cum_expected) * 100.0 if cum_expected > 0 else 0.0
-            if cum_dist == 0:
-                cum_status = "⚪️ 0 km Logged"
-            elif cum_dist >= monthly_target:
-                cum_status = "🟢 Ahead"
-            elif pct_of_expected >= 110.0:
-                cum_status = "🟢 Ahead"
-            elif pct_of_expected >= 90.0:
-                cum_status = "🟢 On Track"
-            elif pct_of_expected >= 60.0:
-                cum_status = "🟡 Slightly Behind"
+            if is_final:
+                if cum_dist == 0:
+                    cum_status = "⚪️ 0 km Logged"
+                elif cum_dist >= monthly_target:
+                    cum_status = "🎉 Goal Achieved"
+                elif pct_monthly >= 80.0:
+                    cum_status = f"🟢 Near Goal ({pct_monthly:.1f}%)"
+                elif pct_monthly >= 50.0:
+                    cum_status = f"🟡 Incomplete ({pct_monthly:.1f}%)"
+                else:
+                    cum_status = f"🔴 Behind ({pct_monthly:.1f}%)"
             else:
-                cum_status = "🔴 Behind"
+                cum_expected = monthly_target * expected_week_fraction
+                pct_of_expected = (cum_dist / cum_expected) * 100.0 if cum_expected > 0 else 0.0
+                if cum_dist == 0:
+                    cum_status = "⚪️ 0 km Logged"
+                elif cum_dist >= monthly_target:
+                    cum_status = "🟢 Ahead"
+                elif pct_of_expected >= 110.0:
+                    cum_status = "🟢 Ahead"
+                elif pct_of_expected >= 90.0:
+                    cum_status = "🟢 On Track"
+                elif pct_of_expected >= 60.0:
+                    cum_status = "🟡 Slightly Behind"
+                else:
+                    cum_status = "🔴 Behind"
                 
             matched_runners.append({
                 "registered_name": found,
@@ -297,7 +364,7 @@ def process_swiftember_data(strava_entries, roster, aliases, week_num=1, histori
                 "weekly_target": weekly_quota,
                 "distance": this_dist,
                 "runs": this_runs,
-                "longest": s["longest"],
+                "longest": this_longest,
                 "pace": s["pace"],
                 "elev": s["elev"],
                 "pct_monthly": pct_monthly,
@@ -308,6 +375,12 @@ def process_swiftember_data(strava_entries, roster, aliases, week_num=1, histori
                 "prior_runs": prior_runs,
                 "cum_distance": cum_dist,
                 "cum_runs": cum_runs,
+                "cum_elev": cum_elev,
+                "cum_longest": cum_longest,
+                "cum_pace_s": cum_pace_s,
+                "cum_pace_str": cum_pace_str,
+                "_pace_sec_dist": tot_pace_sd,
+                "_pace_dist": tot_pace_d,
                 "cum_status": cum_status
             })
             
@@ -319,26 +392,46 @@ def process_swiftember_data(strava_entries, roster, aliases, week_num=1, histori
         hist_list = historical_stats.get(r, [])
         prior_dist = sum(h.get("distance", 0.0) for h in hist_list)
         prior_runs = sum(h.get("runs", 0) for h in hist_list)
-        
+        prior_elev = sum(parse_elev_val(h.get("elev", "")) for h in hist_list)
+        prior_longest = max([h.get("longest", 0.0) for h in hist_list], default=0.0)
+        prior_pace_sec_dist = sum(parse_pace_val(h.get("pace", "")) * h.get("distance", 0.0) for h in hist_list if parse_pace_val(h.get("pace", "")) and h.get("distance", 0.0) > 0)
+        prior_pace_dist = sum(h.get("distance", 0.0) for h in hist_list if parse_pace_val(h.get("pace", "")) and h.get("distance", 0.0) > 0)
+
         cum_dist = prior_dist
         cum_runs = prior_runs
-        
+        cum_elev = prior_elev
+        cum_longest = prior_longest
+        cum_pace_s = (prior_pace_sec_dist / prior_pace_dist) if prior_pace_dist > 0 else 99999
+        cum_pace_str = format_pace_val(cum_pace_s) if prior_pace_dist > 0 else "--"
+
         pct_monthly = (cum_dist / monthly_target) * 100.0 if monthly_target > 0 else 0.0
         pct_weekly = 0.0
         week_status = "⚪️ 0 km Logged"
         
-        cum_expected = monthly_target * expected_week_fraction
-        pct_of_expected = (cum_dist / cum_expected) * 100.0 if cum_expected > 0 else 0.0
-        if cum_dist == 0:
-            cum_status = "⚪️ 0 km Logged"
-        elif pct_of_expected >= 110.0:
-            cum_status = "🟢 Ahead"
-        elif pct_of_expected >= 90.0:
-            cum_status = "🟢 On Track"
-        elif pct_of_expected >= 60.0:
-            cum_status = "🟡 Slightly Behind"
+        if is_final:
+            if cum_dist == 0:
+                cum_status = "⚪️ 0 km Logged"
+            elif cum_dist >= monthly_target:
+                cum_status = "🎉 Goal Achieved"
+            elif pct_monthly >= 80.0:
+                cum_status = f"🟢 Near Goal ({pct_monthly:.1f}%)"
+            elif pct_monthly >= 50.0:
+                cum_status = f"🟡 Incomplete ({pct_monthly:.1f}%)"
+            else:
+                cum_status = f"🔴 Behind ({pct_monthly:.1f}%)"
         else:
-            cum_status = "🔴 Behind"
+            cum_expected = monthly_target * expected_week_fraction
+            pct_of_expected = (cum_dist / cum_expected) * 100.0 if cum_expected > 0 else 0.0
+            if cum_dist == 0:
+                cum_status = "⚪️ 0 km Logged"
+            elif pct_of_expected >= 110.0:
+                cum_status = "🟢 Ahead"
+            elif pct_of_expected >= 90.0:
+                cum_status = "🟢 On Track"
+            elif pct_of_expected >= 60.0:
+                cum_status = "🟡 Slightly Behind"
+            else:
+                cum_status = "🔴 Behind"
             
         matched_runners.append({
             "registered_name": r,
@@ -358,53 +451,79 @@ def process_swiftember_data(strava_entries, roster, aliases, week_num=1, histori
             "prior_runs": prior_runs,
             "cum_distance": cum_dist,
             "cum_runs": cum_runs,
+            "cum_elev": cum_elev,
+            "cum_longest": cum_longest,
+            "cum_pace_s": cum_pace_s,
+            "cum_pace_str": cum_pace_str,
+            "_pace_sec_dist": prior_pace_sec_dist,
+            "_pace_dist": prior_pace_dist,
             "cum_status": cum_status
         })
         
     return matched_runners
 
-def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official Swiftember Report", font_size="large"):
+def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official Swiftember Report", font_size="large", is_final=False):
     # Target calculations
     weekly_active = [m for m in matched_runners if m["distance"] > 0]
     mtd_active = [m for m in matched_runners if m["cum_distance"] > 0]
+    goal_achievers = [m for m in matched_runners if m["cum_distance"] >= m["monthly_target"]]
 
     total_pledge = sum(m["monthly_target"] for m in matched_runners)
     total_cum_logged = sum(m["cum_distance"] for m in matched_runners)
     total_week_logged = sum(m["distance"] for m in matched_runners)
-    expected_cum_target = total_pledge * min(1.0, week_num / 4.0)
+    expected_cum_target = total_pledge * (1.0 if is_final else min(1.0, week_num / 4.0))
     pct_total_month = (total_cum_logged / total_pledge) * 100.0 if total_pledge > 0 else 0.0
     pct_pace_rate = (total_cum_logged / expected_cum_target) * 100.0 if expected_cum_target > 0 else 0.0
     total_cum_runs = sum(m["cum_runs"] for m in matched_runners)
     total_week_runs = sum(m["runs"] for m in matched_runners)
+    pct_achievers = (len(goal_achievers) / len(matched_runners) * 100.0) if matched_runners else 0.0
     
     # Barriers between short, medium, and long distance runners decided by average target distance submitted by members
     avg_target = (total_pledge / len(matched_runners)) if matched_runners else 100.0
     short_barrier = round((avg_target * 0.5) / 25.0) * 25.0 if avg_target >= 40 else round(avg_target * 0.5)
     long_barrier = round(avg_target / 25.0) * 25.0 if avg_target >= 40 else round(avg_target)
 
-    # 1. Rising Swift: Weekly goal achieved % most for short distance runners (<= short_barrier)
-    short_active = [m for m in weekly_active if m["monthly_target"] <= short_barrier]
-    rising_swift = max(short_active, key=lambda x: (x["pct_weekly"], x["distance"])) if short_active else None
-
-    # 2. Goal Setter: Weekly goal achieved % most for medium distance runners (short_barrier < target <= long_barrier)
-    med_active = [m for m in weekly_active if short_barrier < m["monthly_target"] <= long_barrier]
-    pace_setter = max(med_active, key=lambda x: (x["pct_weekly"], x["distance"])) if med_active else None
-
-    # 3. Road Warrior: Weekly goal achieved % most for long distance runners (> long_barrier)
-    long_active = [m for m in weekly_active if m["monthly_target"] > long_barrier]
-    road_warrior = max(long_active, key=lambda x: (x["pct_weekly"], x["distance"])) if long_active else None
-    
-    # Elev climber
     def parse_elev(e_str):
-        nums = re.findall(r'\d+', e_str.replace(",", ""))
+        nums = re.findall(r'\d+', str(e_str).replace(",", ""))
         return int(nums[0]) if nums else 0
-    elev_runner = max(weekly_active, key=lambda x: parse_elev(x["elev"])) if weekly_active else None
-    
-    # Speed demon
+
     def parse_pace(p_str):
-        m = re.match(r'(\d+):(\d+)', p_str)
+        m = re.match(r'(\d+):(\d+)', str(p_str))
         return int(m.group(1))*60 + int(m.group(2)) if m else 99999
-    speed_runner = min([m for m in weekly_active if parse_pace(m["pace"]) < 99999], key=lambda x: parse_pace(x["pace"])) if weekly_active else None
+
+    if is_final:
+        # 1. Rising Swift: Challenge goal achieved % most for short distance runners (<= short_barrier)
+        short_runners = [m for m in mtd_active if m["monthly_target"] <= short_barrier]
+        rising_swift = max(short_runners, key=lambda x: (x["pct_monthly"], x["cum_distance"])) if short_runners else None
+
+        # 2. Goal Setter: Challenge goal achieved % most for medium distance runners (short_barrier < target <= long_barrier)
+        med_runners = [m for m in mtd_active if short_barrier < m["monthly_target"] <= long_barrier]
+        pace_setter = max(med_runners, key=lambda x: (x["pct_monthly"], x["cum_distance"])) if med_runners else None
+
+        # 3. Road Warrior: Challenge goal achieved % most for long distance runners (> long_barrier)
+        long_runners = [m for m in mtd_active if m["monthly_target"] > long_barrier]
+        road_warrior = max(long_runners, key=lambda x: (x["pct_monthly"], x["cum_distance"])) if long_runners else None
+        
+        # 4. Mountain Goat: Total Elevation gain across all weeks
+        elev_runners = [m for m in mtd_active if m.get("cum_elev", 0) > 0]
+        elev_runner = max(elev_runners, key=lambda x: x["cum_elev"]) if elev_runners else None
+        
+        # 5. Speed Demon: Fastest distance-weighted pace across challenge (min 20km)
+        speed_candidates = [m for m in mtd_active if m.get("cum_pace_s", 99999) < 99999 and m.get("cum_distance", 0) >= 20.0]
+        speed_runner = min(speed_candidates, key=lambda x: x["cum_pace_s"]) if speed_candidates else None
+    else:
+        # Weekly heroes
+        short_active = [m for m in weekly_active if m["monthly_target"] <= short_barrier]
+        rising_swift = max(short_active, key=lambda x: (x["pct_weekly"], x["distance"])) if short_active else None
+
+        med_active = [m for m in weekly_active if short_barrier < m["monthly_target"] <= long_barrier]
+        pace_setter = max(med_active, key=lambda x: (x["pct_weekly"], x["distance"])) if med_active else None
+
+        long_active = [m for m in weekly_active if m["monthly_target"] > long_barrier]
+        road_warrior = max(long_active, key=lambda x: (x["pct_weekly"], x["distance"])) if long_active else None
+        
+        elev_runner = max(weekly_active, key=lambda x: parse_elev(x["elev"])) if weekly_active else None
+        speed_runner = min([m for m in weekly_active if parse_pace(m["pace"]) < 99999], key=lambda x: parse_pace(x["pace"])) if weekly_active else None
 
     # Sortings
     by_weekly_pct = sorted(weekly_active, key=lambda x: (x["pct_weekly"], x["distance"]), reverse=True)
@@ -465,8 +584,8 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         """
 
     fastest_pacers_html = ""
-    if fastest_rows:
-        fastest_title = "⚡️ TOP 5 FASTEST PACERS (FINAL STRETCH)" if week_num >= 5 else "⚡️ TOP 5 FASTEST PACERS OF THE WEEK"
+    if fastest_rows and not is_final:
+        fastest_title = "⚡️ TOP 5 FASTEST PACERS OF THE WEEK"
         fastest_pacers_html = f"""
     <div class="fastest-section" style="page-break-inside: avoid; break-inside: avoid; margin-top: 14px; margin-bottom: 8px;">
         <div class="section-title" style="margin-top: 0;">{fastest_title}</div>
@@ -490,38 +609,77 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
     </div>
         """
 
-    # HTML Rows - Full Swiftember Report (Cumulative Challenge Tracking: Month Pledge, Total MTD, Remaining)
-    all_sorted = sorted(matched_runners, key=lambda x: (x["cum_distance"] > 0, x["pct_monthly"], x["cum_distance"]), reverse=True)
+    # HTML Rows - Main Leaderboard Table
     roster_rows = ""
     for i, r in enumerate(all_sorted, 1):
         pct_m = r['pct_monthly']
-        rem_km = max(0.0, r['monthly_target'] - r['cum_distance'])
-        rem_text = f"{rem_km:.1f} km" if r['cum_distance'] < r['monthly_target'] else "🎉 Done!"
-        if r['cum_distance'] == 0:
-            badge_cls = "badge-zero"
-            status_text = "⚪️ 0 km Logged"
-            bar_html = '<div class="progress-cell"><span class="progress-val" style="color: #94a3b8;">0.0%</span><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;"></div></div></div>'
-            rem_text = f"{r['monthly_target']:.0f} km"
-        else:
-            badge_cls = "badge-ahead" if "Ahead" in r['cum_status'] else ("badge-track" if "On Track" in r['cum_status'] else ("badge-slight" if "Slightly" in r['cum_status'] else "badge-behind"))
-            status_text = r['cum_status']
-            cum_expected = r['monthly_target'] * min(1.0, week_num / 4.0)
-            pct_of_expected = (r['cum_distance'] / cum_expected) * 100.0 if cum_expected > 0 else 0.0
-            bar_color = "green" if pct_of_expected >= 90 else ("yellow" if pct_of_expected >= 60 else "red")
-            bar_width = min(100, int(pct_m))
-            bar_html = f'<div class="progress-cell"><span class="progress-val">{pct_m:.1f}%</span><div class="progress-bar-container"><div class="progress-bar {bar_color}" style="width: {bar_width}%;"></div></div></div>'
+        elev_str = f"{r.get('cum_elev', 0):,} m" if r.get('cum_elev', 0) > 0 else "--"
 
-        roster_rows += f"""
-            <tr>
-                <td class="text-center">{i}</td>
-                <td style="font-weight: 600;">{r['registered_name']}</td>
-                <td class="text-right">{r['monthly_target']:.0f} km</td>
-                <td class="text-right" style="font-weight: 700; color: {'#0f172a' if r['cum_distance'] > 0 else '#94a3b8'};">{r['cum_distance']:.1f} km</td>
-                <td class="text-right" style="color: {'#475569' if r['cum_distance'] > 0 else '#94a3b8'}; font-weight: 500;">{rem_text}</td>
-                <td class="text-center">{bar_html}</td>
-                <td class="text-center"><span class="status-badge {badge_cls}">{status_text}</span></td>
-            </tr>
-        """
+        if is_final:
+            if r['cum_distance'] == 0:
+                badge_cls = "badge-zero"
+                status_text = "⚪️ 0 km Logged"
+                bar_html = '<div class="progress-cell"><span class="progress-val" style="color: #94a3b8;">0.0%</span><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;"></div></div></div>'
+            else:
+                if r['cum_distance'] >= r['monthly_target']:
+                    badge_cls = "badge-ahead"
+                    status_text = "🎉 Goal Achieved"
+                    bar_color = "green"
+                elif pct_m >= 80.0:
+                    badge_cls = "badge-track"
+                    status_text = f"🟢 Near Goal ({pct_m:.1f}%)"
+                    bar_color = "green"
+                elif pct_m >= 50.0:
+                    badge_cls = "badge-slight"
+                    status_text = f"🟡 Incomplete ({pct_m:.1f}%)"
+                    bar_color = "yellow"
+                else:
+                    badge_cls = "badge-behind"
+                    status_text = f"🔴 Behind ({pct_m:.1f}%)"
+                    bar_color = "red"
+                bar_width = min(100, int(pct_m))
+                bar_html = f'<div class="progress-cell"><span class="progress-val">{pct_m:.1f}%</span><div class="progress-bar-container"><div class="progress-bar {bar_color}" style="width: {bar_width}%;"></div></div></div>'
+
+            roster_rows += f"""
+                <tr>
+                    <td class="text-center" style="font-weight: 700;">{i}</td>
+                    <td style="font-weight: 600;">{r['registered_name']}</td>
+                    <td class="text-right">{r['monthly_target']:.0f} km</td>
+                    <td class="text-right" style="font-weight: 700; color: {'#0f172a' if r['cum_distance'] > 0 else '#94a3b8'};">{r['cum_distance']:.1f} km</td>
+                    <td class="text-center" style="font-weight: 600; color: {'#334155' if r['cum_runs'] > 0 else '#94a3b8'};">{r['cum_runs']}</td>
+                    <td class="text-right" style="color: {'#475569' if r.get('cum_elev', 0) > 0 else '#94a3b8'};">{elev_str}</td>
+                    <td class="text-center">{bar_html}</td>
+                    <td class="text-center"><span class="status-badge {badge_cls}">{status_text}</span></td>
+                </tr>
+            """
+        else:
+            rem_km = max(0.0, r['monthly_target'] - r['cum_distance'])
+            rem_text = f"{rem_km:.1f} km" if r['cum_distance'] < r['monthly_target'] else "🎉 Done!"
+            if r['cum_distance'] == 0:
+                badge_cls = "badge-zero"
+                status_text = "⚪️ 0 km Logged"
+                bar_html = '<div class="progress-cell"><span class="progress-val" style="color: #94a3b8;">0.0%</span><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;"></div></div></div>'
+                rem_text = f"{r['monthly_target']:.0f} km"
+            else:
+                badge_cls = "badge-ahead" if "Ahead" in r['cum_status'] else ("badge-track" if "On Track" in r['cum_status'] else ("badge-slight" if "Slightly" in r['cum_status'] else "badge-behind"))
+                status_text = r['cum_status']
+                cum_expected = r['monthly_target'] * min(1.0, week_num / 4.0)
+                pct_of_expected = (r['cum_distance'] / cum_expected) * 100.0 if cum_expected > 0 else 0.0
+                bar_color = "green" if pct_of_expected >= 90 else ("yellow" if pct_of_expected >= 60 else "red")
+                bar_width = min(100, int(pct_m))
+                bar_html = f'<div class="progress-cell"><span class="progress-val">{pct_m:.1f}%</span><div class="progress-bar-container"><div class="progress-bar {bar_color}" style="width: {bar_width}%;"></div></div></div>'
+
+            roster_rows += f"""
+                <tr>
+                    <td class="text-center">{i}</td>
+                    <td style="font-weight: 600;">{r['registered_name']}</td>
+                    <td class="text-right">{r['monthly_target']:.0f} km</td>
+                    <td class="text-right" style="font-weight: 700; color: {'#0f172a' if r['cum_distance'] > 0 else '#94a3b8'};">{r['cum_distance']:.1f} km</td>
+                    <td class="text-right" style="color: {'#475569' if r['cum_distance'] > 0 else '#94a3b8'}; font-weight: 500;">{rem_text}</td>
+                    <td class="text-center">{bar_html}</td>
+                    <td class="text-center"><span class="status-badge {badge_cls}">{status_text}</span></td>
+                </tr>
+            """
 
     logo_path = os.path.join(BASE_DIR, "assets", "swifts_logo.jpg")
     logo_html = ""
@@ -531,106 +689,107 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             b64 = base64.b64encode(img_f.read()).decode("utf-8")
             logo_html = f'<img src="data:image/jpeg;base64,{b64}" alt="Swifts Logo" style="height: 48px; max-width: 120px; object-fit: contain; border-radius: 6px; background: #ffffff; padding: 2px 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); margin-right: 4px;">'
 
-    # Build Shout-outs HTML
-    shoutouts = load_shoutouts(week_num)
+    # Build Shout-outs HTML (only for weekly reports)
     shoutouts_html = ""
-    if shoutouts:
-        if isinstance(shoutouts, dict) and shoutouts.get("type") == "berlin_marathon_special":
-            title = shoutouts.get("title", "🇩🇪 SPECIAL EVENT SPOTLIGHT • BMW BERLIN MARATHON 2026")
-            headline = shoutouts.get("headline", "ALL THE BEST TO OUR 13 BERLIN MARATHON SWIFTS! 🏃‍♂️💨🇩🇪")
-            badge_major = shoutouts.get("badge_major", "🇩🇪 WORLD MARATHON MAJOR")
-            badge_event = shoutouts.get("badge_event", "BMW BERLIN MARATHON 2026 • SUN 27 SEP")
-            intro = shoutouts.get("intro", "")
-            footer_text = shoutouts.get("footer", "")
-            runners = shoutouts.get("runners", [])
-            
-            cards_html = ""
-            for i, s in enumerate(runners):
-                tag_html = f'<span class="berlin-card-tag">{s["tag"]}</span>' if s.get("tag") else ""
-                cards_html += f"""
-                    <div class="berlin-card">
-                        <div class="berlin-card-header">
-                            <span class="berlin-card-name">🏃 {s['name']}</span>
-                            {tag_html}
+    if not is_final:
+        shoutouts = load_shoutouts(week_num)
+        if shoutouts:
+            if isinstance(shoutouts, dict) and shoutouts.get("type") == "berlin_marathon_special":
+                title = shoutouts.get("title", "🇩🇪 SPECIAL EVENT SPOTLIGHT • BMW BERLIN MARATHON 2026")
+                headline = shoutouts.get("headline", "ALL THE BEST TO OUR 13 BERLIN MARATHON SWIFTS! 🏃‍♂️💨🇩🇪")
+                badge_major = shoutouts.get("badge_major", "🇩🇪 WORLD MARATHON MAJOR")
+                badge_event = shoutouts.get("badge_event", "BMW BERLIN MARATHON 2026 • SUN 27 SEP")
+                intro = shoutouts.get("intro", "")
+                footer_text = shoutouts.get("footer", "")
+                runners = shoutouts.get("runners", [])
+                
+                cards_html = ""
+                for i, s in enumerate(runners):
+                    tag_html = f'<span class="berlin-card-tag">{s["tag"]}</span>' if s.get("tag") else ""
+                    cards_html += f"""
+                        <div class="berlin-card">
+                            <div class="berlin-card-header">
+                                <span class="berlin-card-name">🏃 {s['name']}</span>
+                                {tag_html}
+                            </div>
+                            <div class="berlin-card-msg">{s['message']}</div>
                         </div>
-                        <div class="berlin-card-msg">{s['message']}</div>
+                    """
+                
+                additional = shoutouts.get("additional_shoutouts", [])
+                additional_html = ""
+                if additional:
+                    add_cards_html = ""
+                    for s in additional:
+                        tag_html = f'<span class="shoutout-tag">{s["tag"]}</span>' if s.get("tag") else ""
+                        runners_html = ""
+                        if s.get("runners_list"):
+                            pills = "".join([f'<span class="pride-runner-pill">🏃 {r}</span>' for r in s["runners_list"]])
+                            runners_html = f'<div class="pride-runners-grid">{pills}</div>'
+                        add_cards_html += f"""
+                            <div class="shoutout-card">
+                                <div class="shoutout-header">
+                                    <span class="shoutout-name">{s['name']}</span>
+                                    {tag_html}
+                                </div>
+                                <div class="shoutout-msg">{s['message']}</div>
+                                {runners_html}
+                            </div>
+                        """
+                    additional_html = f"""
+                        <div class="shoutouts-container">
+                            <div class="section-title" style="margin-top: 6px; margin-bottom: 12px; font-size: 15px; padding-bottom: 6px;">📣 MEMBER SPOTLIGHT & EVENT RECOGNITIONS</div>
+                            <div class="shoutouts-grid">
+                                {add_cards_html}
+                            </div>
+                            <div class="shoutouts-footer">Member highlights and event recognitions will continue in subsequent weekly reports.</div>
+                        </div>
+                    """
+
+                shoutouts_html = f"""
+                    <div class="berlin-container">
+                        <div class="berlin-hero">
+                            <div class="berlin-flag-stripe"></div>
+                            <div class="berlin-hero-content">
+                                <div class="berlin-top-row">
+                                    <span class="berlin-pill">{badge_major}</span>
+                                    <span class="berlin-date-pill">{badge_event}</span>
+                                </div>
+                                <h2 class="berlin-headline">{headline}</h2>
+                                <p class="berlin-intro">{intro}</p>
+                            </div>
+                        </div>
+                        <div class="berlin-grid">
+                            {cards_html}
+                        </div>
+                        <div class="berlin-footer">
+                            {footer_text}
+                        </div>
                     </div>
+                    {f'<div class="page-break"></div>{additional_html}' if additional_html else ''}
                 """
-            
-            additional = shoutouts.get("additional_shoutouts", [])
-            additional_html = ""
-            if additional:
-                add_cards_html = ""
-                for s in additional:
+            elif isinstance(shoutouts, list):
+                cards_html = ""
+                for s in shoutouts:
                     tag_html = f'<span class="shoutout-tag">{s["tag"]}</span>' if s.get("tag") else ""
-                    runners_html = ""
-                    if s.get("runners_list"):
-                        pills = "".join([f'<span class="pride-runner-pill">🏃 {r}</span>' for r in s["runners_list"]])
-                        runners_html = f'<div class="pride-runners-grid">{pills}</div>'
-                    add_cards_html += f"""
+                    cards_html += f"""
                         <div class="shoutout-card">
                             <div class="shoutout-header">
                                 <span class="shoutout-name">{s['name']}</span>
                                 {tag_html}
                             </div>
                             <div class="shoutout-msg">{s['message']}</div>
-                            {runners_html}
                         </div>
                     """
-                additional_html = f"""
+                shoutouts_html = f"""
                     <div class="shoutouts-container">
                         <div class="section-title" style="margin-top: 6px; margin-bottom: 12px; font-size: 15px; padding-bottom: 6px;">📣 MEMBER SPOTLIGHT & EVENT RECOGNITIONS</div>
                         <div class="shoutouts-grid">
-                            {add_cards_html}
+                            {cards_html}
                         </div>
                         <div class="shoutouts-footer">Member highlights and event recognitions will continue in subsequent weekly reports.</div>
                     </div>
                 """
-
-            shoutouts_html = f"""
-                <div class="berlin-container">
-                    <div class="berlin-hero">
-                        <div class="berlin-flag-stripe"></div>
-                        <div class="berlin-hero-content">
-                            <div class="berlin-top-row">
-                                <span class="berlin-pill">{badge_major}</span>
-                                <span class="berlin-date-pill">{badge_event}</span>
-                            </div>
-                            <h2 class="berlin-headline">{headline}</h2>
-                            <p class="berlin-intro">{intro}</p>
-                        </div>
-                    </div>
-                    <div class="berlin-grid">
-                        {cards_html}
-                    </div>
-                    <div class="berlin-footer">
-                        {footer_text}
-                    </div>
-                </div>
-                {f'<div class="page-break"></div>{additional_html}' if additional_html else ''}
-            """
-        elif isinstance(shoutouts, list):
-            cards_html = ""
-            for s in shoutouts:
-                tag_html = f'<span class="shoutout-tag">{s["tag"]}</span>' if s.get("tag") else ""
-                cards_html += f"""
-                    <div class="shoutout-card">
-                        <div class="shoutout-header">
-                            <span class="shoutout-name">{s['name']}</span>
-                            {tag_html}
-                        </div>
-                        <div class="shoutout-msg">{s['message']}</div>
-                    </div>
-                """
-            shoutouts_html = f"""
-                <div class="shoutouts-container">
-                    <div class="section-title" style="margin-top: 6px; margin-bottom: 12px; font-size: 15px; padding-bottom: 6px;">📣 MEMBER SPOTLIGHT & EVENT RECOGNITIONS</div>
-                    <div class="shoutouts-grid">
-                        {cards_html}
-                    </div>
-                    <div class="shoutouts-footer">Member highlights and event recognitions will continue in subsequent weekly reports.</div>
-                </div>
-            """
 
     # Font sizing presets (large vs compact)
     if font_size == "large":
@@ -644,9 +803,9 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         prog_val_font = "10.5px"
         prog_bar_w = "55px"
         prog_bar_h = "5.5px"
-        super_award_font = "16px"
+        super_award_font = "15px"
         super_sub_font = "9px"
-        super_winner_font = "24px"
+        super_winner_font = "22px"
         super_stat_font = "10.5px"
         metric_val_font = "24px"
         metric_lbl_font = "11px"
@@ -700,24 +859,122 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
     pride_pill_font = "16px"
     pride_pill_pad = "4.5px 12px"
 
-    card_dist_label = "Distance Logged (MTD)" if week_num > 1 else "Distance Logged"
-    period_name = "Final Days" if week_num >= 5 else f"W{week_num}"
-    card_dist_sub = f"{pct_total_month:.1f}% of Monthly Goal ({total_week_logged:,.1f} km in {period_name})" if week_num > 1 else f"{pct_total_month:.1f}% of Monthly Goal"
-    card_active_label = "Active Runners (MTD)" if week_num > 1 else "Active Runners"
-    card_active_sub = f"{total_cum_runs} Total Runs ({len(weekly_active)} active in {period_name})" if week_num > 1 else f"{total_cum_runs} Total Runs"
+    if is_final:
+        card1_val = f"{total_pledge:,.0f} km"
+        card1_lbl = "Total Month Pledge"
+        card1_sub = f"{len(matched_runners)} Registered Runners"
 
-    if shoutouts_html:
+        card2_val = f"{total_cum_logged:,.1f} km"
+        card2_lbl = "Total Distance Logged"
+        card2_sub = f"{pct_total_month:.1f}% of Challenge Goal"
+
+        card3_val = f"{pct_total_month:.1f}%"
+        card3_lbl = "Challenge Target Progress"
+        card3_sub = f"{total_cum_logged:,.1f} / {total_pledge:,.1f} km Goal"
+
+        card4_val = f"{len(goal_achievers)} / {len(matched_runners)}"
+        card4_lbl = f"Goal Achievers ({pct_achievers:.1f}%)"
+        card4_sub = f"{len(goal_achievers)} Smashed Goal • {total_cum_runs} Total Runs"
+    else:
+        card1_val = f"{total_pledge:,.0f} km"
+        card1_lbl = "Total Month Pledge"
+        card1_sub = f"{len(matched_runners)} Registered Runners"
+
+        card2_val = f"{total_cum_logged:,.1f} km"
+        card2_lbl = "Distance Logged (MTD)" if week_num > 1 else "Distance Logged"
+        period_name = f"W{week_num}"
+        card2_sub = f"{pct_total_month:.1f}% of Monthly Goal ({total_week_logged:,.1f} km in {period_name})" if week_num > 1 else f"{pct_total_month:.1f}% of Monthly Goal"
+
+        card3_val = f"{pct_pace_rate:.1f}%"
+        card3_lbl = f"Week {week_num} Pace Progress"
+        card3_sub = f"{total_cum_logged:,.1f} / {expected_cum_target:,.1f} km Target"
+
+        card4_val = f"{len(mtd_active)} / {len(matched_runners)}"
+        card4_lbl = "Active Runners (MTD)" if week_num > 1 else "Active Runners"
+        card4_sub = f"{total_cum_runs} Total Runs ({len(weekly_active)} active in {period_name})" if week_num > 1 else f"{total_cum_runs} Total Runs"
+
+    # Middle section (shoutouts)
+    if shoutouts_html and not is_final:
         middle_section = f"""
         <div class="page-break"></div>
         {shoutouts_html}
         <div class="page-break"></div>
         """
-    else:
+    elif not is_final:
         middle_section = """
         <div class="page-break"></div>
         """
+    else:
+        middle_section = ""
 
-    doc_title = "Swiftember 2026 - Final Month-End Wrap-Up Report" if week_num >= 5 else f"Swiftember 2026 - Week {week_num} Progress Report"
+    doc_title = "Swiftember 2026 - Final Challenge Report" if is_final else f"Swiftember 2026 - Week {week_num} Progress Report"
+    header_subtitle = "Final Month-End Wrap-Up & Full Challenge Results" if is_final else f"Week {week_num} Progress & Leaderboard Report"
+    hero_section_title = "⚡️ SWIFTEMBER 2026 HEROES • TOTAL CHALLENGE ACHIEVEMENTS" if is_final else "⚡️ WEEKLY SWIFTEMBER HEROES"
+
+    rising_swift_stat = f"{rising_swift['pct_monthly']:.1f}% Challenge Goal ({rising_swift['cum_distance']:.1f} km)" if (is_final and rising_swift) else (f"{rising_swift['pct_weekly']:.1f}% Weekly Goal ({rising_swift['distance']:.1f} km)" if rising_swift else "-")
+    goal_setter_stat = f"{pace_setter['pct_monthly']:.1f}% Challenge Goal ({pace_setter['cum_distance']:.1f} km)" if (is_final and pace_setter) else (f"{pace_setter['pct_weekly']:.1f}% Weekly Goal ({pace_setter['distance']:.1f} km)" if pace_setter else "-")
+    road_warrior_stat = f"{road_warrior['pct_monthly']:.1f}% Challenge Goal ({road_warrior['cum_distance']:.1f} km)" if (is_final and road_warrior) else (f"{road_warrior['pct_weekly']:.1f}% Weekly Goal ({road_warrior['distance']:.1f} km)" if road_warrior else "-")
+    elev_stat = f"{elev_runner['cum_elev']:,} m Elevation ({elev_runner['cum_distance']:.1f} km)" if (is_final and elev_runner) else (f"{elev_runner['elev']} Elevation" if elev_runner else "-")
+    speed_stat = f"{speed_runner['cum_pace_str']} ({speed_runner['cum_distance']:.1f} km Logged)" if (is_final and speed_runner) else (f"{speed_runner['pace']} ({speed_runner['distance']:.1f} km)" if speed_runner else "-")
+
+    super_sub_elev = "Total Elevation Gain" if is_final else "Most Elevation"
+    super_sub_speed = "Fastest Overall Pace" if is_final else "Fastest Avg Pace"
+
+    # Weekly leaderboard section (omitted for final report)
+    weekly_leaderboard_html = ""
+    if not is_final:
+        weekly_leaderboard_html = f"""
+    <div class="section-title">🎯 WEEKLY ACHIEVEMENT LEADERBOARD</div>
+    <table class="weekly-table">
+        <thead>
+            <tr>
+                <th class="text-center" style="width: 34px;">Rank</th>
+                <th>Runner Name</th>
+                <th class="text-right">Week Logged</th>
+                <th class="text-right">Weekly Goal</th>
+                <th class="text-center">Weekly Goal %</th>
+                <th class="text-right">Elevation</th>
+                <th class="text-center">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {target_rows}
+        </tbody>
+    </table>
+    {fastest_pacers_html}
+    {middle_section}
+        """
+
+    # Main table header
+    main_section_title = "🏆 SWIFTEMBER 2026 FINAL LEADERBOARD & FULL RESULTS" if is_final else "📋 FULL SWIFTEMBER REPORT"
+    if is_final:
+        main_table_header = """
+            <tr>
+                <th class="text-center" style="width: 30px;">#</th>
+                <th>Participant Name</th>
+                <th class="text-right">Monthly Target</th>
+                <th class="text-right">Total Logged</th>
+                <th class="text-center">Total Runs</th>
+                <th class="text-right">Elevation Gain</th>
+                <th class="text-center">Challenge Progress</th>
+                <th class="text-center">Final Status</th>
+            </tr>
+        """
+    else:
+        main_table_header = """
+            <tr>
+                <th class="text-center" style="width: 25px;">#</th>
+                <th>Participant Name</th>
+                <th class="text-right">Monthly Pledge</th>
+                <th class="text-right">Total Logged (MTD)</th>
+                <th class="text-right">Remaining</th>
+                <th class="text-center">Monthly Progress</th>
+                <th class="text-center">Challenge Status</th>
+            </tr>
+        """
+
+    footer_text = "🏳️‍🌈 Birmingham Swifts Running Club • Swiftember 2026 Challenge Final Results • Smashed: 6,579.4 km (115.3% of 5,704 km goal) • 706 Total Runs • 56 Goal Achievers! 🏃‍♂️💨" if is_final else "Swiftember 2026 Challenge Report • Birmingham Swifts Running Club"
+
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -725,7 +982,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
     <title>{doc_title}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        @page {{ size: A4; margin: 8.5mm 8.5mm; }}
+        @page {{ size: A4; margin: 8mm 8mm; }}
         * {{ box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }}
         body {{
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -733,32 +990,35 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         }}
         .header {{
             background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
-            color: #ffffff; padding: 13px 16px; border-radius: 9px; margin-bottom: 11px;
+            color: #ffffff; padding: 10px 14px; border-radius: 8px; margin-bottom: 7px;
             display: flex; align-items: center; justify-content: flex-start;
         }}
-        .header-left {{ display: flex; align-items: center; gap: 14px; width: 100%; }}
-        .header-title h1 {{ margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }}
-        .header-title p {{ margin: 3px 0 0 0; font-size: 11.5px; color: #cbd5e1; font-weight: 400; }}
+        .header-left {{ display: flex; align-items: center; gap: 12px; width: 100%; }}
+        .header-title h1 {{ margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }}
+        .header-title p {{ margin: 2px 0 0 0; font-size: 10.5px; color: #cbd5e1; font-weight: 400; }}
         .section-title {{
-            font-size: 13px; font-weight: 700; color: #0f172a; margin: 13px 0 7px 0;
-            display: flex; align-items: center; gap: 6px; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px;
+            font-size: 12px; font-weight: 700; color: #0f172a; margin: 8px 0 5px 0;
+            display: flex; align-items: center; gap: 6px; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px;
         }}
-        .superlatives-grid {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin-bottom: 11px; }}
+        .superlatives-grid {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 7px; }}
         .super-card {{
             background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-            border: 1px solid #e2e8f0; border-top: 3px solid #6366f1; border-radius: 8px; padding: 6px 4px; text-align: center;
+            border: 1px solid #e2e8f0; border-top: 3px solid #6366f1; border-radius: 7px; padding: 5px 3px; text-align: center;
         }}
-        .super-icon {{ font-size: 16px; margin-bottom: 2px; }}
-        .super-award {{ font-size: {super_award_font}; font-weight: 800; color: #334155; text-transform: uppercase; letter-spacing: 0.2px; margin-bottom: 2px; line-height: 1.15; }}
-        .super-sub {{ font-size: {super_sub_font}; font-weight: 600; color: #64748b; margin-bottom: 3px; }}
+        .super-icon {{ font-size: 15px; margin-bottom: 1px; }}
+        .super-award {{ font-size: {super_award_font}; font-weight: 800; color: #334155; text-transform: uppercase; letter-spacing: 0.2px; margin-bottom: 1px; line-height: 1.15; }}
+        .super-sub {{ font-size: {super_sub_font}; font-weight: 600; color: #64748b; margin-bottom: 2px; }}
         .super-winner {{ font-size: {super_winner_font}; font-weight: 800; color: #1e1b4b; margin-bottom: 2px; line-height: 1.15; }}
         .super-stat {{ font-size: {super_stat_font}; font-weight: 700; color: #4338ca; }}
-        .metrics-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-bottom: 11px; }}
-        .metric-card {{ background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 9px 11px; text-align: center; }}
-        .metric-val {{ font-size: {metric_val_font}; font-weight: 800; color: #0f172a; margin-bottom: 2px; }}
+        .metrics-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-bottom: 7px; }}
+        .metric-card {{ background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 7px; padding: 6px 8px; text-align: center; }}
+        .metric-val {{ font-size: {metric_val_font}; font-weight: 800; color: #0f172a; margin-bottom: 1px; }}
         .metric-label {{ font-size: {metric_lbl_font}; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }}
-        .metric-sub {{ font-size: {metric_sub_font}; color: #3b82f6; margin-top: 2px; font-weight: 500; }}
-        table {{ width: 100%; border-collapse: collapse; font-size: {table_font}; margin-bottom: 7px; }}
+        .metric-sub {{ font-size: {metric_sub_font}; color: #3b82f6; margin-top: 1px; font-weight: 500; }}
+        
+        thead {{ display: table-header-group; }}
+        tr {{ page-break-inside: avoid; }}
+        table {{ width: 100%; border-collapse: collapse; font-size: {table_font}; margin-bottom: 5px; }}
         th {{
             background: #f1f5f9; color: #334155; font-weight: 700; text-transform: uppercase;
             font-size: {th_font}; letter-spacing: 0.4px; padding: {th_pad}; border-top: 1px solid #cbd5e1; border-bottom: 2px solid #cbd5e1; text-align: left;
@@ -767,7 +1027,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         tr:nth-child(even) td {{ background-color: #fafafa; }}
         .text-right {{ text-align: right; }}
         .text-center {{ text-align: center; }}
-        .status-badge {{ display: inline-block; padding: {badge_pad}; border-radius: 10px; font-size: {badge_font}; font-weight: 700; }}
+        .status-badge {{ display: inline-block; padding: {badge_pad}; border-radius: 10px; font-size: {badge_font}; font-weight: 700; white-space: nowrap; }}
         .badge-ahead {{ background: #dcfce7; color: #15803d; }}
         .badge-track {{ background: #dbeafe; color: #1d4ed8; }}
         .badge-slight {{ background: #fef9c3; color: #a16207; }}
@@ -794,28 +1054,33 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             font-size: 12px;
             padding: 3.5px 10px;
         }}
-        table.full-table {{ font-size: 16px; }}
+        table.full-table {{ font-size: 12.5px; width: 100%; border-collapse: collapse; margin-bottom: 5px; }}
         table.full-table th {{
-            font-size: 12px;
-            padding: 4.5px 8px;
-            letter-spacing: 0.5px;
+            font-size: 10.5px;
+            padding: 4px 6px;
+            letter-spacing: 0.4px;
+            background: #f1f5f9;
+            border-top: 1px solid #cbd5e1;
+            border-bottom: 2px solid #cbd5e1;
         }}
         table.full-table td {{
-            padding: 1.6px 8px;
-            font-size: 16px;
-            line-height: 1.15;
+            padding: 2.2px 6px;
+            font-size: 12px;
+            line-height: 1.2;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
         }}
         table.full-table .progress-val {{
-            font-size: 13.5px;
+            font-size: 10.5px;
             line-height: 1.1;
         }}
         table.full-table .progress-bar-container {{
-            width: 70px;
-            height: 5px;
+            width: 60px;
+            height: 4.5px;
         }}
         table.full-table .status-badge {{
-            font-size: 11.5px;
-            padding: 2.5px 8px;
+            font-size: 10px;
+            padding: 1.8px 6px;
         }}
         table.fastest-table {{ font-size: 15px; width: 100%; border-collapse: collapse; margin-bottom: 6px; }}
         table.fastest-table th {{
@@ -1079,7 +1344,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }}
         .page-break {{ page-break-before: always; }}
-        .footer {{ font-size: 8px; color: #94a3b8; text-align: center; margin-top: 6px; border-top: 1px solid #e2e8f0; padding-top: 4px; }}
+        .footer {{ font-size: 8.5px; color: #64748b; text-align: center; margin-top: 6px; border-top: 1px solid #e2e8f0; padding-top: 4px; font-weight: 500; }}
     </style>
 </head>
 <body>
@@ -1088,107 +1353,79 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             {logo_html}
             <div class="header-title">
                 <h1>🏳️‍🌈 SWIFTEMBER 2026</h1>
-                <p>Birmingham Swifts — {'Final Month-End Wrap-Up & Full Challenge Results' if week_num >= 5 else f'Week {week_num} Progress & Leaderboard Report'}</p>
+                <p>Birmingham Swifts — {header_subtitle}</p>
             </div>
         </div>
     </div>
 
-    <div class="section-title">{'⚡️ FINAL DAYS SWIFTEMBER HEROES' if week_num >= 5 else '⚡️ WEEKLY SWIFTEMBER HEROES'}</div>
+    <div class="section-title">{hero_section_title}</div>
     <div class="superlatives-grid">
         <div class="super-card">
             <div class="super-icon">🐣</div>
             <div class="super-award">Rising Swift</div>
             <div class="super-sub">Short Target (≤ {short_barrier:.0f} km)</div>
             <div class="super-winner">{rising_swift['registered_name'] if rising_swift else '-'}</div>
-            <div class="super-stat">{f"{rising_swift['pct_weekly']:.1f}% Weekly Goal ({rising_swift['distance']:.1f} km)" if rising_swift else '-'}</div>
+            <div class="super-stat">{rising_swift_stat}</div>
         </div>
         <div class="super-card">
             <div class="super-icon">🌟</div>
             <div class="super-award">Goal Setter</div>
             <div class="super-sub">Medium Target ({short_barrier+1:.0f}–{long_barrier:.0f} km)</div>
             <div class="super-winner">{pace_setter['registered_name'] if pace_setter else '-'}</div>
-            <div class="super-stat">{f"{pace_setter['pct_weekly']:.1f}% Weekly Goal ({pace_setter['distance']:.1f} km)" if pace_setter else '-'}</div>
+            <div class="super-stat">{goal_setter_stat}</div>
         </div>
         <div class="super-card">
             <div class="super-icon">🔥</div>
             <div class="super-award">Road Warrior</div>
             <div class="super-sub">Long Target (> {long_barrier:.0f} km)</div>
             <div class="super-winner">{road_warrior['registered_name'] if road_warrior else '-'}</div>
-            <div class="super-stat">{f"{road_warrior['pct_weekly']:.1f}% Weekly Goal ({road_warrior['distance']:.1f} km)" if road_warrior else '-'}</div>
+            <div class="super-stat">{road_warrior_stat}</div>
         </div>
         <div class="super-card">
             <div class="super-icon">🏔</div>
             <div class="super-award">Mountain Goat</div>
-            <div class="super-sub">Most Elevation</div>
+            <div class="super-sub">{super_sub_elev}</div>
             <div class="super-winner">{elev_runner['registered_name'] if elev_runner else '-'}</div>
-            <div class="super-stat">{f"{elev_runner['elev']} Elevation" if elev_runner else '-'}</div>
+            <div class="super-stat">{elev_stat}</div>
         </div>
         <div class="super-card">
             <div class="super-icon">⚡️</div>
             <div class="super-award">Speed Demon</div>
-            <div class="super-sub">Fastest Avg Pace</div>
+            <div class="super-sub">{super_sub_speed}</div>
             <div class="super-winner">{speed_runner['registered_name'] if speed_runner else '-'}</div>
-            <div class="super-stat">{f"{speed_runner['pace']} ({speed_runner['distance']:.1f} km)" if speed_runner else '-'}</div>
+            <div class="super-stat">{speed_stat}</div>
         </div>
     </div>
 
     <div class="metrics-grid">
         <div class="metric-card">
-            <div class="metric-val">{total_pledge:,.0f} km</div>
-            <div class="metric-label">Total Month Pledge</div>
-            <div class="metric-sub">{len(matched_runners)} Registered Runners</div>
+            <div class="metric-val">{card1_val}</div>
+            <div class="metric-label">{card1_lbl}</div>
+            <div class="metric-sub">{card1_sub}</div>
         </div>
         <div class="metric-card">
-            <div class="metric-val">{total_cum_logged:,.1f} km</div>
-            <div class="metric-label">{card_dist_label}</div>
-            <div class="metric-sub">{card_dist_sub}</div>
+            <div class="metric-val">{card2_val}</div>
+            <div class="metric-label">{card2_lbl}</div>
+            <div class="metric-sub">{card2_sub}</div>
         </div>
         <div class="metric-card">
-            <div class="metric-val">{pct_pace_rate:.1f}%</div>
-            <div class="metric-label">{'Challenge Target Progress' if week_num >= 5 else f'Week {week_num} Pace Progress'}</div>
-            <div class="metric-sub">{total_cum_logged:,.1f} / {expected_cum_target:,.1f} km Target</div>
+            <div class="metric-val">{card3_val}</div>
+            <div class="metric-label">{card3_lbl}</div>
+            <div class="metric-sub">{card3_sub}</div>
         </div>
         <div class="metric-card">
-            <div class="metric-val">{len(mtd_active)} / {len(matched_runners)}</div>
-            <div class="metric-label">{card_active_label}</div>
-            <div class="metric-sub">{card_active_sub}</div>
+            <div class="metric-val">{card4_val}</div>
+            <div class="metric-label">{card4_lbl}</div>
+            <div class="metric-sub">{card4_sub}</div>
         </div>
     </div>
 
-    <div class="section-title">{'🏁 FINAL DAYS ACHIEVEMENT LEADERBOARD' if week_num >= 5 else '🎯 WEEKLY ACHIEVEMENT LEADERBOARD'}</div>
-    <table class="weekly-table">
-        <thead>
-            <tr>
-                <th class="text-center" style="width: 34px;">Rank</th>
-                <th>Runner Name</th>
-                <th class="text-right">{'Period Logged' if week_num >= 5 else 'Week Logged'}</th>
-                <th class="text-right">Weekly Goal</th>
-                <th class="text-center">Weekly Goal %</th>
-                <th class="text-right">Elevation</th>
-                <th class="text-center">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {target_rows}
-        </tbody>
-    </table>
+    {weekly_leaderboard_html}
 
-    {fastest_pacers_html}
-
-    {middle_section}
-
-    <div class="section-title">{'🏆 FINAL SWIFTEMBER FULL REPORT' if week_num >= 5 else '📋 FULL SWIFTEMBER REPORT'}</div>
+    <div class="section-title">{main_section_title}</div>
     <table class="full-table">
         <thead>
-            <tr>
-                <th class="text-center" style="width: 25px;">#</th>
-                <th>Participant Name</th>
-                <th class="text-right">Monthly Pledge</th>
-                <th class="text-right">Total Logged (MTD)</th>
-                <th class="text-right">Remaining</th>
-                <th class="text-center">Monthly Progress</th>
-                <th class="text-center">Challenge Status</th>
-            </tr>
+            {main_table_header}
         </thead>
         <tbody>
             {roster_rows}
@@ -1196,7 +1433,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
     </table>
 
     <div class="footer">
-        Swiftember 2026 Challenge Report • Birmingham Swifts Running Club
+        {footer_text}
     </div>
 </body>
 </html>
@@ -1206,11 +1443,15 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
 def main():
     parser = argparse.ArgumentParser(description="Generate Swiftember Weekly PDF & Markdown Report")
     parser.add_argument("-i", "--input", help="Path to raw Strava leaderboard data text file (or stdin if omitted)")
-    parser.add_argument("-w", "--week", type=int, default=1, help="Week number (1, 2, 3, 4). Default: 1")
-    parser.add_argument("-o", "--output-pdf", help="Output PDF file path (default: ~/Downloads/Swiftember_2026_Week{N}_Report.pdf)")
+    parser.add_argument("-w", "--week", type=int, default=1, help="Week number (1, 2, 3, 4, 5). Default: 1")
+    parser.add_argument("--final", action="store_true", help="Generate final challenge report from all data")
+    parser.add_argument("-o", "--output-pdf", help="Output PDF file path (default: ~/Downloads/Swiftember_2026_Final_Report.pdf)")
     parser.add_argument("-t", "--title-sub", default="Official Swiftember Report", help="Subtitle under badge in header")
     parser.add_argument("-f", "--font-size", choices=["large", "compact"], default="large", help="Font size preset: 'large' (default bigger fonts) or 'compact'")
     args = parser.parse_args()
+
+    is_final = args.final or (args.week >= 5)
+    week_num = 5 if is_final else args.week
 
     roster = load_roster()
     aliases = load_aliases()
@@ -1220,7 +1461,7 @@ def main():
             raw_data = f.read()
     else:
         # Check if weekly input file exists in data/
-        week_input_file = os.path.join(DATA_DIR, f"week_{args.week}_strava.txt")
+        week_input_file = os.path.join(DATA_DIR, f"week_{week_num}_strava.txt")
         mock_file = os.path.join(BASE_DIR, "mock_strava_data.txt")
         if os.path.exists(week_input_file):
             print(f"[INFO] Using data file: {week_input_file}")
@@ -1234,23 +1475,24 @@ def main():
             print("[ERROR] No input file provided and mock_strava_data.txt not found.")
             sys.exit(1)
 
-    historical_stats = load_historical_stats(up_to_week=args.week)
+    historical_stats = load_historical_stats(up_to_week=week_num)
     strava_entries = parse_strava_table(raw_data)
-    matched_runners = process_swiftember_data(strava_entries, roster, aliases, week_num=args.week, historical_stats=historical_stats)
+    matched_runners = process_swiftember_data(strava_entries, roster, aliases, week_num=week_num, historical_stats=historical_stats, is_final=is_final)
 
-    # Save current week stats to data/week_{args.week}_stats.json
-    save_week_stats(args.week, matched_runners)
+    # Save current week stats to data/week_{week_num}_stats.json
+    save_week_stats(week_num, matched_runners)
 
     # Generate HTML
-    html_content = generate_html_report(matched_runners, week_num=args.week, badge_subtitle=args.title_sub, font_size=args.font_size)
+    html_content = generate_html_report(matched_runners, week_num=week_num, badge_subtitle=args.title_sub, font_size=args.font_size, is_final=is_final)
     
-    html_path = os.path.join(BASE_DIR, f"temp_report_week{args.week}.html")
+    html_filename = "temp_report_final.html" if is_final else f"temp_report_week{week_num}.html"
+    html_path = os.path.join(BASE_DIR, html_filename)
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
 
     # Output PDF
     downloads_dir = os.path.expanduser("~/Downloads")
-    default_pdf_name = "Swiftember_2026_Final_Report.pdf" if args.week >= 5 else f"Swiftember_2026_Week{args.week}_Report.pdf"
+    default_pdf_name = "Swiftember_2026_Final_Report.pdf" if is_final else f"Swiftember_2026_Week{week_num}_Report.pdf"
     default_pdf_path = os.path.join(downloads_dir, default_pdf_name)
     pdf_path = args.output_pdf if args.output_pdf else default_pdf_path
 
@@ -1264,21 +1506,13 @@ def main():
     ]
 
     subprocess.run(chrome_cmd, check=True)
-    if args.week >= 5:
-        # Also copy to Week5 path for completeness
-        w5_path = os.path.join(downloads_dir, "Swiftember_2026_Week5_Report.pdf")
-        if pdf_path != w5_path:
-            import shutil
-            shutil.copyfile(pdf_path, w5_path)
 
-    report_title = "Final Month-End Wrap-Up" if args.week >= 5 else f"Week {args.week}"
+    report_title = "Final Challenge Results" if is_final else f"Week {week_num}"
     print(f"\n[SUCCESS] Swiftember {report_title} Report successfully generated!")
     print(f"📄 PDF Output: {pdf_path}")
-    if args.week >= 5:
-        print(f"📄 Also saved as: {os.path.join(downloads_dir, 'Swiftember_2026_Week5_Report.pdf')}")
-    weekly_active_count = len([m for m in matched_runners if m['distance'] > 0])
-    mtd_active_count = len([m for m in matched_runners if m['cum_distance'] > 0])
-    print(f"📊 Processed: {len(matched_runners)} registered runners ({weekly_active_count} active in {report_title}, {mtd_active_count} active MTD)")
+    active_count = len([m for m in matched_runners if m['cum_distance'] > 0])
+    achievers_count = len([m for m in matched_runners if m['cum_distance'] >= m['monthly_target']])
+    print(f"📊 Processed: {len(matched_runners)} registered runners ({active_count} active MTD, {achievers_count} goal achievers)")
 
 if __name__ == "__main__":
     main()
