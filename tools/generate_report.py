@@ -492,25 +492,16 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         return int(m.group(1))*60 + int(m.group(2)) if m else 99999
 
     if is_final:
-        # 1. Rising Swift: Challenge goal achieved % most for short distance runners (<= short_barrier)
-        short_runners = [m for m in mtd_active if m["monthly_target"] <= short_barrier]
-        rising_swift = max(short_runners, key=lambda x: (x["pct_monthly"], x["cum_distance"])) if short_runners else None
-
-        # 2. Goal Setter: Challenge goal achieved % most for medium distance runners (short_barrier < target <= long_barrier)
-        med_runners = [m for m in mtd_active if short_barrier < m["monthly_target"] <= long_barrier]
-        pace_setter = max(med_runners, key=lambda x: (x["pct_monthly"], x["cum_distance"])) if med_runners else None
-
-        # 3. Road Warrior: Challenge goal achieved % most for long distance runners (> long_barrier)
-        long_runners = [m for m in mtd_active if m["monthly_target"] > long_barrier]
-        road_warrior = max(long_runners, key=lambda x: (x["pct_monthly"], x["cum_distance"])) if long_runners else None
+        # Hall of Fame: Distance King, Endurance Titan, Target Smasher, Mountain Goat, Speed Demon
+        dist_king = max(mtd_active, key=lambda x: x["cum_distance"]) if mtd_active else None
+        endurance_titan = max(mtd_active, key=lambda x: (x.get("cum_longest", 0.0), x["cum_distance"])) if mtd_active else None
+        target_smasher = max(mtd_active, key=lambda x: (x["pct_monthly"], x["cum_distance"])) if mtd_active else None
         
-        # 4. Mountain Goat: Total Elevation gain across all weeks
         elev_runners = [m for m in mtd_active if m.get("cum_elev", 0) > 0]
-        elev_runner = max(elev_runners, key=lambda x: x["cum_elev"]) if elev_runners else None
+        mountain_goat = max(elev_runners, key=lambda x: x["cum_elev"]) if elev_runners else None
         
-        # 5. Speed Demon: Fastest distance-weighted pace across challenge (min 20km)
         speed_candidates = [m for m in mtd_active if m.get("cum_pace_s", 99999) < 99999 and m.get("cum_distance", 0) >= 20.0]
-        speed_runner = min(speed_candidates, key=lambda x: x["cum_pace_s"]) if speed_candidates else None
+        speed_demon = min(speed_candidates, key=lambda x: x["cum_pace_s"]) if speed_candidates else None
     else:
         # Weekly heroes
         short_active = [m for m in weekly_active if m["monthly_target"] <= short_barrier]
@@ -803,10 +794,10 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         prog_val_font = "10.5px"
         prog_bar_w = "55px"
         prog_bar_h = "5.5px"
-        super_award_font = "15px"
+        super_award_font = "12px"
         super_sub_font = "9px"
-        super_winner_font = "22px"
-        super_stat_font = "10.5px"
+        super_winner_font = "13.5px"
+        super_stat_font = "10px"
         metric_val_font = "24px"
         metric_lbl_font = "11px"
         metric_sub_font = "10px"
@@ -909,16 +900,332 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
 
     doc_title = "Swiftember 2026 - Final Challenge Report" if is_final else f"Swiftember 2026 - Week {week_num} Progress Report"
     header_subtitle = "Final Month-End Wrap-Up & Full Challenge Results" if is_final else f"Week {week_num} Progress & Leaderboard Report"
-    hero_section_title = "⚡️ SWIFTEMBER 2026 HEROES • TOTAL CHALLENGE ACHIEVEMENTS" if is_final else "⚡️ WEEKLY SWIFTEMBER HEROES"
+    hero_section_title = "⚡️ SWIFTEMBER 2026 • HALL OF FAME" if is_final else "⚡️ WEEKLY SWIFTEMBER HEROES"
 
-    rising_swift_stat = f"{rising_swift['pct_monthly']:.1f}% Challenge Goal ({rising_swift['cum_distance']:.1f} km)" if (is_final and rising_swift) else (f"{rising_swift['pct_weekly']:.1f}% Weekly Goal ({rising_swift['distance']:.1f} km)" if rising_swift else "-")
-    goal_setter_stat = f"{pace_setter['pct_monthly']:.1f}% Challenge Goal ({pace_setter['cum_distance']:.1f} km)" if (is_final and pace_setter) else (f"{pace_setter['pct_weekly']:.1f}% Weekly Goal ({pace_setter['distance']:.1f} km)" if pace_setter else "-")
-    road_warrior_stat = f"{road_warrior['pct_monthly']:.1f}% Challenge Goal ({road_warrior['cum_distance']:.1f} km)" if (is_final and road_warrior) else (f"{road_warrior['pct_weekly']:.1f}% Weekly Goal ({road_warrior['distance']:.1f} km)" if road_warrior else "-")
-    elev_stat = f"{elev_runner['cum_elev']:,} m Elevation ({elev_runner['cum_distance']:.1f} km)" if (is_final and elev_runner) else (f"{elev_runner['elev']} Elevation" if elev_runner else "-")
-    speed_stat = f"{speed_runner['cum_pace_str']} ({speed_runner['cum_distance']:.1f} km Logged)" if (is_final and speed_runner) else (f"{speed_runner['pace']} ({speed_runner['distance']:.1f} km)" if speed_runner else "-")
+    if is_final:
+        dist_king_stat = f"{dist_king['cum_distance']:.1f} km ({dist_king['cum_runs']} runs)" if dist_king else "-"
+        endurance_stat = f"{endurance_titan['cum_longest']:.1f} km (50-Mile Ultra)" if (endurance_titan and endurance_titan['cum_longest'] >= 80) else (f"{endurance_titan['cum_longest']:.1f} km Single Run" if endurance_titan else "-")
+        target_smasher_stat = f"{target_smasher['pct_monthly']:.1f}% of Goal ({target_smasher['cum_distance']:.1f} / {target_smasher['monthly_target']:.0f} km)" if target_smasher else "-"
+        mountain_goat_stat = f"{mountain_goat['cum_elev']:,} m Elevation ({mountain_goat['cum_distance']:.1f} km)" if mountain_goat else "-"
+        speed_demon_stat = f"{speed_demon['cum_pace_str']} ({speed_demon['cum_distance']:.1f} km Logged)" if speed_demon else "-"
 
-    super_sub_elev = "Total Elevation Gain" if is_final else "Most Elevation"
-    super_sub_speed = "Fastest Overall Pace" if is_final else "Fastest Avg Pace"
+        hero_cards_html = f"""
+        <div class="super-card">
+            <div class="super-icon">👑</div>
+            <div class="super-award">Distance King</div>
+            <div class="super-sub">Most Distance Logged</div>
+            <div class="super-winner">{dist_king['registered_name'] if dist_king else '-'}</div>
+            <div class="super-stat">{dist_king_stat}</div>
+        </div>
+        <div class="super-card">
+            <div class="super-icon">🦅</div>
+            <div class="super-award">Endurance Titan</div>
+            <div class="super-sub">Single Longest Run</div>
+            <div class="super-winner">{endurance_titan['registered_name'] if endurance_titan else '-'}</div>
+            <div class="super-stat">{endurance_stat}</div>
+        </div>
+        <div class="super-card">
+            <div class="super-icon">💥</div>
+            <div class="super-award">Target Smasher</div>
+            <div class="super-sub">Highest Goal %</div>
+            <div class="super-winner">{target_smasher['registered_name'] if target_smasher else '-'}</div>
+            <div class="super-stat">{target_smasher_stat}</div>
+        </div>
+        <div class="super-card">
+            <div class="super-icon">🏔</div>
+            <div class="super-award">Mountain Goat</div>
+            <div class="super-sub">Total Elevation Gain</div>
+            <div class="super-winner">{mountain_goat['registered_name'] if mountain_goat else '-'}</div>
+            <div class="super-stat">{mountain_goat_stat}</div>
+        </div>
+        <div class="super-card">
+            <div class="super-icon">⚡️</div>
+            <div class="super-award">Speed Demon</div>
+            <div class="super-sub">Fastest Overall Pace</div>
+            <div class="super-winner">{speed_demon['registered_name'] if speed_demon else '-'}</div>
+            <div class="super-stat">{speed_demon_stat}</div>
+        </div>
+        """
+    else:
+        rising_swift_stat = f"{rising_swift['pct_weekly']:.1f}% Weekly Goal ({rising_swift['distance']:.1f} km)" if rising_swift else "-"
+        goal_setter_stat = f"{pace_setter['pct_weekly']:.1f}% Weekly Goal ({pace_setter['distance']:.1f} km)" if pace_setter else "-"
+        road_warrior_stat = f"{road_warrior['pct_weekly']:.1f}% Weekly Goal ({road_warrior['distance']:.1f} km)" if road_warrior else "-"
+        elev_stat = f"{elev_runner['elev']} Elevation" if elev_runner else "-"
+        speed_stat = f"{speed_runner['pace']} ({speed_runner['distance']:.1f} km)" if speed_runner else "-"
+        super_sub_elev = "Most Elevation"
+        super_sub_speed = "Fastest Avg Pace"
+
+        hero_cards_html = f"""
+        <div class="super-card">
+            <div class="super-icon">🐣</div>
+            <div class="super-award">Rising Swift</div>
+            <div class="super-sub">Short Target (≤ {short_barrier:.0f} km)</div>
+            <div class="super-winner">{rising_swift['registered_name'] if rising_swift else '-'}</div>
+            <div class="super-stat">{rising_swift_stat}</div>
+        </div>
+        <div class="super-card">
+            <div class="super-icon">🌟</div>
+            <div class="super-award">Goal Setter</div>
+            <div class="super-sub">Medium Target ({short_barrier+1:.0f}–{long_barrier:.0f} km)</div>
+            <div class="super-winner">{pace_setter['registered_name'] if pace_setter else '-'}</div>
+            <div class="super-stat">{goal_setter_stat}</div>
+        </div>
+        <div class="super-card">
+            <div class="super-icon">🔥</div>
+            <div class="super-award">Road Warrior</div>
+            <div class="super-sub">Long Target (> {long_barrier:.0f} km)</div>
+            <div class="super-winner">{road_warrior['registered_name'] if road_warrior else '-'}</div>
+            <div class="super-stat">{road_warrior_stat}</div>
+        </div>
+        <div class="super-card">
+            <div class="super-icon">🏔</div>
+            <div class="super-award">Mountain Goat</div>
+            <div class="super-sub">{super_sub_elev}</div>
+            <div class="super-winner">{elev_runner['registered_name'] if elev_runner else '-'}</div>
+            <div class="super-stat">{elev_stat}</div>
+        </div>
+        <div class="super-card">
+            <div class="super-icon">⚡️</div>
+            <div class="super-award">Speed Demon</div>
+            <div class="super-sub">{super_sub_speed}</div>
+            <div class="super-winner">{speed_runner['registered_name'] if speed_runner else '-'}</div>
+            <div class="super-stat">{speed_stat}</div>
+        </div>
+        """
+
+    category_leaderboards_html = ""
+    if is_final:
+        medals = ["🥇", "🥈", "🥉", "4", "5"]
+
+        # 1. Total Distance (Top 5)
+        top_dist = sorted(mtd_active, key=lambda x: x["cum_distance"], reverse=True)[:5]
+        dist_rows = ""
+        for idx, r in enumerate(top_dist):
+            rank_str = medals[idx]
+            dist_rows += f"""
+                <tr>
+                    <td class="text-center" style="font-weight: 700; font-size: 11px;">{rank_str}</td>
+                    <td style="font-weight: 600;">{r['registered_name']}</td>
+                    <td class="text-right" style="font-weight: 700; color: #1e1b4b;">{r['cum_distance']:.1f} km</td>
+                    <td class="text-right" style="color: #64748b;">{r['monthly_target']:.0f} km</td>
+                    <td class="text-center"><span class="cat-pill cat-green">{r['pct_monthly']:.1f}%</span></td>
+                </tr>
+            """
+
+        # 2. Surplus Distance (Top 5)
+        for r in matched_runners:
+            r["surplus_km"] = round(r["cum_distance"] - r["monthly_target"], 2)
+        top_surplus = sorted([m for m in mtd_active if m["surplus_km"] > 0], key=lambda x: (x["surplus_km"], x["cum_distance"]), reverse=True)[:5]
+        surplus_rows = ""
+        for idx, r in enumerate(top_surplus):
+            rank_str = medals[idx]
+            surplus_rows += f"""
+                <tr>
+                    <td class="text-center" style="font-weight: 700; font-size: 11px;">{rank_str}</td>
+                    <td style="font-weight: 600;">{r['registered_name']}</td>
+                    <td class="text-right" style="font-weight: 800;"><span class="cat-pill cat-purple">+{r['surplus_km']:.1f} km</span></td>
+                    <td class="text-right" style="font-weight: 600;">{r['cum_distance']:.1f} km</td>
+                    <td class="text-right" style="color: #64748b;">{r['monthly_target']:.0f} km</td>
+                </tr>
+            """
+
+        # 3. Run Frequency (Top 5)
+        top_freq = sorted(mtd_active, key=lambda x: (x["cum_runs"], x["cum_distance"]), reverse=True)[:5]
+        freq_rows = ""
+        for idx, r in enumerate(top_freq):
+            rank_str = medals[idx]
+            avg_per_run = (r["cum_distance"] / r["cum_runs"]) if r["cum_runs"] > 0 else 0.0
+            freq_rows += f"""
+                <tr>
+                    <td class="text-center" style="font-weight: 700; font-size: 11px;">{rank_str}</td>
+                    <td style="font-weight: 600;">{r['registered_name']}</td>
+                    <td class="text-center" style="font-weight: 800;"><span class="cat-pill cat-blue">{r['cum_runs']} runs</span></td>
+                    <td class="text-right" style="font-weight: 600;">{r['cum_distance']:.1f} km</td>
+                    <td class="text-right" style="color: #64748b;">{avg_per_run:.1f} km/run</td>
+                </tr>
+            """
+
+        # 4. Single Longest Run (Top 5)
+        top_longest = sorted(mtd_active, key=lambda x: (x.get("cum_longest", 0.0), x["cum_distance"]), reverse=True)[:5]
+        longest_rows = ""
+        for idx, r in enumerate(top_longest):
+            rank_str = medals[idx]
+            l_km = r.get("cum_longest", 0.0)
+            if l_km >= 80.0:
+                milestone = "50-Mile Ultra 🏅"
+            elif l_km >= 42.195:
+                milestone = "Marathon+ 🏃"
+            elif l_km >= 21.097:
+                milestone = "Half Marathon 🏃"
+            else:
+                milestone = f"{l_km:.1f} km"
+            longest_rows += f"""
+                <tr>
+                    <td class="text-center" style="font-weight: 700; font-size: 11px;">{rank_str}</td>
+                    <td style="font-weight: 600;">{r['registered_name']}</td>
+                    <td class="text-right" style="font-weight: 800;"><span class="cat-pill cat-amber">{l_km:.1f} km</span></td>
+                    <td class="text-center" style="font-weight: 600; font-size: 9px; color: #475569; white-space: nowrap;">{milestone}</td>
+                    <td class="text-right" style="color: #64748b; white-space: nowrap;">{r['cum_distance']:.1f} km</td>
+                </tr>
+            """
+
+        # 5. Speed (Pace) (Top 5, min 20 km)
+        speed_valid = [m for m in mtd_active if m.get("cum_pace_s", 99999) < 99999 and m.get("cum_distance", 0) >= 20.0]
+        top_speed = sorted(speed_valid, key=lambda x: x["cum_pace_s"])[:5]
+        speed_rows = ""
+        for idx, r in enumerate(top_speed):
+            rank_str = medals[idx]
+            speed_rows += f"""
+                <tr>
+                    <td class="text-center" style="font-weight: 700; font-size: 11px;">{rank_str}</td>
+                    <td style="font-weight: 600;">{r['registered_name']}</td>
+                    <td class="text-center" style="font-weight: 800;"><span class="cat-pill cat-speed">⚡️ {r['cum_pace_str']}</span></td>
+                    <td class="text-right" style="font-weight: 600; white-space: nowrap;">{r['cum_distance']:.1f} km</td>
+                    <td class="text-center" style="color: #64748b; white-space: nowrap;">{r['cum_runs']} runs</td>
+                </tr>
+            """
+
+        category_leaderboards_html = f"""
+    <div class="page-break"></div>
+    <div class="section-title" style="margin-top: 4px; margin-bottom: 8px; font-size: 13px;">🏆 SWIFTEMBER 2026 • CATEGORY LEADERBOARDS (TOP 5)</div>
+    
+    <div class="category-grid">
+        <!-- Row 1: Total Distance, Surplus Distance, Run Frequency -->
+        <div class="cat-card cat-card-3col">
+            <div class="cat-card-header">
+                <span class="cat-card-title">👑 Total Distance</span>
+                <span class="cat-card-badge">Overall KM</span>
+            </div>
+            <table class="cat-table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 28px;">#</th>
+                        <th>Athlete</th>
+                        <th class="text-right">Logged</th>
+                        <th class="text-right">Target</th>
+                        <th class="text-center">Goal %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {dist_rows}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="cat-card cat-card-3col">
+            <div class="cat-card-header">
+                <span class="cat-card-title">🚀 Surplus Distance</span>
+                <span class="cat-card-badge">+KM Above Goal</span>
+            </div>
+            <table class="cat-table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 28px;">#</th>
+                        <th>Athlete</th>
+                        <th class="text-right">Surplus</th>
+                        <th class="text-right">Total</th>
+                        <th class="text-right">Target</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {surplus_rows}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="cat-card cat-card-3col">
+            <div class="cat-card-header">
+                <span class="cat-card-title">👟 Run Frequency</span>
+                <span class="cat-card-badge">Most Runs Logged</span>
+            </div>
+            <table class="cat-table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 28px;">#</th>
+                        <th>Athlete</th>
+                        <th class="text-center">Runs</th>
+                        <th class="text-right">Total</th>
+                        <th class="text-right">Avg/Run</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {freq_rows}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Row 2: Single Longest Run, Speed (Pace) -->
+        <div class="cat-card cat-card-2col">
+            <div class="cat-card-header">
+                <span class="cat-card-title">🦅 Single Longest Run</span>
+                <span class="cat-card-badge">Biggest Single Effort</span>
+            </div>
+            <table class="cat-table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 26px;">#</th>
+                        <th>Athlete</th>
+                        <th class="text-right">Longest Run</th>
+                        <th class="text-center">Milestone</th>
+                        <th class="text-right">Total Dist</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {longest_rows}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="cat-card cat-card-2col">
+            <div class="cat-card-header">
+                <span class="cat-card-title">⚡️ Speed (Pace)</span>
+                <span class="cat-card-badge">Weighted Avg Pace (≥ 20km)</span>
+            </div>
+            <table class="cat-table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 26px;">#</th>
+                        <th>Athlete</th>
+                        <th class="text-center">Avg Pace</th>
+                        <th class="text-right">Total Dist</th>
+                        <th class="text-center">Runs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {speed_rows}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Club Finale Celebration Banner -->
+    <div class="finale-banner">
+        <div class="finale-banner-header">
+            <span class="finale-star">🎉</span>
+            <span class="finale-title">SWIFTEMBER 2026 CHALLENGE COMPLETE!</span>
+            <span class="finale-star">🎉</span>
+        </div>
+        <div class="finale-banner-sub">Huge congratulations to all 66 Birmingham Swifts runners for an incredible month of dedication, endurance, and community spirit!</div>
+        <div class="finale-stats-grid">
+            <div class="finale-stat-item">
+                <div class="finale-stat-num">6,579.4 km</div>
+                <div class="finale-stat-lbl">Total Distance Smashed (115.3%)</div>
+            </div>
+            <div class="finale-stat-item">
+                <div class="finale-stat-num">706</div>
+                <div class="finale-stat-lbl">Total Runs Logged</div>
+            </div>
+            <div class="finale-stat-item">
+                <div class="finale-stat-num">41,917 m</div>
+                <div class="finale-stat-lbl">Total Elevation Gain</div>
+            </div>
+            <div class="finale-stat-item">
+                <div class="finale-stat-num">56 / 66</div>
+                <div class="finale-stat-lbl">Goal Achievers (84.8%)</div>
+            </div>
+        </div>
+    </div>
+        """
 
     # Weekly leaderboard section (omitted for final report)
     weekly_leaderboard_html = ""
@@ -1343,6 +1650,144 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             white-space: nowrap;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }}
+        /* Category Leaderboards (Top 5) & Finale Styling */
+        .category-grid {{
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            margin-top: 6px;
+            margin-bottom: 8px;
+        }}
+        .cat-card {{
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-top: 3px solid #4338ca;
+            border-radius: 8px;
+            padding: 7px 9px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+        }}
+        .cat-card-3col {{ grid-column: span 2; }}
+        .cat-card-2col {{ grid-column: span 3; }}
+        .cat-card-header {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            padding-bottom: 4px;
+            border-bottom: 1.5px solid #e2e8f0;
+        }}
+        .cat-card-title {{
+            font-size: 11.5px;
+            font-weight: 800;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }}
+        .cat-card-badge {{
+            font-size: 8.5px;
+            font-weight: 700;
+            padding: 1.5px 6px;
+            border-radius: 4px;
+            background: #e0e7ff;
+            color: #3730a3;
+        }}
+        table.cat-table {{
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+            margin-bottom: 0;
+        }}
+        table.cat-table th {{
+            font-size: 8.5px;
+            font-weight: 700;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            padding: 3px 4px;
+            border-top: none;
+            border-bottom: 1.5px solid #cbd5e1;
+            background: transparent;
+        }}
+        table.cat-table td {{
+            padding: 3.5px 4px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e293b;
+            vertical-align: middle;
+            font-size: 10.5px;
+        }}
+        table.cat-table tr:nth-child(even) td {{ background-color: #fafafa; }}
+        table.cat-table tr:last-child td {{ border-bottom: none; }}
+        .cat-pill {{
+            display: inline-block;
+            font-weight: 700;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 9.5px;
+            white-space: nowrap;
+        }}
+        .cat-green {{ background: #dcfce7; color: #15803d; }}
+        .cat-purple {{ background: #f3e8ff; color: #6b21a8; }}
+        .cat-blue {{ background: #dbeafe; color: #1e40af; }}
+        .cat-amber {{ background: #fef3c7; color: #92400e; }}
+        .cat-speed {{ background: #ede9fe; color: #5b21b6; }}
+
+        /* Club Finale Celebration Banner */
+        .finale-banner {{
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #4338ca 100%);
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: #ffffff;
+            text-align: center;
+            margin-top: 6px;
+            margin-bottom: 6px;
+            border: 1px solid #4338ca;
+            box-shadow: 0 4px 12px rgba(30, 27, 75, 0.12);
+        }}
+        .finale-banner-header {{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #fde047;
+            margin-bottom: 2px;
+        }}
+        .finale-banner-sub {{
+            font-size: 9.5px;
+            color: #cbd5e1;
+            margin-bottom: 7px;
+        }}
+        .finale-stats-grid {{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }}
+        .finale-stat-item {{
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            padding: 5px 4px;
+        }}
+        .finale-stat-num {{
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #ffffff;
+        }}
+        .finale-stat-lbl {{
+            font-size: 8px;
+            font-weight: 600;
+            color: #93c5fd;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-top: 1px;
+        }}
         .page-break {{ page-break-before: always; }}
         .footer {{ font-size: 8.5px; color: #64748b; text-align: center; margin-top: 6px; border-top: 1px solid #e2e8f0; padding-top: 4px; font-weight: 500; }}
     </style>
@@ -1360,41 +1805,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
 
     <div class="section-title">{hero_section_title}</div>
     <div class="superlatives-grid">
-        <div class="super-card">
-            <div class="super-icon">🐣</div>
-            <div class="super-award">Rising Swift</div>
-            <div class="super-sub">Short Target (≤ {short_barrier:.0f} km)</div>
-            <div class="super-winner">{rising_swift['registered_name'] if rising_swift else '-'}</div>
-            <div class="super-stat">{rising_swift_stat}</div>
-        </div>
-        <div class="super-card">
-            <div class="super-icon">🌟</div>
-            <div class="super-award">Goal Setter</div>
-            <div class="super-sub">Medium Target ({short_barrier+1:.0f}–{long_barrier:.0f} km)</div>
-            <div class="super-winner">{pace_setter['registered_name'] if pace_setter else '-'}</div>
-            <div class="super-stat">{goal_setter_stat}</div>
-        </div>
-        <div class="super-card">
-            <div class="super-icon">🔥</div>
-            <div class="super-award">Road Warrior</div>
-            <div class="super-sub">Long Target (> {long_barrier:.0f} km)</div>
-            <div class="super-winner">{road_warrior['registered_name'] if road_warrior else '-'}</div>
-            <div class="super-stat">{road_warrior_stat}</div>
-        </div>
-        <div class="super-card">
-            <div class="super-icon">🏔</div>
-            <div class="super-award">Mountain Goat</div>
-            <div class="super-sub">{super_sub_elev}</div>
-            <div class="super-winner">{elev_runner['registered_name'] if elev_runner else '-'}</div>
-            <div class="super-stat">{elev_stat}</div>
-        </div>
-        <div class="super-card">
-            <div class="super-icon">⚡️</div>
-            <div class="super-award">Speed Demon</div>
-            <div class="super-sub">{super_sub_speed}</div>
-            <div class="super-winner">{speed_runner['registered_name'] if speed_runner else '-'}</div>
-            <div class="super-stat">{speed_stat}</div>
-        </div>
+        {hero_cards_html}
     </div>
 
     <div class="metrics-grid">
@@ -1431,6 +1842,8 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             {roster_rows}
         </tbody>
     </table>
+
+    {category_leaderboards_html}
 
     <div class="footer">
         {footer_text}
