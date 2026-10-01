@@ -1,11 +1,11 @@
 {
   "week": 4,
   "total_registered": 66,
-  "active_count": 52,
-  "total_distance": 1598.3,
-  "total_runs": 159,
-  "cum_distance": 6260.79,
-  "cum_runs": 661,
+  "active_count": 53,
+  "total_distance": 1608.4,
+  "total_runs": 160,
+  "cum_distance": 6270.89,
+  "cum_runs": 662,
   "runners": {
     "Thomas Glave": {
       "distance": 86.8,
@@ -33,7 +33,7 @@
       "status": "🟢 On Track",
       "cum_distance": 264.7,
       "cum_runs": 25,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Joshua Savage": {
       "distance": 64.6,
@@ -89,7 +89,7 @@
       "status": "🟢 Ahead",
       "cum_distance": 211.9,
       "cum_runs": 20,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Joe Pinder": {
       "distance": 58.9,
@@ -187,7 +187,7 @@
       "status": "🟢 Ahead",
       "cum_distance": 152.3,
       "cum_runs": 9,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Matthew Rushton": {
       "distance": 47.7,
@@ -201,7 +201,7 @@
       "status": "🟢 Ahead",
       "cum_distance": 159.2,
       "cum_runs": 12,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Richard Wilkes": {
       "distance": 47.7,
@@ -313,7 +313,7 @@
       "status": "🟢 On Track",
       "cum_distance": 108.0,
       "cum_runs": 13,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Gabriel Stirling": {
       "distance": 26.5,
@@ -341,7 +341,7 @@
       "status": "🔴 Behind",
       "cum_distance": 201.3,
       "cum_runs": 26,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Benjamin Lane": {
       "distance": 26.1,
@@ -355,7 +355,7 @@
       "status": "🟢 On Track",
       "cum_distance": 101.5,
       "cum_runs": 10,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Pete Hall": {
       "distance": 25.2,
@@ -369,7 +369,7 @@
       "status": "🟢 Ahead",
       "cum_distance": 75.4,
       "cum_runs": 10,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Ian Bush": {
       "distance": 24.9,
@@ -383,7 +383,7 @@
       "status": "🟢 Ahead",
       "cum_distance": 55.8,
       "cum_runs": 7,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Matt Mackinnon-Coleman": {
       "distance": 24.3,
@@ -425,7 +425,7 @@
       "status": "🟢 Ahead",
       "cum_distance": 53.6,
       "cum_runs": 6,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Jon Williams": {
       "distance": 21.7,
@@ -503,13 +503,13 @@
       "longest": 10.0,
       "pace": "5:54 /km",
       "elev": "82 m",
-      "monthly_target": 100.0,
-      "pct_weekly": 69.2,
-      "pct_monthly": 95.9,
+      "monthly_target": 95.0,
+      "pct_weekly": 72.84,
+      "pct_monthly": 100.95,
       "status": "🟡 Slightly Behind",
       "cum_distance": 95.9,
       "cum_runs": 8,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Farrell Baker": {
       "distance": 16.4,
@@ -537,7 +537,7 @@
       "status": "🟡 Slightly Behind",
       "cum_distance": 80.0,
       "cum_runs": 11,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Laura Rafailov": {
       "distance": 16.2,
@@ -593,7 +593,7 @@
       "status": "🟢 Ahead",
       "cum_distance": 27.17,
       "cum_runs": 4,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Patrick Ryan": {
       "distance": 13.7,
@@ -685,13 +685,13 @@
       "longest": 7.0,
       "pace": "7:07 /km",
       "elev": "93 m",
-      "monthly_target": 75.0,
-      "pct_weekly": 58.13,
-      "pct_monthly": 92.93,
-      "status": "🔴 Behind",
+      "monthly_target": 69.0,
+      "pct_weekly": 63.19,
+      "pct_monthly": 101.01,
+      "status": "🟡 Slightly Behind",
       "cum_distance": 69.7,
       "cum_runs": 14,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "James Evans": {
       "distance": 10.1,
@@ -705,7 +705,7 @@
       "status": "🟢 Ahead",
       "cum_distance": 10.1,
       "cum_runs": 2,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Josh Heer": {
       "distance": 10.0,
@@ -719,7 +719,7 @@
       "status": "🟢 Ahead",
       "cum_distance": 10.0,
       "cum_runs": 1,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "James Horne": {
       "distance": 10.0,
@@ -727,27 +727,27 @@
       "longest": 10.0,
       "pace": "5:18 /km",
       "elev": "24 m",
-      "monthly_target": 25.0,
-      "pct_weekly": 160.0,
-      "pct_monthly": 99.6,
+      "monthly_target": 24.0,
+      "pct_weekly": 166.67,
+      "pct_monthly": 103.75,
       "status": "🟢 Ahead",
       "cum_distance": 24.9,
       "cum_runs": 3,
-      "cum_status": "🟢 On Track"
+      "cum_status": "🟢 Ahead"
     },
     "Bradley M 🏳️‍🌈💪🏃‍♂️": {
-      "distance": 0.0,
-      "runs": 0,
-      "longest": 0.0,
+      "distance": 10.1,
+      "runs": 1,
+      "longest": 10.1,
       "pace": "-",
       "elev": "-",
       "monthly_target": 20.0,
-      "pct_weekly": 0.0,
-      "pct_monthly": 65.05,
-      "status": "⚪️ 0 km Logged",
-      "cum_distance": 13.01,
-      "cum_runs": 3,
-      "cum_status": "🟡 Slightly Behind"
+      "pct_weekly": 202.0,
+      "pct_monthly": 115.55,
+      "status": "🟢 Ahead",
+      "cum_distance": 23.11,
+      "cum_runs": 4,
+      "cum_status": "🟢 Ahead"
     },
     "Chris Dennison": {
       "distance": 0.0,
@@ -769,13 +769,13 @@
       "longest": 0.0,
       "pace": "-",
       "elev": "-",
-      "monthly_target": 75.0,
+      "monthly_target": 65.0,
       "pct_weekly": 0.0,
-      "pct_monthly": 83.33,
+      "pct_monthly": 96.15,
       "status": "⚪️ 0 km Logged",
       "cum_distance": 62.5,
       "cum_runs": 7,
-      "cum_status": "🟡 Slightly Behind"
+      "cum_status": "🟢 On Track"
     },
     "Ibrahim Subdurally-Plon": {
       "distance": 0.0,
@@ -909,9 +909,9 @@
       "longest": 0.0,
       "pace": "-",
       "elev": "-",
-      "monthly_target": 50.0,
+      "monthly_target": 45.0,
       "pct_weekly": 0.0,
-      "pct_monthly": 91.2,
+      "pct_monthly": 101.33,
       "status": "⚪️ 0 km Logged",
       "cum_distance": 45.6,
       "cum_runs": 5,
