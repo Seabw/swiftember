@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate 5-week analysis and neutral, factual shoutouts for 20 selected Swiftember runners
+Generate 5-week analysis and neutral, factual shoutouts for 22 selected Swiftember runners
 with outstanding stats, special occasions, or notable milestones.
 """
 import json
@@ -13,12 +13,11 @@ ARTIFACT_PATH = "/Users/bowang/.gemini/antigravity-ide/brain/5f747ba1-1978-4848-
 with open(SCRATCH_PATH, "r", encoding="utf-8") as f:
     all_finishers = json.load(f)
 
-# Index all finishers by exact name and base name
 by_name = {f["name"]: f for f in all_finishers}
 
-# 20 selected runners with neutral, factual tags and messages
+# 22 selected runners with neutral, factual tags and messages
 selected_data = [
-    # Page 4: Category Leaders, Major Surpluses & Volume Progression
+    # Page 4: Category Leaders, Major Surpluses, Volume Progression & 10K Milestones (11 runners)
     {
         "name": "Thomas Glave",
         "tag": "👑 Distance King • Highest Total Mileage (282.1 km)",
@@ -74,13 +73,19 @@ selected_data = [
         "message": "Logged 26.1 km against a 20 km pledge across 5 runs with 126 m of elevation gain. Reached goal via back-to-back ~10 km weeks in the second half of September, including a 10.1 km run in Week 4."
     },
     {
+        "name": "Laura Rafailov",
+        "tag": "🎯 Sub-60 10K Milestone (58:57) • London Pride 10K",
+        "analysis": "101.8 km on 100 km target, 14 runs, 666 m elevation, dedicated preparation to break 60 mins.",
+        "message": "Targeted a sub-60 minute 10K milestone during Swiftember, utilizing the challenge to structure dedicated preparation. Achieved the objective at the London Pride 10K with an official finish of 58:57, concluding the month with 101.8 km logged on a 100 km pledge across 14 outings."
+    },
+    {
         "name": "Jack Dean",
         "tag": "🏙 Chicago Marathon Preparation • 244.0 km Logged",
         "analysis": "244.0 km on 200 km target, 22 runs, 1,908 m elevation, 32.0 km long run.",
         "message": "Logged 244.0 km across 22 runs with 1,908 m of elevation gain as part of Chicago Marathon preparation. Maintained high weekly mileage throughout September, with a peak long run of 32.0 km."
     },
 
-    # Page 5: Endurance Titans, Marathon Milestones & Special Spotlights
+    # Page 5: Endurance Titans, Marathon Milestones & Special Spotlights (11 runners)
     {
         "name": "Christopher Bainbridge",
         "tag": "🥈 Second-Highest Distance • 264.7 km Logged",
@@ -104,6 +109,12 @@ selected_data = [
         "tag": "⚡️ Speed Demon • Fastest Average Pace (4:45 /km)",
         "analysis": "208.1 km on 200 km target, 21 runs, 1,727 m elev, 4:45 /km average pace, 21.2 km max.",
         "message": "Registered the fastest average pace among high-volume runners, averaging 4:45 /km across 208.1 km and 21 runs. Also accumulated 1,727 m of climbing with a longest single run of 21.2 km."
+    },
+    {
+        "name": "Benjamin Lane",
+        "tag": "⚡️ Weekly Speed Demon (Week 3) • Sub-5:00 Pacing",
+        "analysis": "106.5 km on 100 km target, 11 runs, 680 m elevation, 4:58 /km pace, Week 3 Speed Demon.",
+        "message": "Logged 106.5 km on a 100 km target across 11 outings with 680 m of climbing, maintaining an overall average pace of 4:58 /km. In Week 3, became the sole runner to dethrone Adam Bown for the weekly Speed Demon award, averaging 4:48 /km across 18.0 km."
     },
     {
         "name": "Alexander Brown",
@@ -143,13 +154,11 @@ selected_data = [
     }
 ]
 
-# Match against analysis data to extract accurate stats
 final_finishers_list = []
 for item in selected_data:
     raw_name = item["name"]
     matched = by_name.get(raw_name)
     if not matched:
-        # Partial match
         for k in by_name:
             if raw_name.split()[0] in k:
                 matched = by_name[k]
@@ -188,7 +197,7 @@ print(f"Updated {SHOUTOUTS_PATH} with {len(final_finishers_list)} selected finis
 md_lines = [
     "# 🏳️‍🌈 Swiftember 2026 • Selected Member Highlights & Notable Milestones",
     "",
-    "> **Featuring 20 selected runners with outstanding statistics, special occasions, and notable milestones.**",
+    "> **Featuring 22 selected runners with outstanding statistics, special occasions, and notable milestones.**",
     "> Out of 66 registered runners, **56 runners (84.8%)** achieved their goals, combining for **6,579.4 km** (114.3% of the 5,754 km club pledge), **706 runs**, and **41,917 m** of elevation gain.",
     "",
     "---",
@@ -198,13 +207,14 @@ md_lines = [
     "1. **👑 Distance King & Mileage Leaders**: Thomas Glave (282.1 km) and Christopher Bainbridge (264.7 km).",
     "2. **💥 Target Smasher & Surplus Leaders**: Adrián Nieves (206.8% completion), Mark Blakeman (+65.0 km surplus), Anthony Morgan (+60.8 km surplus), and Joe Pinder (+58.2 km surplus).",
     "3. **🏔 Endurance & Frequency Records**: Alice Wilkinson (83.0 km single longest run) and Jake Colbourn (27 runs, 3,074 m elevation gain).",
-    "4. **⚡️ Speed & Progression**: Adam Bown (4:45 /km average pace), Jon Williams (194.9% build), Andrea Bohn (21 runs), and Bradley M (130.5% surge).",
-    "5. **🇩🇪 Marathon Accomplishments & Debuts**: Berlin Marathon finishers (Mark Blakeman, Richard Lakin, Alexander Brown, Bo Wang, Ian Allen, Joshua Savage, Helen Williams) and Tim Reeves (first-time marathon debut).",
-    "6. **🏥 Milestone Comeback**: Lee Singleton (102.0 km logged following medical recovery from a seizure).",
+    "4. **⚡️ Speed & Precision**: Adam Bown (4:45 /km pace), Benjamin Lane (sole runner to dethrone Adam in Week 3, 4:48 /km), and Laura Rafailov (Pride 10K sub-60 milestone in 58:57).",
+    "5. **📈 Volume Progression**: Jon Williams (194.9% build), Andrea Bohn (21 runs), and Bradley M (130.5% surge).",
+    "6. **🇩🇪 Marathon Accomplishments & Debuts**: Berlin Marathon finishers (Mark Blakeman, Richard Lakin, Alexander Brown, Bo Wang, Ian Allen, Joshua Savage, Helen Williams) and Jack Dean (Chicago Marathon build).",
+    "7. **🏥 Milestone Comeback**: Lee Singleton (102.0 km logged following medical recovery from a seizure).",
     "",
     "---",
     "",
-    "## 📜 Individual Highlights & Analytical Breakdown (20 Selected Runners)",
+    "## 📜 Individual Highlights & Analytical Breakdown (22 Selected Runners)",
     ""
 ]
 

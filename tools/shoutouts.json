@@ -389,6 +389,28 @@
       "shoutout": "Logged 26.1 km against a 20 km pledge across 5 runs with 126 m of elevation gain. Reached goal via back-to-back ~10 km weeks in the second half of September, including a 10.1 km run in Week 4."
     },
     {
+      "rank": 49,
+      "name": "Laura Rafailov",
+      "target_km": 100.0,
+      "total_km": 101.8,
+      "pct_achieved": 101.8,
+      "surplus_km": 1.8,
+      "total_runs": 14,
+      "total_elev_m": 666,
+      "avg_pace": "6:56 /km",
+      "longest_run_km": 10.0,
+      "weekly_km": [
+        20.9,
+        29.7,
+        23.0,
+        16.2,
+        12.0
+      ],
+      "tag": "\ud83c\udfaf Sub-60 10K Milestone (58:57) \u2022 London Pride 10K",
+      "analysis": "101.8 km on 100 km target, 14 runs, 666 m elevation, dedicated preparation to break 60 mins.",
+      "shoutout": "Targeted a sub-60 minute 10K milestone during Swiftember, utilizing the challenge to structure dedicated preparation. Achieved the objective at the London Pride 10K with an official finish of 58:57, concluding the month with 101.8 km logged on a 100 km pledge across 14 outings."
+    },
+    {
       "rank": 20,
       "name": "Jack Dean",
       "target_km": 200.0,
@@ -497,6 +519,28 @@
       "tag": "\u26a1\ufe0f Speed Demon \u2022 Fastest Average Pace (4:45 /km)",
       "analysis": "208.1 km on 200 km target, 21 runs, 1,727 m elev, 4:45 /km average pace, 21.2 km max.",
       "shoutout": "Registered the fastest average pace among high-volume runners, averaging 4:45 /km across 208.1 km and 21 runs. Also accumulated 1,727 m of climbing with a longest single run of 21.2 km."
+    },
+    {
+      "rank": 36,
+      "name": "Benjamin Lane",
+      "target_km": 100.0,
+      "total_km": 106.5,
+      "pct_achieved": 106.5,
+      "surplus_km": 6.5,
+      "total_runs": 11,
+      "total_elev_m": 680,
+      "avg_pace": "4:58 /km",
+      "longest_run_km": 21.6,
+      "weekly_km": [
+        17.3,
+        40.1,
+        18.0,
+        26.1,
+        5.0
+      ],
+      "tag": "\u26a1\ufe0f Weekly Speed Demon (Week 3) \u2022 Sub-5:00 Pacing",
+      "analysis": "106.5 km on 100 km target, 11 runs, 680 m elevation, 4:58 /km pace, Week 3 Speed Demon.",
+      "shoutout": "Logged 106.5 km on a 100 km target across 11 outings with 680 m of climbing, maintaining an overall average pace of 4:58 /km. In Week 3, became the sole runner to dethrone Adam Bown for the weekly Speed Demon award, averaging 4:48 /km across 18.0 km."
     },
     {
       "rank": 24,

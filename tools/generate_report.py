@@ -1251,19 +1251,19 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
                 {
                     "part": 1,
                     "badge": "📊 PART 1 • CATEGORY LEADERS, SURPLUS ACHIEVEMENTS & VOLUME BUILDS",
-                    "subtitle": "Selective Highlights #1 – #10 • Notable Individual Performances & Milestone Metrics",
+                    "subtitle": "Selective Highlights #1 – #11 • Notable Individual Performances & Milestone Metrics",
                     "page_num": 4
                 },
                 {
                     "part": 2,
                     "badge": "🏅 PART 2 • ENDURANCE TITANS, MARATHON MILESTONES & SPECIAL SPOTLIGHTS",
-                    "subtitle": "Selective Highlights #11 – #20 • High-Elevation Records, Major Debuts & Medical Comebacks",
+                    "subtitle": "Selective Highlights #12 – #22 • High-Elevation Records, Major Debuts & Medical Comebacks",
                     "page_num": 5
                 }
             ]
 
             parts_html_list = []
-            batch_size = 10
+            batch_size = 11
             for p_idx, meta in enumerate(cohort_metadata):
                 start_i = p_idx * batch_size
                 end_i = start_i + batch_size
@@ -1278,9 +1278,10 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
                     longest_str = f"{f['longest_run_km']:.1f} km max" if f.get('longest_run_km', 0) > 0 else "-"
                     pace_str = f"⚡️ {f['avg_pace']}" if f.get('avg_pace') and f['avg_pace'] != "--" else "Pace: --"
                     surplus_txt = f"+{f['surplus_km']:.1f} km" if f.get('surplus_km', 0) > 0 else "Goal Hit"
+                    card_cls = "finisher-card finisher-card-lead" if c_idx == 0 else "finisher-card"
                     
                     cards_html += f"""
-                    <div class="finisher-card">
+                    <div class="{card_cls}">
                         <div class="finisher-card-header">
                             <div class="finisher-name-wrap">
                                 <span class="finisher-rank">{rank_str}</span>
@@ -1938,13 +1939,20 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             border: 1px solid #cbd5e1;
             border-left: 3.5px solid #4338ca;
             border-radius: 6px;
-            padding: 6px 9px;
-            margin-bottom: 7px;
+            padding: 5px 8.5px;
+            margin-bottom: 5.5px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
             page-break-inside: avoid;
             break-inside: avoid;
             box-sizing: border-box;
-            min-height: 84px;
+            min-height: 76px;
+        }}
+        .finisher-card-lead {{
+            width: 100% !important;
+            min-height: 62px !important;
+            margin-bottom: 6px;
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+            border-left: 4px solid #312e81;
         }}
         .finisher-card-header {{
             display: flex;
