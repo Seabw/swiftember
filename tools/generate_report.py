@@ -838,10 +838,10 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         metric_val_font = "18px"
         metric_lbl_font = "9.5px"
         metric_sub_font = "8.5px"
-        shout_name_font = "10px"
-        shout_tag_font = "7.5px"
-        shout_msg_font = "8.5px"
-        shout_footer_font = "8.5px"
+        shout_name_font = "14px"
+        shout_tag_font = "11px"
+        shout_msg_font = "14px"
+        shout_footer_font = "10px"
         berlin_headline_font = "14px"
         berlin_intro_font = "9.5px"
         berlin_name_font = "11px"
@@ -1350,12 +1350,12 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
     if is_final:
         main_table_header = """
             <tr>
-                <th class="text-center" style="width: 32px;">#</th>
+                <th class="text-center" style="width: 28px;">#</th>
                 <th>Participant Name</th>
-                <th class="text-right" style="width: 115px;">Monthly Target</th>
-                <th class="text-right" style="width: 115px;">Total Logged</th>
-                <th class="text-center" style="width: 160px;">Challenge Progress</th>
-                <th class="text-center" style="width: 155px;">Final Status</th>
+                <th class="text-right" style="width: 80px;">Monthly Target</th>
+                <th class="text-right" style="width: 85px;">Total Logged</th>
+                <th class="text-center" style="width: 145px;">Challenge Progress</th>
+                <th class="text-center" style="width: 145px;">Final Status</th>
             </tr>
         """
     else:
@@ -1450,10 +1450,10 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             font-size: 12px;
             padding: 3.5px 10px;
         }}
-        table.full-table {{ font-size: 14px; width: 100%; border-collapse: collapse; margin-bottom: 5px; }}
+        table.full-table {{ font-size: 16px; width: 100%; border-collapse: collapse; margin-bottom: 5px; }}
         table.full-table th {{
-            font-size: 11.5px;
-            padding: 4.5px 6px;
+            font-size: 12.5px;
+            padding: 4px 6px;
             letter-spacing: 0.4px;
             background: #f1f5f9;
             color: #334155;
@@ -1462,32 +1462,33 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             border-bottom: 2px solid #cbd5e1;
         }}
         table.full-table td {{
-            padding: 2.3px 6px;
-            font-size: 13.5px;
-            line-height: 1.22;
+            padding: 1.5px 6px;
+            font-size: 16px;
+            line-height: 1.15;
             border-bottom: 1px solid #f1f5f9;
             vertical-align: middle;
+            white-space: nowrap;
         }}
         table.full-table .progress-cell {{
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
         }}
         table.full-table .progress-val {{
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 700;
             line-height: 1.1;
-            min-width: 44px;
+            min-width: 48px;
             text-align: right;
         }}
         table.full-table .progress-bar-container {{
-            width: 75px;
-            height: 5.5px;
+            width: 70px;
+            height: 6px;
         }}
         table.full-table .status-badge {{
-            font-size: 11px;
-            padding: 2px 7px;
+            font-size: 12.5px;
+            padding: 1.5px 7px;
         }}
         table.fastest-table {{ font-size: 15px; width: 100%; border-collapse: collapse; margin-bottom: 6px; }}
         table.fastest-table th {{
@@ -1893,16 +1894,16 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         .finisher-page-header {{
             background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #4338ca 100%);
             border-radius: 7px;
-            padding: 5px 12px;
+            padding: 4px 12px;
             color: #ffffff;
-            margin-top: 2px;
-            margin-bottom: 5px;
+            margin-top: 1px;
+            margin-bottom: 4px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }}
         .finisher-page-title {{
-            font-size: 11.5px;
+            font-size: 12px;
             font-weight: 800;
             letter-spacing: 0.3px;
             display: flex;
@@ -1910,7 +1911,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             gap: 7px;
         }}
         .finisher-page-sub {{
-            font-size: 8.8px;
+            font-size: 9.5px;
             color: #cbd5e1;
             font-weight: 500;
             margin-top: 1px;
@@ -1918,14 +1919,14 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         .finisher-page-pill {{
             background: rgba(255, 255, 255, 0.15);
             color: #fde047;
-            font-size: 8.5px;
+            font-size: 9px;
             font-weight: 700;
             padding: 1.5px 7px;
             border-radius: 4px;
             white-space: nowrap;
         }}
         .finisher-page-counter {{
-            font-size: 9.5px;
+            font-size: 10px;
             font-weight: 700;
             color: #93c5fd;
             white-space: nowrap;
@@ -1945,19 +1946,19 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             border: 1px solid #cbd5e1;
             border-left: 3.5px solid #4338ca;
             border-radius: 6px;
-            padding: 5px 8.5px;
-            margin-bottom: 5.5px;
+            padding: 4.5px 8px;
+            margin-bottom: 4.5px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
             page-break-inside: avoid;
             break-inside: avoid;
             box-sizing: border-box;
-            min-height: 76px;
+            min-height: 70px;
         }}
         .finisher-card-header {{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2px;
+            margin-bottom: 1.5px;
             gap: 6px;
         }}
         .finisher-name-wrap {{
@@ -1967,7 +1968,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             overflow: hidden;
         }}
         .finisher-rank {{
-            font-size: 9px;
+            font-size: 10.5px;
             font-weight: 800;
             color: #3730a3;
             background: #e0e7ff;
@@ -1977,7 +1978,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             white-space: nowrap;
         }}
         .finisher-name {{
-            font-size: 10.5px;
+            font-size: 13.5px;
             font-weight: 700;
             color: #0f172a;
             line-height: 1.15;
@@ -1986,34 +1987,34 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             text-overflow: ellipsis;
         }}
         .finisher-badge-pct {{
-            font-size: 8.5px;
+            font-size: 10px;
             font-weight: 700;
             color: #15803d;
             background: #dcfce7;
-            padding: 1.5px 5.5px;
+            padding: 1.5px 4.5px;
             border-radius: 3.5px;
             white-space: nowrap;
         }}
         .finisher-tag {{
-            font-size: 8.8px;
+            font-size: 11.5px;
             font-weight: 700;
             color: #0284c7;
-            margin-bottom: 2.5px;
-            line-height: 1.25;
+            margin-bottom: 2px;
+            line-height: 1.22;
         }}
         .finisher-msg {{
-            font-size: 8.4px;
+            font-size: 14px;
             color: #334155;
-            line-height: 1.34;
-            margin-bottom: 3.5px;
+            line-height: 1.30;
+            margin-bottom: 3px;
             flex-grow: 1;
         }}
         .finisher-stats-bar {{
-            font-size: 7.8px;
+            font-size: 9.5px;
             color: #64748b;
             font-weight: 600;
             border-top: 1px dashed #e2e8f0;
-            padding-top: 3px;
+            padding-top: 2.5px;
             display: flex;
             justify-content: space-between;
             white-space: nowrap;
@@ -2143,38 +2144,51 @@ def main():
 
     if is_final:
         # Chromium print engine can hang when printing a massive HTML document combining large paged tables with multi-page CSS grids.
-        # Splitting into Part 1 (Pages 1-3: total stats, Hall of Fame, main leaderboard, category leaderboards)
-        # and Part 2 (Pages 4-7: Finisher Roll of Honor cards) and merging via macOS PDFKit guarantees
-        # flawless 7-page rendering in under 10 seconds.
+        # Splitting into Part 1 (Pages 1-2: Table), Part 2 (Page 3: Category Leaderboards), and Part 3 (Pages 4-5: Highlights)
+        # and merging via macOS PDFKit guarantees flawless 5-page rendering in under 10 seconds.
+        idx_cat = html_content.find("🏆 SWIFTEMBER 2026 • CATEGORY LEADERBOARDS")
         idx_shout = html_content.find('<div class="finisher-page-header">')
-        if idx_shout != -1:
-            idx_pb = html_content.rfind('<div class="page-break"></div>', 0, idx_shout)
-            split_pos = idx_pb if idx_pb != -1 else idx_shout
-            part1_html = html_content[:split_pos].rstrip() + "\n</body>\n</html>"
+        if idx_cat != -1 and idx_shout != -1:
             head_end = html_content.find("</head>")
-            head_part = html_content[:head_end + 7] + "\n<body>\n"
-            part2_body = html_content[split_pos:html_content.rfind("</body>")].strip()
-            part2_html = head_part + part2_body + "\n</body>\n</html>"
+            head = html_content[:head_end + 7] + "\n<body>\n"
 
-            p1_html_path = os.path.join(BASE_DIR, "temp_report_final_p1_3.html")
-            p2_html_path = os.path.join(BASE_DIR, "temp_report_final_shoutouts.html")
-            p1_pdf_path = "/tmp/swiftember_final_p1_3.pdf"
-            p2_pdf_path = "/tmp/swiftember_final_shoutouts.pdf"
+            idx_pb_cat = html_content.rfind('<div class="page-break"></div>', 0, idx_cat)
+            part1_body = html_content[:idx_pb_cat if idx_pb_cat != -1 else idx_cat].strip()
+            part1_html = part1_body + "\n</body>\n</html>"
+
+            idx_pb_shout = html_content.rfind('<div class="page-break"></div>', 0, idx_shout)
+            part2_body = html_content[idx_cat:idx_pb_shout if idx_pb_shout != -1 else idx_shout].strip()
+            part2_html = head + part2_body + "\n</body>\n</html>"
+
+            part3_body = html_content[idx_shout:html_content.rfind("</body>")].strip()
+            part3_html = head + part3_body + "\n</body>\n</html>"
+
+            p1_html_path = os.path.join(BASE_DIR, "temp_report_final_p1_2.html")
+            p2_html_path = os.path.join(BASE_DIR, "temp_report_final_p3.html")
+            p3_html_path = os.path.join(BASE_DIR, "temp_report_final_p4_5.html")
+            p1_pdf_path = "/tmp/swiftember_final_p1_2.pdf"
+            p2_pdf_path = "/tmp/swiftember_final_p3.pdf"
+            p3_pdf_path = "/tmp/swiftember_final_p4_5.pdf"
 
             with open(p1_html_path, "w", encoding="utf-8") as f:
                 f.write(part1_html)
             with open(p2_html_path, "w", encoding="utf-8") as f:
                 f.write(part2_html)
+            with open(p3_html_path, "w", encoding="utf-8") as f:
+                f.write(part3_html)
 
-            subprocess.run([chrome_bin, "--headless", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={p1_pdf_path}", f"file://{os.path.abspath(p1_html_path)}"], check=True)
-            subprocess.run([chrome_bin, "--headless", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={p2_pdf_path}", f"file://{os.path.abspath(p2_html_path)}"], check=True)
+            chrome_flags = ["--headless", "--disable-gpu", "--no-pdf-header-footer"]
+            subprocess.run([chrome_bin, *chrome_flags, f"--print-to-pdf={p1_pdf_path}", f"file://{os.path.abspath(p1_html_path)}"], check=True)
+            subprocess.run([chrome_bin, *chrome_flags, f"--print-to-pdf={p2_pdf_path}", f"file://{os.path.abspath(p2_html_path)}"], check=True)
+            subprocess.run([chrome_bin, *chrome_flags, f"--print-to-pdf={p3_pdf_path}", f"file://{os.path.abspath(p3_html_path)}"], check=True)
 
             swift_merge_script = f"""
 import Foundation
 import PDFKit
 
 guard let doc1 = PDFDocument(url: URL(fileURLWithPath: "{p1_pdf_path}")),
-      let doc2 = PDFDocument(url: URL(fileURLWithPath: "{p2_pdf_path}")) else {{
+      let doc2 = PDFDocument(url: URL(fileURLWithPath: "{p2_pdf_path}")),
+      let doc3 = PDFDocument(url: URL(fileURLWithPath: "{p3_pdf_path}")) else {{
     exit(1)
 }}
 for i in 0..<doc2.pageCount {{
@@ -2182,10 +2196,15 @@ for i in 0..<doc2.pageCount {{
         doc1.insert(page, at: doc1.pageCount)
     }}
 }}
+for i in 0..<doc3.pageCount {{
+    if let page = doc3.page(at: i) {{
+        doc1.insert(page, at: doc1.pageCount)
+    }}
+}}
 doc1.write(to: URL(fileURLWithPath: "{pdf_path}"))
 """
             subprocess.run(["swift", "-e", swift_merge_script], check=True)
-            for tmp_f in [p1_pdf_path, p2_pdf_path]:
+            for tmp_f in [p1_pdf_path, p2_pdf_path, p3_pdf_path]:
                 if os.path.exists(tmp_f):
                     os.remove(tmp_f)
         else:
