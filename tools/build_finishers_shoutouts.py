@@ -245,9 +245,9 @@ custom_messages = {
         "message": "A century of kilometers backed by serious hill power! Clocking 102.4 km across 13 runs with 874 m of elevation gain and a swift 5:25 /km pace, you made joining the Century Club look easy. Tremendous effort!"
     },
     "Jake Colbourn": {
-        "tag": "🏔 Mountain Goat & Frequency Champion (27 Runs)",
+        "tag": "👟 Run Machine & Frequency Champion (27 Runs)",
         "analysis": "Most runs in the club (27), 81.9 km Ultra, 3,074 m elevation (club record), 204.4 km total.",
-        "message": "Our undisputed Mountain Goat and run frequency champion! Logging 27 runs, conquering an 81.9 km 50-mile Ultra, and climbing a staggering 3,074 m of elevation, your endurance and resilience this month were nothing short of superhuman!"
+        "message": "Our undisputed Run Machine and run frequency champion! Logging a club-leading 27 runs across the month, conquering an 81.9 km 50-mile Ultra, and scaling 3,074 m of elevation, your relentless engine and resilience were nothing short of superhuman!"
     },
     "Lee Singleton": {
         "tag": "💪 Inspiring Comeback & 102.0 km Century",
@@ -332,7 +332,7 @@ md_lines = [
     "# 🏳️‍🌈 Swiftember 2026 • Finisher Roll of Honor & Individual Shoutouts",
     "",
     "> **Celebrating all 56 Birmingham Swifts runners who achieved and smashed their personal Swiftember targets!**",
-    "> Out of 66 registered runners, **56 runners (84.8%)** achieved their goals, combining for **6,579.4 km** (115.3% of the 5,704 km club pledge), **706 runs**, and **41,917 m** of elevation gain.",
+    "> Out of 66 registered runners, **56 runners (84.8%)** achieved their goals, combining for **6,579.4 km** (114.3% of the 5,754 km club pledge), **706 runs**, and **41,917 m** of elevation gain.",
     "",
     "---",
     "",

@@ -81,6 +81,17 @@ def load_shoutouts(week_num=1):
     except Exception:
         return []
 
+def load_final_finishers():
+    path = os.path.join(BASE_DIR, "shoutouts.json")
+    if not os.path.exists(path):
+        return []
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data.get("final_finishers", [])
+    except Exception:
+        return []
+
 def parse_strava_table(raw_text):
     """Parses tab-separated or whitespace-separated Strava leaderboard lines."""
     entries = []
@@ -475,6 +486,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
     pct_total_month = (total_cum_logged / total_pledge) * 100.0 if total_pledge > 0 else 0.0
     pct_pace_rate = (total_cum_logged / expected_cum_target) * 100.0 if expected_cum_target > 0 else 0.0
     total_cum_runs = sum(m["cum_runs"] for m in matched_runners)
+    total_cum_elev = sum(m.get("cum_elev", 0) for m in matched_runners)
     total_week_runs = sum(m["runs"] for m in matched_runners)
     pct_achievers = (len(goal_achievers) / len(matched_runners) * 100.0) if matched_runners else 0.0
     
@@ -492,13 +504,12 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         return int(m.group(1))*60 + int(m.group(2)) if m else 99999
 
     if is_final:
-        # Hall of Fame: Distance King, Endurance Titan, Target Smasher, Mountain Goat, Speed Demon
+        # Hall of Fame: Distance King, Endurance Titan, Target Smasher, Run Machine, Speed Demon
         dist_king = max(mtd_active, key=lambda x: x["cum_distance"]) if mtd_active else None
         endurance_titan = max(mtd_active, key=lambda x: (x.get("cum_longest", 0.0), x["cum_distance"])) if mtd_active else None
         target_smasher = max(mtd_active, key=lambda x: (x["pct_monthly"], x["cum_distance"])) if mtd_active else None
         
-        elev_runners = [m for m in mtd_active if m.get("cum_elev", 0) > 0]
-        mountain_goat = max(elev_runners, key=lambda x: x["cum_elev"]) if elev_runners else None
+        run_machine = max(mtd_active, key=lambda x: (x.get("cum_runs", 0), x["cum_distance"])) if mtd_active else None
         
         speed_candidates = [m for m in mtd_active if m.get("cum_pace_s", 99999) < 99999 and m.get("cum_distance", 0) >= 20.0]
         speed_demon = min(speed_candidates, key=lambda x: x["cum_pace_s"]) if speed_candidates else None
@@ -906,7 +917,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         dist_king_stat = f"{dist_king['cum_distance']:.1f} km ({dist_king['cum_runs']} runs)" if dist_king else "-"
         endurance_stat = f"{endurance_titan['cum_longest']:.1f} km (50-Mile Ultra)" if (endurance_titan and endurance_titan['cum_longest'] >= 80) else (f"{endurance_titan['cum_longest']:.1f} km Single Run" if endurance_titan else "-")
         target_smasher_stat = f"{target_smasher['pct_monthly']:.1f}% of Goal ({target_smasher['cum_distance']:.1f} / {target_smasher['monthly_target']:.0f} km)" if target_smasher else "-"
-        mountain_goat_stat = f"{mountain_goat['cum_elev']:,} m Elevation ({mountain_goat['cum_distance']:.1f} km)" if mountain_goat else "-"
+        run_machine_stat = f"{run_machine['cum_runs']} Runs Logged ({run_machine['cum_distance']:.1f} km)" if run_machine else "-"
         speed_demon_stat = f"{speed_demon['cum_pace_str']} ({speed_demon['cum_distance']:.1f} km Logged)" if speed_demon else "-"
 
         hero_cards_html = f"""
@@ -932,11 +943,11 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             <div class="super-stat">{target_smasher_stat}</div>
         </div>
         <div class="super-card">
-            <div class="super-icon">🏔</div>
-            <div class="super-award">Mountain Goat</div>
-            <div class="super-sub">Total Elevation Gain</div>
-            <div class="super-winner">{mountain_goat['registered_name'] if mountain_goat else '-'}</div>
-            <div class="super-stat">{mountain_goat_stat}</div>
+            <div class="super-icon">👟</div>
+            <div class="super-award">Run Machine</div>
+            <div class="super-sub">Most Runs Logged</div>
+            <div class="super-winner">{run_machine['registered_name'] if run_machine else '-'}</div>
+            <div class="super-stat">{run_machine_stat}</div>
         </div>
         <div class="super-card">
             <div class="super-icon">⚡️</div>
@@ -992,6 +1003,8 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             <div class="super-stat">{speed_stat}</div>
         </div>
         """
+
+    footer_text = f"🏳️‍🌈 Birmingham Swifts Running Club • Swiftember 2026 Challenge Final Results • Smashed: {total_cum_logged:,.1f} km ({pct_total_month:.1f}% of {total_pledge:,.0f} km goal) • {total_cum_runs} Total Runs • {len(goal_achievers)} Goal Achievers! 🏃‍♂️💨" if is_final else "Swiftember 2026 Challenge Report • Birmingham Swifts Running Club"
 
     category_leaderboards_html = ""
     if is_final:
@@ -1208,24 +1221,117 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         <div class="finale-banner-sub">Huge congratulations to all 66 Birmingham Swifts runners for an incredible month of dedication, endurance, and community spirit!</div>
         <div class="finale-stats-grid">
             <div class="finale-stat-item">
-                <div class="finale-stat-num">6,579.4 km</div>
-                <div class="finale-stat-lbl">Total Distance Smashed (115.3%)</div>
+                <div class="finale-stat-num">{total_cum_logged:,.1f} km</div>
+                <div class="finale-stat-lbl">Total Distance Smashed ({pct_total_month:.1f}%)</div>
             </div>
             <div class="finale-stat-item">
-                <div class="finale-stat-num">706</div>
+                <div class="finale-stat-num">{total_cum_runs}</div>
                 <div class="finale-stat-lbl">Total Runs Logged</div>
             </div>
             <div class="finale-stat-item">
-                <div class="finale-stat-num">41,917 m</div>
+                <div class="finale-stat-num">{total_cum_elev:,} m</div>
                 <div class="finale-stat-lbl">Total Elevation Gain</div>
             </div>
             <div class="finale-stat-item">
-                <div class="finale-stat-num">56 / 66</div>
-                <div class="finale-stat-lbl">Goal Achievers (84.8%)</div>
+                <div class="finale-stat-num">{len(goal_achievers)} / {len(matched_runners)}</div>
+                <div class="finale-stat-lbl">Goal Achievers ({pct_achievers:.1f}%)</div>
             </div>
         </div>
     </div>
+    <div class="footer">
+        {footer_text} • Page 3 of 7
+    </div>
         """
+
+    final_shoutouts_html = ""
+    if is_final:
+        finishers = load_final_finishers()
+        if finishers:
+            cohort_metadata = [
+                {
+                    "part": 1,
+                    "badge": "🚀 PART 1 • THE TARGET DESTROYERS & EXPEDITION LEADERS",
+                    "subtitle": "Finishers #1 – #14 • Obliterating Targets from 133% up to 207% of Goal",
+                    "page_num": 4
+                },
+                {
+                    "part": 2,
+                    "badge": "🔥 PART 2 • THE HIGH-FLYING CENTURIONS & PACESETTERS",
+                    "subtitle": "Finishers #15 – #28 • Milestone Crushers, Half-Marathoners & Pride 10K Stars",
+                    "page_num": 5
+                },
+                {
+                    "part": 3,
+                    "badge": "💪 PART 3 • THE DOUBLE-CENTURY HEROES & MOMENTUM BUILDERS",
+                    "subtitle": "Finishers #29 – #42 • Featuring Distance King Thomas Glave, Berlin Marathoners & 100km+ Titans",
+                    "page_num": 6
+                },
+                {
+                    "part": 4,
+                    "badge": "🎯 PART 4 • THE CLUTCH FINISHERS & RESOLUTE CENTURY CLUB",
+                    "subtitle": "Finishers #43 – #56 • Run Machine Jake Colbourn, Comeback Heroes & Precision Finishers",
+                    "page_num": 7
+                }
+            ]
+
+            parts_html_list = []
+            batch_size = 14
+            for p_idx, meta in enumerate(cohort_metadata):
+                start_i = p_idx * batch_size
+                end_i = start_i + batch_size
+                batch = finishers[start_i:end_i]
+                
+                cards_html = ""
+                for f in batch:
+                    rk = f["rank"]
+                    rank_str = f"🥇 #{rk}" if rk == 1 else (f"🥈 #{rk}" if rk == 2 else (f"🥉 #{rk}" if rk == 3 else f"#{rk}"))
+                    elev_str = f"{f['total_elev_m']:,} m elev" if f.get('total_elev_m', 0) > 0 else "-- elev"
+                    longest_str = f"{f['longest_run_km']:.1f} km max" if f.get('longest_run_km', 0) > 0 else "-"
+                    pace_str = f"⚡️ {f['avg_pace']}" if f.get('avg_pace') and f['avg_pace'] != "--" else "Pace: --"
+                    surplus_txt = f"+{f['surplus_km']:.1f} km" if f.get('surplus_km', 0) > 0 else "Goal Hit"
+                    
+                    cards_html += f"""
+                    <div class="finisher-card">
+                        <div class="finisher-card-header">
+                            <div class="finisher-name-wrap">
+                                <span class="finisher-rank">{rank_str}</span>
+                                <span class="finisher-name">{f['name']}</span>
+                            </div>
+                            <span class="finisher-badge-pct">{f['total_km']:.1f} / {f['target_km']:.0f} km ({f['pct_achieved']:.1f}%)</span>
+                        </div>
+                        <div class="finisher-tag">{f['tag']}</div>
+                        <div class="finisher-msg">{f['shoutout']}</div>
+                        <div class="finisher-stats-bar">
+                            <span>🏃 {f['total_runs']} runs • 📏 {f['total_km']:.1f} km ({surplus_txt}) • ⛰ {elev_str}</span>
+                            <span>🏅 {longest_str} • {pace_str}</span>
+                        </div>
+                    </div>
+                    """
+                
+                part_page_html = f"""
+                <div class="page-break"></div>
+                <div class="finisher-page-header">
+                    <div>
+                        <div class="finisher-page-title">
+                            <span>🏆 SWIFTEMBER 2026 • FINISHER ROLL OF HONOR</span>
+                            <span class="finisher-page-pill">{meta['badge']}</span>
+                        </div>
+                        <div class="finisher-page-sub">{meta['subtitle']}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="finisher-page-counter">Page {meta['page_num']} of 7</span>
+                    </div>
+                </div>
+                <div class="finishers-grid">
+                    {cards_html}
+                </div>
+                <div class="footer">
+                    {footer_text} • Page {meta['page_num']} of 7
+                </div>
+                """
+                parts_html_list.append(part_page_html)
+
+            final_shoutouts_html = "".join(parts_html_list)
 
     # Weekly leaderboard section (omitted for final report)
     weekly_leaderboard_html = ""
@@ -1279,8 +1385,6 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
                 <th class="text-center">Challenge Status</th>
             </tr>
         """
-
-    footer_text = "🏳️‍🌈 Birmingham Swifts Running Club • Swiftember 2026 Challenge Final Results • Smashed: 6,579.4 km (115.3% of 5,704 km goal) • 706 Total Runs • 56 Goal Achievers! 🏃‍♂️💨" if is_final else "Swiftember 2026 Challenge Report • Birmingham Swifts Running Club"
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -1789,6 +1893,135 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             letter-spacing: 0.3px;
             margin-top: 1px;
         }}
+        /* Finisher Roll of Honor Section */
+        .finisher-page-header {{
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #4338ca 100%);
+            border-radius: 7px;
+            padding: 5px 12px;
+            color: #ffffff;
+            margin-top: 2px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }}
+        .finisher-page-title {{
+            font-size: 11.5px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }}
+        .finisher-page-sub {{
+            font-size: 8.8px;
+            color: #cbd5e1;
+            font-weight: 500;
+            margin-top: 1px;
+        }}
+        .finisher-page-pill {{
+            background: rgba(255, 255, 255, 0.15);
+            color: #fde047;
+            font-size: 8.5px;
+            font-weight: 700;
+            padding: 1.5px 7px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }}
+        .finisher-page-counter {{
+            font-size: 9.5px;
+            font-weight: 700;
+            color: #93c5fd;
+            white-space: nowrap;
+        }}
+        .finishers-grid {{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 2px;
+        }}
+        .finisher-card {{
+            width: 49.3%;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #cbd5e1;
+            border-left: 3.5px solid #4338ca;
+            border-radius: 6px;
+            padding: 4.5px 7.5px;
+            margin-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            page-break-inside: avoid;
+            break-inside: avoid;
+            box-sizing: border-box;
+            min-height: 78px;
+        }}
+        .finisher-card-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+            gap: 6px;
+        }}
+        .finisher-name-wrap {{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            overflow: hidden;
+        }}
+        .finisher-rank {{
+            font-size: 9px;
+            font-weight: 800;
+            color: #3730a3;
+            background: #e0e7ff;
+            padding: 1px 4.5px;
+            border-radius: 3.5px;
+            line-height: 1.1;
+            white-space: nowrap;
+        }}
+        .finisher-name {{
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.15;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }}
+        .finisher-badge-pct {{
+            font-size: 8.5px;
+            font-weight: 700;
+            color: #15803d;
+            background: #dcfce7;
+            padding: 1.5px 5.5px;
+            border-radius: 3.5px;
+            white-space: nowrap;
+        }}
+        .finisher-tag {{
+            font-size: 8.6px;
+            font-weight: 700;
+            color: #0284c7;
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }}
+        .finisher-msg {{
+            font-size: 8.2px;
+            color: #334155;
+            line-height: 1.26;
+            margin-bottom: 3px;
+            flex-grow: 1;
+        }}
+        .finisher-stats-bar {{
+            font-size: 7.6px;
+            color: #64748b;
+            font-weight: 600;
+            border-top: 1px dashed #e2e8f0;
+            padding-top: 2px;
+            display: flex;
+            justify-content: space-between;
+            white-space: nowrap;
+        }}
         .page-break {{ page-break-before: always; }}
         .footer {{ font-size: 8.5px; color: #64748b; text-align: center; margin-top: 6px; border-top: 1px solid #e2e8f0; padding-top: 4px; font-weight: 500; }}
     </style>
@@ -1846,9 +2079,9 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
 
     {category_leaderboards_html}
 
-    <div class="footer">
-        {footer_text}
-    </div>
+    {final_shoutouts_html}
+
+    {"" if is_final else f'<div class="footer">{footer_text}</div>'}
 </body>
 </html>
 """
@@ -1910,16 +2143,75 @@ def main():
     default_pdf_path = os.path.join(downloads_dir, default_pdf_name)
     pdf_path = args.output_pdf if args.output_pdf else default_pdf_path
 
-    chrome_cmd = [
-        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-        "--headless",
-        "--disable-gpu",
-        "--no-pdf-header-footer",
-        f"--print-to-pdf={pdf_path}",
-        f"file://{os.path.abspath(html_path)}"
-    ]
+    chrome_bin = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
-    subprocess.run(chrome_cmd, check=True)
+    if is_final:
+        # Chromium print engine can hang when printing a massive HTML document combining large paged tables with multi-page CSS grids.
+        # Splitting into Part 1 (Pages 1-3: total stats, Hall of Fame, main leaderboard, category leaderboards)
+        # and Part 2 (Pages 4-7: Finisher Roll of Honor cards) and merging via macOS PDFKit guarantees
+        # flawless 7-page rendering in under 10 seconds.
+        idx_shout = html_content.find('<div class="finisher-page-header">')
+        if idx_shout != -1:
+            idx_pb = html_content.rfind('<div class="page-break"></div>', 0, idx_shout)
+            split_pos = idx_pb if idx_pb != -1 else idx_shout
+            part1_html = html_content[:split_pos].rstrip() + "\n</body>\n</html>"
+            head_end = html_content.find("</head>")
+            head_part = html_content[:head_end + 7] + "\n<body>\n"
+            part2_body = html_content[split_pos:html_content.rfind("</body>")].strip()
+            part2_html = head_part + part2_body + "\n</body>\n</html>"
+
+            p1_html_path = os.path.join(BASE_DIR, "temp_report_final_p1_3.html")
+            p2_html_path = os.path.join(BASE_DIR, "temp_report_final_shoutouts.html")
+            p1_pdf_path = "/tmp/swiftember_final_p1_3.pdf"
+            p2_pdf_path = "/tmp/swiftember_final_shoutouts.pdf"
+
+            with open(p1_html_path, "w", encoding="utf-8") as f:
+                f.write(part1_html)
+            with open(p2_html_path, "w", encoding="utf-8") as f:
+                f.write(part2_html)
+
+            subprocess.run([chrome_bin, "--headless", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={p1_pdf_path}", f"file://{os.path.abspath(p1_html_path)}"], check=True)
+            subprocess.run([chrome_bin, "--headless", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={p2_pdf_path}", f"file://{os.path.abspath(p2_html_path)}"], check=True)
+
+            swift_merge_script = f"""
+import Foundation
+import PDFKit
+
+guard let doc1 = PDFDocument(url: URL(fileURLWithPath: "{p1_pdf_path}")),
+      let doc2 = PDFDocument(url: URL(fileURLWithPath: "{p2_pdf_path}")) else {{
+    exit(1)
+}}
+for i in 0..<doc2.pageCount {{
+    if let page = doc2.page(at: i) {{
+        doc1.insert(page, at: doc1.pageCount)
+    }}
+}}
+doc1.write(to: URL(fileURLWithPath: "{pdf_path}"))
+"""
+            subprocess.run(["swift", "-e", swift_merge_script], check=True)
+            for tmp_f in [p1_pdf_path, p2_pdf_path]:
+                if os.path.exists(tmp_f):
+                    os.remove(tmp_f)
+        else:
+            chrome_cmd = [
+                chrome_bin,
+                "--headless",
+                "--disable-gpu",
+                "--no-pdf-header-footer",
+                f"--print-to-pdf={pdf_path}",
+                f"file://{os.path.abspath(html_path)}"
+            ]
+            subprocess.run(chrome_cmd, check=True)
+    else:
+        chrome_cmd = [
+            chrome_bin,
+            "--headless",
+            "--disable-gpu",
+            "--no-pdf-header-footer",
+            f"--print-to-pdf={pdf_path}",
+            f"file://{os.path.abspath(html_path)}"
+        ]
+        subprocess.run(chrome_cmd, check=True)
 
     report_title = "Final Challenge Results" if is_final else f"Week {week_num}"
     print(f"\n[SUCCESS] Swiftember {report_title} Report successfully generated!")
