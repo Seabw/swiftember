@@ -32,7 +32,7 @@ selected_data = [
     },
     {
         "name": "Mark Blakeman",
-        "tag": "🏆 Surplus Distance Leader (+65.0 km) • 3rd Major Star",
+        "tag": "🚀 Surplus Champion (+65.0 km) • 3rd Major Star",
         "analysis": "215.0 km on 150 km target, +65.0 km surplus, 1,166 m elev, 4x 50k+ weeks, Berlin Marathon.",
         "message": "Generated the largest surplus distance in the club (+65.0 km), logging 215.0 km across 18 runs with 1,166 m of climbing. Averaged over 50 km weekly and completed the Berlin Marathon (42.7 km) to secure his 3rd World Major star."
     },

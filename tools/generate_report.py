@@ -951,7 +951,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         </div>
         <div class="super-card">
             <div class="super-icon">🚀</div>
-            <div class="super-award">Surplus Distance</div>
+            <div class="super-award">Surplus Champion</div>
             <div class="super-sub">Most Distance Over Target</div>
             <div class="super-winner">{surplus_leader['registered_name'] if surplus_leader else '-'}</div>
             <div class="super-stat">{surplus_stat}</div>
