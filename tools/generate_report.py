@@ -995,10 +995,10 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
 
     category_leaderboards_html = ""
     if is_final:
-        medals = ["🥇", "🥈", "🥉", "4", "5"]
+        medals = ["🥇", "🥈", "🥉", "4", "5", "6", "7", "8", "9", "10"]
 
-        # 1. Total Distance (Top 5)
-        top_dist = sorted(mtd_active, key=lambda x: x["cum_distance"], reverse=True)[:5]
+        # 1. Total Distance (Top 10)
+        top_dist = sorted(mtd_active, key=lambda x: x["cum_distance"], reverse=True)[:10]
         dist_rows = ""
         for idx, r in enumerate(top_dist):
             rank_str = medals[idx]
@@ -1012,10 +1012,10 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
                 </tr>
             """
 
-        # 2. Surplus Distance (Top 5)
+        # 2. Surplus Distance (Top 10)
         for r in matched_runners:
             r["surplus_km"] = round(r["cum_distance"] - r["monthly_target"], 2)
-        top_surplus = sorted([m for m in mtd_active if m["surplus_km"] > 0], key=lambda x: (x["surplus_km"], x["cum_distance"]), reverse=True)[:5]
+        top_surplus = sorted([m for m in mtd_active if m["surplus_km"] > 0], key=lambda x: (x["surplus_km"], x["cum_distance"]), reverse=True)[:10]
         surplus_rows = ""
         for idx, r in enumerate(top_surplus):
             rank_str = medals[idx]
@@ -1029,8 +1029,8 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
                 </tr>
             """
 
-        # 3. Run Frequency (Top 5)
-        top_freq = sorted(mtd_active, key=lambda x: (x["cum_runs"], x["cum_distance"]), reverse=True)[:5]
+        # 3. Run Frequency (Top 10)
+        top_freq = sorted(mtd_active, key=lambda x: (x["cum_runs"], x["cum_distance"]), reverse=True)[:10]
         freq_rows = ""
         for idx, r in enumerate(top_freq):
             rank_str = medals[idx]
@@ -1045,8 +1045,8 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
                 </tr>
             """
 
-        # 4. Single Longest Run (Top 5)
-        top_longest = sorted(mtd_active, key=lambda x: (x.get("cum_longest", 0.0), x["cum_distance"]), reverse=True)[:5]
+        # 4. Single Longest Run (Top 10)
+        top_longest = sorted(mtd_active, key=lambda x: (x.get("cum_longest", 0.0), x["cum_distance"]), reverse=True)[:10]
         longest_rows = ""
         for idx, r in enumerate(top_longest):
             rank_str = medals[idx]
@@ -1069,9 +1069,9 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
                 </tr>
             """
 
-        # 5. Speed (Pace) (Top 5, min 20 km)
+        # 5. Speed (Pace) (Top 10, min 20 km)
         speed_valid = [m for m in mtd_active if m.get("cum_pace_s", 99999) < 99999 and m.get("cum_distance", 0) >= 20.0]
-        top_speed = sorted(speed_valid, key=lambda x: x["cum_pace_s"])[:5]
+        top_speed = sorted(speed_valid, key=lambda x: x["cum_pace_s"])[:10]
         speed_rows = ""
         for idx, r in enumerate(top_speed):
             rank_str = medals[idx]
@@ -1087,7 +1087,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
 
         category_leaderboards_html = f"""
     <div class="page-break"></div>
-    <div class="section-title" style="margin-top: 4px; margin-bottom: 8px; font-size: 13px;">🏆 SWIFTEMBER 2026 • CATEGORY LEADERBOARDS (TOP 5)</div>
+    <div class="section-title" style="margin-top: 4px; margin-bottom: 8px; font-size: 13px;">🏆 SWIFTEMBER 2026 • CATEGORY LEADERBOARDS (TOP 10)</div>
     
     <div class="category-grid">
         <!-- Row 1: Total Distance, Surplus Distance, Run Frequency -->
@@ -1708,17 +1708,18 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             color: #475569;
             text-transform: uppercase;
             letter-spacing: 0.3px;
-            padding: 3px 4px;
+            padding: 2.5px 3.5px;
             border-top: none;
             border-bottom: 1.5px solid #cbd5e1;
             background: transparent;
         }}
         table.cat-table td {{
-            padding: 3.5px 4px;
+            padding: 2.0px 3.5px;
             border-bottom: 1px solid #f1f5f9;
             color: #1e293b;
             vertical-align: middle;
-            font-size: 10.5px;
+            font-size: 9.6px;
+            line-height: 1.2;
         }}
         table.cat-table tr:nth-child(even) td {{ background-color: #fafafa; }}
         table.cat-table tr:last-child td {{ border-bottom: none; }}
