@@ -648,8 +648,6 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
                     <td style="font-weight: 600;">{r['registered_name']}</td>
                     <td class="text-right">{r['monthly_target']:.0f} km</td>
                     <td class="text-right" style="font-weight: 700; color: {'#0f172a' if r['cum_distance'] > 0 else '#94a3b8'};">{r['cum_distance']:.1f} km</td>
-                    <td class="text-center" style="font-weight: 600; color: {'#334155' if r['cum_runs'] > 0 else '#94a3b8'};">{r['cum_runs']}</td>
-                    <td class="text-right" style="color: {'#475569' if r.get('cum_elev', 0) > 0 else '#94a3b8'};">{elev_str}</td>
                     <td class="text-center">{bar_html}</td>
                     <td class="text-center"><span class="status-badge {badge_cls}">{status_text}</span></td>
                 </tr>
@@ -1352,14 +1350,12 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
     if is_final:
         main_table_header = """
             <tr>
-                <th class="text-center" style="width: 30px;">#</th>
+                <th class="text-center" style="width: 32px;">#</th>
                 <th>Participant Name</th>
-                <th class="text-right">Monthly Target</th>
-                <th class="text-right">Total Logged</th>
-                <th class="text-center">Total Runs</th>
-                <th class="text-right">Elevation Gain</th>
-                <th class="text-center">Challenge Progress</th>
-                <th class="text-center">Final Status</th>
+                <th class="text-right" style="width: 115px;">Monthly Target</th>
+                <th class="text-right" style="width: 115px;">Total Logged</th>
+                <th class="text-center" style="width: 160px;">Challenge Progress</th>
+                <th class="text-center" style="width: 155px;">Final Status</th>
             </tr>
         """
     else:
@@ -1454,33 +1450,44 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             font-size: 12px;
             padding: 3.5px 10px;
         }}
-        table.full-table {{ font-size: 12.5px; width: 100%; border-collapse: collapse; margin-bottom: 5px; }}
+        table.full-table {{ font-size: 14px; width: 100%; border-collapse: collapse; margin-bottom: 5px; }}
         table.full-table th {{
-            font-size: 10.5px;
-            padding: 4px 6px;
+            font-size: 11.5px;
+            padding: 4.5px 6px;
             letter-spacing: 0.4px;
             background: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
             border-top: 1px solid #cbd5e1;
             border-bottom: 2px solid #cbd5e1;
         }}
         table.full-table td {{
-            padding: 2.2px 6px;
-            font-size: 12px;
-            line-height: 1.2;
+            padding: 2.3px 6px;
+            font-size: 13.5px;
+            line-height: 1.22;
             border-bottom: 1px solid #f1f5f9;
             vertical-align: middle;
         }}
+        table.full-table .progress-cell {{
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+        }}
         table.full-table .progress-val {{
-            font-size: 10.5px;
+            font-size: 12px;
+            font-weight: 700;
             line-height: 1.1;
+            min-width: 44px;
+            text-align: right;
         }}
         table.full-table .progress-bar-container {{
-            width: 60px;
-            height: 4.5px;
+            width: 75px;
+            height: 5.5px;
         }}
         table.full-table .status-badge {{
-            font-size: 10px;
-            padding: 1.8px 6px;
+            font-size: 11px;
+            padding: 2px 7px;
         }}
         table.fastest-table {{ font-size: 15px; width: 100%; border-collapse: collapse; margin-bottom: 6px; }}
         table.fastest-table th {{
