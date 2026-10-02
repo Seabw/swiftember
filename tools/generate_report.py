@@ -1239,7 +1239,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         </div>
     </div>
     <div class="footer">
-        {footer_text} • Page 3 of 7
+        {footer_text} • Page 3 of 5
     </div>
         """
 
@@ -1250,41 +1250,30 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             cohort_metadata = [
                 {
                     "part": 1,
-                    "badge": "🚀 PART 1 • THE TARGET DESTROYERS & EXPEDITION LEADERS",
-                    "subtitle": "Finishers #1 – #14 • Obliterating Targets from 133% up to 207% of Goal",
+                    "badge": "📊 PART 1 • CATEGORY LEADERS, SURPLUS ACHIEVEMENTS & VOLUME BUILDS",
+                    "subtitle": "Selective Highlights #1 – #10 • Notable Individual Performances & Milestone Metrics",
                     "page_num": 4
                 },
                 {
                     "part": 2,
-                    "badge": "🔥 PART 2 • THE HIGH-FLYING CENTURIONS & PACESETTERS",
-                    "subtitle": "Finishers #15 – #28 • Milestone Crushers, Half-Marathoners & Pride 10K Stars",
+                    "badge": "🏅 PART 2 • ENDURANCE TITANS, MARATHON MILESTONES & SPECIAL SPOTLIGHTS",
+                    "subtitle": "Selective Highlights #11 – #20 • High-Elevation Records, Major Debuts & Medical Comebacks",
                     "page_num": 5
-                },
-                {
-                    "part": 3,
-                    "badge": "💪 PART 3 • THE DOUBLE-CENTURY HEROES & MOMENTUM BUILDERS",
-                    "subtitle": "Finishers #29 – #42 • Featuring Distance King Thomas Glave, Berlin Marathoners & 100km+ Titans",
-                    "page_num": 6
-                },
-                {
-                    "part": 4,
-                    "badge": "🎯 PART 4 • THE CLUTCH FINISHERS & RESOLUTE CENTURY CLUB",
-                    "subtitle": "Finishers #43 – #56 • Run Machine Jake Colbourn, Comeback Heroes & Precision Finishers",
-                    "page_num": 7
                 }
             ]
 
             parts_html_list = []
-            batch_size = 14
+            batch_size = 10
             for p_idx, meta in enumerate(cohort_metadata):
                 start_i = p_idx * batch_size
                 end_i = start_i + batch_size
                 batch = finishers[start_i:end_i]
                 
                 cards_html = ""
-                for f in batch:
+                for c_idx, f in enumerate(batch):
+                    spotlight_num = start_i + c_idx + 1
                     rk = f["rank"]
-                    rank_str = f"🥇 #{rk}" if rk == 1 else (f"🥈 #{rk}" if rk == 2 else (f"🥉 #{rk}" if rk == 3 else f"#{rk}"))
+                    rank_str = f"Rank #{rk}"
                     elev_str = f"{f['total_elev_m']:,} m elev" if f.get('total_elev_m', 0) > 0 else "-- elev"
                     longest_str = f"{f['longest_run_km']:.1f} km max" if f.get('longest_run_km', 0) > 0 else "-"
                     pace_str = f"⚡️ {f['avg_pace']}" if f.get('avg_pace') and f['avg_pace'] != "--" else "Pace: --"
@@ -1313,20 +1302,20 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
                 <div class="finisher-page-header">
                     <div>
                         <div class="finisher-page-title">
-                            <span>🏆 SWIFTEMBER 2026 • FINISHER ROLL OF HONOR</span>
+                            <span>🏆 SWIFTEMBER 2026 • SELECTED HIGHLIGHTS & NOTABLE MILESTONES</span>
                             <span class="finisher-page-pill">{meta['badge']}</span>
                         </div>
                         <div class="finisher-page-sub">{meta['subtitle']}</div>
                     </div>
                     <div style="text-align: right;">
-                        <span class="finisher-page-counter">Page {meta['page_num']} of 7</span>
+                        <span class="finisher-page-counter">Page {meta['page_num']} of 5</span>
                     </div>
                 </div>
                 <div class="finishers-grid">
                     {cards_html}
                 </div>
                 <div class="footer">
-                    {footer_text} • Page {meta['page_num']} of 7
+                    {footer_text} • Page {meta['page_num']} of 5
                 </div>
                 """
                 parts_html_list.append(part_page_html)
@@ -1949,13 +1938,13 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             border: 1px solid #cbd5e1;
             border-left: 3.5px solid #4338ca;
             border-radius: 6px;
-            padding: 4.5px 7.5px;
-            margin-bottom: 5px;
+            padding: 6px 9px;
+            margin-bottom: 7px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
             page-break-inside: avoid;
             break-inside: avoid;
             box-sizing: border-box;
-            min-height: 78px;
+            min-height: 84px;
         }}
         .finisher-card-header {{
             display: flex;
@@ -1975,7 +1964,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             font-weight: 800;
             color: #3730a3;
             background: #e0e7ff;
-            padding: 1px 4.5px;
+            padding: 1.5px 5px;
             border-radius: 3.5px;
             line-height: 1.1;
             white-space: nowrap;
@@ -1999,25 +1988,25 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             white-space: nowrap;
         }}
         .finisher-tag {{
-            font-size: 8.6px;
+            font-size: 8.8px;
             font-weight: 700;
             color: #0284c7;
-            margin-bottom: 2px;
-            line-height: 1.2;
+            margin-bottom: 2.5px;
+            line-height: 1.25;
         }}
         .finisher-msg {{
-            font-size: 8.2px;
+            font-size: 8.4px;
             color: #334155;
-            line-height: 1.26;
-            margin-bottom: 3px;
+            line-height: 1.34;
+            margin-bottom: 3.5px;
             flex-grow: 1;
         }}
         .finisher-stats-bar {{
-            font-size: 7.6px;
+            font-size: 7.8px;
             color: #64748b;
             font-weight: 600;
             border-top: 1px dashed #e2e8f0;
-            padding-top: 2px;
+            padding-top: 3px;
             display: flex;
             justify-content: space-between;
             white-space: nowrap;
