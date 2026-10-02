@@ -1278,10 +1278,9 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
                     longest_str = f"{f['longest_run_km']:.1f} km max" if f.get('longest_run_km', 0) > 0 else "-"
                     pace_str = f"⚡️ {f['avg_pace']}" if f.get('avg_pace') and f['avg_pace'] != "--" else "Pace: --"
                     surplus_txt = f"+{f['surplus_km']:.1f} km" if f.get('surplus_km', 0) > 0 else "Goal Hit"
-                    card_cls = "finisher-card finisher-card-lead" if c_idx == 0 else "finisher-card"
                     
                     cards_html += f"""
-                    <div class="{card_cls}">
+                    <div class="finisher-card">
                         <div class="finisher-card-header">
                             <div class="finisher-name-wrap">
                                 <span class="finisher-rank">{rank_str}</span>
@@ -1946,13 +1945,6 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             break-inside: avoid;
             box-sizing: border-box;
             min-height: 76px;
-        }}
-        .finisher-card-lead {{
-            width: 100% !important;
-            min-height: 62px !important;
-            margin-bottom: 6px;
-            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
-            border-left: 4px solid #312e81;
         }}
         .finisher-card-header {{
             display: flex;
