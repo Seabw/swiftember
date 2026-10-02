@@ -27,8 +27,8 @@ selected_data = [
     {
         "name": "Adrián Nieves",
         "tag": "💥 Target Smasher • 206.8% Goal Completion",
-        "analysis": "51.7 km on 25 km target, 9 runs, 217 m elevation, Seville 8k prep after injury rehab.",
-        "message": "Recorded the highest percentage completion of any runner at 206.8%, logging 51.7 km on a 25 km target across 9 runs. Stepped up volume in Weeks 4 and 5 following injury rehabilitation in preparation for the Seville 8 km."
+        "analysis": "51.7 km on 25 km target, 9 runs, 217 m elevation, returned to running 1.5 months ago.",
+        "message": "Returned to running a month and a half ago, using Swiftember as the perfect motivation to keep pushing and stay consistent. Originally planning for a 25 km target, he ended up logging 51.7 km across 9 runs (206.8% completion) with 217 m of climbing."
     },
     {
         "name": "Mark Blakeman",
@@ -77,6 +77,12 @@ selected_data = [
         "tag": "🎯 Sub-60 10K Milestone (58:57) • London Pride 10K",
         "analysis": "101.8 km on 100 km target, 14 runs, 666 m elevation, dedicated preparation to break 60 mins.",
         "message": "Targeted a sub-60 minute 10K milestone during Swiftember, utilizing the challenge to structure dedicated preparation. Achieved the objective at the London Pride 10K with an official finish of 58:57, concluding the month with 101.8 km logged on a 100 km pledge across 14 outings."
+    },
+    {
+        "name": "Chris W",
+        "tag": "🍁 Leafy 10K Personal Best • Bournville Return",
+        "analysis": "53.6 km on 50 km target, 6 runs, 343 m elev, Leafy 10K PB in Bournville (beating last year debut).",
+        "message": "Returned to Bournville for the Leafy 10K, the site of his very first race last year. Aiming for a personal best and to beat his previous year's time, he accomplished both, concluding Swiftember with 53.6 km logged on a 50 km pledge (107.2% of goal)."
     },
     {
         "name": "Jack Dean",

@@ -511,8 +511,10 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         
         run_machine = max(mtd_active, key=lambda x: (x.get("cum_runs", 0), x["cum_distance"])) if mtd_active else None
         
-        speed_candidates = [m for m in mtd_active if m.get("cum_pace_s", 99999) < 99999 and m.get("cum_distance", 0) >= 20.0]
-        speed_demon = min(speed_candidates, key=lambda x: x["cum_pace_s"]) if speed_candidates else None
+        for r in mtd_active:
+            r["surplus_km"] = round(r["cum_distance"] - r["monthly_target"], 2)
+        surplus_candidates = [m for m in mtd_active if m.get("surplus_km", 0) > 0]
+        surplus_leader = max(surplus_candidates, key=lambda x: (x["surplus_km"], x["cum_distance"])) if surplus_candidates else None
     else:
         # Weekly heroes
         short_active = [m for m in weekly_active if m["monthly_target"] <= short_barrier]
@@ -916,7 +918,7 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
         endurance_stat = f"{endurance_titan['cum_longest']:.1f} km (50-Mile Ultra)" if (endurance_titan and endurance_titan['cum_longest'] >= 80) else (f"{endurance_titan['cum_longest']:.1f} km Single Run" if endurance_titan else "-")
         target_smasher_stat = f"{target_smasher['pct_monthly']:.1f}% of Goal ({target_smasher['cum_distance']:.1f} / {target_smasher['monthly_target']:.0f} km)" if target_smasher else "-"
         run_machine_stat = f"{run_machine['cum_runs']} Runs Logged ({run_machine['cum_distance']:.1f} km)" if run_machine else "-"
-        speed_demon_stat = f"{speed_demon['cum_pace_str']} ({speed_demon['cum_distance']:.1f} km Logged)" if speed_demon else "-"
+        surplus_stat = f"+{surplus_leader['surplus_km']:.1f} km Surplus ({surplus_leader['cum_distance']:.1f} km Logged)" if surplus_leader else "-"
 
         hero_cards_html = f"""
         <div class="super-card">
@@ -948,11 +950,11 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
             <div class="super-stat">{run_machine_stat}</div>
         </div>
         <div class="super-card">
-            <div class="super-icon">⚡️</div>
-            <div class="super-award">Speed Demon</div>
-            <div class="super-sub">Fastest Overall Pace</div>
-            <div class="super-winner">{speed_demon['registered_name'] if speed_demon else '-'}</div>
-            <div class="super-stat">{speed_demon_stat}</div>
+            <div class="super-icon">🚀</div>
+            <div class="super-award">Surplus Distance</div>
+            <div class="super-sub">Most Distance Over Target</div>
+            <div class="super-winner">{surplus_leader['registered_name'] if surplus_leader else '-'}</div>
+            <div class="super-stat">{surplus_stat}</div>
         </div>
         """
     else:
@@ -1245,27 +1247,30 @@ def generate_html_report(matched_runners, week_num=1, badge_subtitle="Official S
     if is_final:
         finishers = load_final_finishers()
         if finishers:
+            split_idx = 12 if len(finishers) >= 23 else 11
             cohort_metadata = [
                 {
                     "part": 1,
                     "badge": "📊 PART 1 • CATEGORY LEADERS, SURPLUS ACHIEVEMENTS & VOLUME BUILDS",
-                    "subtitle": "Selective Highlights #1 – #11 • Notable Individual Performances & Milestone Metrics",
-                    "page_num": 4
+                    "subtitle": f"Selective Highlights #1 – #{split_idx} • Notable Individual Performances & Milestone Metrics",
+                    "page_num": 4,
+                    "batch": finishers[:split_idx],
+                    "start_i": 0
                 },
                 {
                     "part": 2,
                     "badge": "🏅 PART 2 • ENDURANCE TITANS, MARATHON MILESTONES & SPECIAL SPOTLIGHTS",
-                    "subtitle": "Selective Highlights #12 – #22 • High-Elevation Records, Major Debuts & Medical Comebacks",
-                    "page_num": 5
+                    "subtitle": f"Selective Highlights #{split_idx + 1} – #{len(finishers)} • High-Elevation Records, Major Debuts & Medical Comebacks",
+                    "page_num": 5,
+                    "batch": finishers[split_idx:],
+                    "start_i": split_idx
                 }
             ]
 
             parts_html_list = []
-            batch_size = 11
-            for p_idx, meta in enumerate(cohort_metadata):
-                start_i = p_idx * batch_size
-                end_i = start_i + batch_size
-                batch = finishers[start_i:end_i]
+            for meta in cohort_metadata:
+                batch = meta["batch"]
+                start_i = meta["start_i"]
                 
                 cards_html = ""
                 for c_idx, f in enumerate(batch):
