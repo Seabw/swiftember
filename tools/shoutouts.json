@@ -3,34 +3,34 @@
   "week_1": [
     {
       "name": "Jack Dean",
-      "tag": "🏃‍♂️ Chicago Marathon",
+      "tag": "\ud83c\udfc3\u200d\u2642\ufe0f Chicago Marathon",
       "message": "Training hard and putting in big miles in preparation for the Chicago Marathon!"
     },
     {
       "name": "Alice Wilkinson & Jake Colbourn",
-      "tag": "🏔 50-Mile Ultra (Sep 12)",
+      "tag": "\ud83c\udfd4 50-Mile Ultra (Sep 12)",
       "message": "Massive good luck to Alice & Jake who are taking on their epic 50-mile Ultra Marathon on September 12th!"
     },
     {
       "name": "Neesa",
-      "tag": "💪 Gym & S&C",
+      "tag": "\ud83d\udcaa Gym & S&C",
       "message": "Putting in the hard yards with strength and conditioning sessions at the gym to boost power and support her running!"
     },
     {
       "name": "Chris W",
-      "tag": "🔥 Streak Master",
+      "tag": "\ud83d\udd25 Streak Master",
       "message": "Keeping the running streak blazing strong while adding extra mileage and longer runs to the calendar!"
     }
   ],
   "week_2": [
     {
-      "name": "Adrián Nieves",
-      "tag": "🇪🇸 Seville 8 km Preparation",
-      "message": "Currently in an injury recovery phase, Adrián is steadily rebuilding fitness with a focus on completing an 8 km run in Seville at the end of September. The club extends its best wishes for his continued recovery and upcoming event."
+      "name": "Adri\u00e1n Nieves",
+      "tag": "\ud83c\uddea\ud83c\uddf8 Seville 8 km Preparation",
+      "message": "Currently in an injury recovery phase, Adri\u00e1n is steadily rebuilding fitness with a focus on completing an 8 km run in Seville at the end of September. The club extends its best wishes for his continued recovery and upcoming event."
     },
     {
       "name": "Barry Cassidy",
-      "tag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Great Scottish Run Half Marathon",
+      "tag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc73\udb40\udc63\udb40\udc74\udb40\udc7f Great Scottish Run Half Marathon",
       "message": "Barry is managing his return from injury with structured training in preparation for the Great Scottish Run on October 4th. His disciplined approach to rehabilitation and mileage provides a solid foundation for the half marathon in Glasgow."
     },
     {
@@ -66,83 +66,83 @@
   ],
   "week_3": {
     "type": "berlin_marathon_special",
-    "title": "🇩🇪 SPECIAL EVENT SPOTLIGHT • BMW BERLIN MARATHON 2026",
-    "headline": "ALL THE BEST TO OUR 13 BERLIN MARATHON SWIFTS! 🏃‍♂️💨🇩🇪",
-    "badge_major": "🇩🇪 WORLD MARATHON MAJOR",
-    "badge_event": "BMW BERLIN MARATHON 2026 • SUN 27 SEP",
+    "title": "\ud83c\udde9\ud83c\uddea SPECIAL EVENT SPOTLIGHT \u2022 BMW BERLIN MARATHON 2026",
+    "headline": "ALL THE BEST TO OUR 13 BERLIN MARATHON SWIFTS! \ud83c\udfc3\u200d\u2642\ufe0f\ud83d\udca8\ud83c\udde9\ud83c\uddea",
+    "badge_major": "\ud83c\udde9\ud83c\uddea WORLD MARATHON MAJOR",
+    "badge_event": "BMW BERLIN MARATHON 2026 \u2022 SUN 27 SEP",
     "intro": "A huge club shoutout and best wishes to all 13 Birmingham Swifts heading to Germany this weekend to conquer the iconic 42.195 km Berlin course! From marathon debutants to World Marathon Major star chasers and Boston qualifiers, the entire club is cheering you across the finish line through the Brandenburg Gate!",
-    "footer": "🇩🇪 Gute Reise & smash those 42.195 km through the streets of Berlin! The whole club will be live tracking and cheering you on! 🏅",
+    "footer": "\ud83c\udde9\ud83c\uddea Gute Reise & smash those 42.195 km through the streets of Berlin! The whole club will be live tracking and cheering you on! \ud83c\udfc5",
     "runners": [
       {
         "name": "Mark Blakeman",
-        "tag": "⭐ 3rd Major Star & Boston BQ",
+        "tag": "\u2b50 3rd Major Star & Boston BQ",
         "message": "Chasing his 3rd World Marathon Major star and working hard to secure a Good for Age qualifying time for the Boston Marathon."
       },
       {
         "name": "Alexander Brown",
-        "tag": "💪 Comeback & Final Push",
+        "tag": "\ud83d\udcaa Comeback & Final Push",
         "message": "Overcame tough difficulties during marathon training and picked himself right back up for the final push into Berlin."
       },
       {
         "name": "Bo Wang",
-        "tag": "⭐ 3rd Major Star Hunt",
+        "tag": "\u2b50 3rd Major Star Hunt",
         "message": "After Paris and London Marathon earlier this year, another dedicated marathoner on the hunt for his 3rd World Marathon Major star through the streets of Berlin."
       },
       {
         "name": "Chris Bainbridge",
-        "tag": "👑 Top Swiftember Berliner",
+        "tag": "\ud83d\udc51 Top Swiftember Berliner",
         "message": "Battled through a painful injury during training, bounced back impressively, and logged the most distance in Swiftember among all Berlin runners."
       },
       {
         "name": "Helen Williams",
-        "tag": "🇫🇷 Paris & Berlin Double 🇩🇪",
+        "tag": "\ud83c\uddeb\ud83c\uddf7 Paris & Berlin Double \ud83c\udde9\ud83c\uddea",
         "message": "Taking on her second full marathon of the year following the Paris Marathon earlier this spring. What a phenomenal achievement!"
       },
       {
         "name": "Ian Allen",
-        "tag": "🏃 Race Machine & High Mileage",
+        "tag": "\ud83c\udfc3 Race Machine & High Mileage",
         "message": "A true half and full marathon junkie who trains relentlessly and has lined up for the most races among all our Berlin runners."
       },
       {
         "name": "Joe Pinder",
-        "tag": "🧘 Calm, Steady & Composed",
+        "tag": "\ud83e\uddd8 Calm, Steady & Composed",
         "message": "Calm, composed, and steady, quietly banking huge miles and putting tremendous effort into his Berlin Marathon build."
       },
       {
         "name": "Richard Lakin",
-        "tag": "🗽 2nd Major (NYC & Berlin)",
+        "tag": "\ud83d\uddfd 2nd Major (NYC & Berlin)",
         "message": "Temporarily traded his love for beer for marathon miles! Berlin is his second World Marathon Major after New York last autumn."
       },
       {
         "name": "Michael Lakin",
-        "tag": "🔥 2nd Marathon & Pure Grit",
+        "tag": "\ud83d\udd25 2nd Marathon & Pure Grit",
         "message": "Berlin is also his second full marathon after New York last year, proving time and again that he never gives up when the going gets tough."
       },
       {
         "name": "Josh Savage",
-        "tag": "👑 Club Chair & True Grit",
+        "tag": "\ud83d\udc51 Club Chair & True Grit",
         "message": "Our club chair who likes to moan and complain a lot in the group chat, but backed it up with massive dedication and effort in his marathon training!"
       },
       {
         "name": "Matthew Rushton",
-        "tag": "🚀 Berlin Debutant",
+        "tag": "\ud83d\ude80 Berlin Debutant",
         "message": "A newcomer to the Berlin Marathon who caught up nicely during training and built wonderful momentum heading into race weekend."
       },
       {
         "name": "Tim Reeves",
-        "tag": "🌟 First Full Marathon",
+        "tag": "\ud83c\udf1f First Full Marathon",
         "message": "Tackling his very first full marathon! Put so much hard work into this marathon training block and will definitely smash Berlin."
       },
       {
         "name": "Richard Wilkes",
-        "tag": "🥐 Pastry & Meat Fueled",
+        "tag": "\ud83e\udd50 Pastry & Meat Fueled",
         "message": "Proud pastry and meat lover, and grueling marathon training miles haven't changed that dietary fuel strategy one single bit!"
       }
     ],
     "additional_shoutouts": [
       {
         "name": "London Pride 10K Swifts Team",
-        "tag": "🏳️‍🌈 London Pride 10K • 24 Runners",
+        "tag": "\ud83c\udff3\ufe0f\u200d\ud83c\udf08 London Pride 10K \u2022 24 Runners",
         "message": "A massive club shoutout and huge congratulations to all 24 Swifts who showed up in force and took on the London Pride 10K over the weekend with fantastic club spirit and brilliant running!",
         "runners_list": [
           "Benjamin Lane",
@@ -173,20 +173,1254 @@
       },
       {
         "name": "Benjamin Lane",
-        "tag": "⚡️ Speed Demon & 1st Swift in Pride 10K",
+        "tag": "\u26a1\ufe0f Speed Demon & 1st Swift in Pride 10K",
         "message": "Came first among the Swifts team at the London Pride 10K, and clocked a blistering week to secure the Week 3 Speed Demon title!"
       },
       {
         "name": "Lee Singleton",
-        "tag": "💪 Inspiring Comeback & Resilience",
+        "tag": "\ud83d\udcaa Inspiring Comeback & Resilience",
         "message": "The London Pride 10K is the most he has pushed himself since recovering from his injury following a seizure last year, marking an inspiring milestone!"
       },
       {
         "name": "Pete Hall",
-        "tag": "🌟 Race Debut Smashed & Big Target",
+        "tag": "\ud83c\udf1f Race Debut Smashed & Big Target",
         "message": "The London Pride 10K was his first ever official race, and he smashed it! He has also committed to a huge mileage target this Swiftember."
       }
     ]
   },
-  "week_4": []
+  "week_4": [],
+  "final_finishers": [
+    {
+      "rank": 1,
+      "name": "Adri\u00e1n Nieves",
+      "target_km": 25.0,
+      "total_km": 51.71,
+      "pct_achieved": 206.8,
+      "surplus_km": 26.7,
+      "total_runs": 9,
+      "total_elev_m": 217,
+      "avg_pace": "6:43 /km",
+      "longest_run_km": 10.0,
+      "weekly_km": [
+        7.01,
+        11.1,
+        5.9,
+        17.7,
+        10.0
+      ],
+      "tag": "\ud83d\udca5 Target Smasher & Seville 8k Ready",
+      "analysis": "Rebuilding fitness after injury with immense discipline, peaking in Week 4 with 17.7 km and a strong 10.0 km in Week 5.",
+      "shoutout": "What an extraordinary comeback! You didn't just meet your 25 km target\u2014you demolished it by over 206%, logging 51.7 km across 9 runs. From injury rehab to peak fitness for the Seville 8 km, your patience and dedication have been a masterclass in resilience!"
+    },
+    {
+      "rank": 2,
+      "name": "Jon Williams",
+      "target_km": 35.0,
+      "total_km": 68.2,
+      "pct_achieved": 194.9,
+      "surplus_km": 33.2,
+      "total_runs": 10,
+      "total_elev_m": 247,
+      "avg_pace": "5:29 /km",
+      "longest_run_km": 10.0,
+      "weekly_km": [
+        5.0,
+        20.0,
+        16.5,
+        21.7,
+        5.0
+      ],
+      "tag": "\ud83c\udf1f Steady Progression & 195% Smashed",
+      "analysis": "Quadrupled mileage from Week 1 (5.0 km) to Week 2 (20.0 km) and kept crushing 16-22 km each week.",
+      "shoutout": "A phenomenal month of smart, progressive running! Bouncing back from injury, you quadrupled your mileage after Week 1 and never looked back, stacking 68.2 km on your 35 km goal. Consistent, measured, and unstoppable!"
+    },
+    {
+      "rank": 3,
+      "name": "Anthony Morgan",
+      "target_km": 75.0,
+      "total_km": 135.8,
+      "pct_achieved": 181.1,
+      "surplus_km": 60.8,
+      "total_runs": 15,
+      "total_elev_m": 992,
+      "avg_pace": "5:16 /km",
+      "longest_run_km": 21.4,
+      "weekly_km": [
+        43.5,
+        38.3,
+        19.8,
+        34.2,
+        0.0
+      ],
+      "tag": "\ud83d\ude80 Massive +60.8 km Surplus & 992m Elev",
+      "analysis": "Blazed out of the gate with 43.5 km and 38.3 km in weeks 1-2, logging a half marathon long run.",
+      "shoutout": "Blistering pace and relentless climbing! You opened Swiftember with two massive 40 km weeks and conquered nearly 1,000 m of elevation, delivering 135.8 km on a 75 km target (+60.8 km surplus). Pure endurance brilliance!"
+    },
+    {
+      "rank": 4,
+      "name": "Andrea Bohn",
+      "target_km": 35.0,
+      "total_km": 63.1,
+      "pct_achieved": 180.3,
+      "surplus_km": 28.1,
+      "total_runs": 21,
+      "total_elev_m": 17,
+      "avg_pace": "7:57 /km",
+      "longest_run_km": 5.1,
+      "weekly_km": [
+        14.6,
+        10.1,
+        18.1,
+        13.4,
+        6.9
+      ],
+      "tag": "\ud83d\udc5f Frequency Queen \u2022 21 Runs Logged",
+      "analysis": "Clocked in nearly every other day with 21 separate runs, maintaining unwavering regularity across all 5 weeks.",
+      "shoutout": "The absolute benchmark of running consistency! Lacing up 21 times across 5 weeks, you quietly transformed steady outings into 63.1 km\u2014crushing your 35 km pledge by 180%. The habit of showing up every single week is inspirational!"
+    },
+    {
+      "rank": 5,
+      "name": "David Purnell",
+      "target_km": 50.0,
+      "total_km": 89.6,
+      "pct_achieved": 179.2,
+      "surplus_km": 39.6,
+      "total_runs": 14,
+      "total_elev_m": 654,
+      "avg_pace": "6:36 /km",
+      "longest_run_km": 10.0,
+      "weekly_km": [
+        20.6,
+        18.7,
+        16.5,
+        28.8,
+        5.0
+      ],
+      "tag": "\ud83d\udd25 +39.6 km Surplus & Week 4 Peak",
+      "analysis": "Consistent 16-20 km weekly base followed by a brilliant 28.8 km surge in Week 4.",
+      "shoutout": "Superb pacing across the month! After laying down rock-solid weekly mileage in the first three weeks, you hit hyperdrive in Week 4 with nearly 29 km, crossing the line at 89.6 km (179% of goal). Incredible engine and focus!"
+    },
+    {
+      "rank": 6,
+      "name": "Harvey Degan",
+      "target_km": 50.0,
+      "total_km": 85.5,
+      "pct_achieved": 171.0,
+      "surplus_km": 35.5,
+      "total_runs": 10,
+      "total_elev_m": 474,
+      "avg_pace": "6:13 /km",
+      "longest_run_km": 23.0,
+      "weekly_km": [
+        49.3,
+        15.1,
+        8.6,
+        12.4,
+        0.1
+      ],
+      "tag": "\u26a1\ufe0f Week 1 Thunderclap & Half Marathon Hero",
+      "analysis": "Stormed the challenge with a jaw-dropping 49.3 km in Week 1, including a 23.0 km long run.",
+      "shoutout": "Talk about making a statement! You effectively locked down your entire monthly pledge in Week 1 alone with a staggering 49.3 km week and a 23 km long run. Finishing on 85.5 km with 474 m elevation is top-tier determination!"
+    },
+    {
+      "rank": 7,
+      "name": "Ross Newman",
+      "target_km": 50.0,
+      "total_km": 84.39999999999999,
+      "pct_achieved": 168.8,
+      "surplus_km": 34.4,
+      "total_runs": 11,
+      "total_elev_m": 629,
+      "avg_pace": "6:07 /km",
+      "longest_run_km": 13.7,
+      "weekly_km": [
+        24.0,
+        21.3,
+        20.4,
+        18.7,
+        0.0
+      ],
+      "tag": "\ud83c\udfd4 Steady Climber & 629m Elevation",
+      "analysis": "Model of metronomic consistency: 24.0 km, 21.3 km, 20.4 km, and 18.7 km across the first four weeks.",
+      "shoutout": "Clockwork consistency at its finest! You delivered four consecutive 20 km+ weeks with remarkable composure and 629 m of hill climbing, cruising to 84.4 km on your 50 km pledge (169%). Smooth, dependable, and strong!"
+    },
+    {
+      "rank": 8,
+      "name": "Jack Whitfield",
+      "target_km": 25.0,
+      "total_km": 41.3,
+      "pct_achieved": 165.2,
+      "surplus_km": 16.3,
+      "total_runs": 8,
+      "total_elev_m": 339,
+      "avg_pace": "6:04 /km",
+      "longest_run_km": 7.2,
+      "weekly_km": [
+        14.3,
+        12.0,
+        0.0,
+        15.0,
+        0.0
+      ],
+      "tag": "\ud83c\udfaf Fortnight Finisher & Fast Target",
+      "analysis": "Hit his 25 km target within the first fortnight with 14.3 km and 12.0 km, adding a 15.0 km surge in Week 4.",
+      "shoutout": "Speedy, clinical, and effective! You reached 100% of your pledge in the first fortnight, then capped it off with a 15 km Week 4 surge to finish on 41.3 km (165%). Outstanding execution from start to finish!"
+    },
+    {
+      "rank": 9,
+      "name": "Richard Lakin",
+      "target_km": 100.0,
+      "total_km": 152.10000000000002,
+      "pct_achieved": 152.1,
+      "surplus_km": 52.1,
+      "total_runs": 8,
+      "total_elev_m": 660,
+      "avg_pace": "6:44 /km",
+      "longest_run_km": 42.6,
+      "weekly_km": [
+        40.9,
+        32.0,
+        29.9,
+        49.3,
+        0.0
+      ],
+      "tag": "\ud83d\uddfd Berlin Major Conqueror & +52.1 km Surplus",
+      "analysis": "Traded beer for marathon miles! 40.9 km (W1), 32.0 km (W2), 29.9 km (W3), peaking with a 49.3 km Berlin week.",
+      "shoutout": "Trading your beloved pints for marathon miles paid off in golden fashion! Four massive weeks peaked with a triumphant 42.6 km through the streets of Berlin, racking up 152.1 km (+52.1 km surplus). A true marathon legend!"
+    },
+    {
+      "rank": 10,
+      "name": "Sam Gower",
+      "target_km": 70.0,
+      "total_km": 103.4,
+      "pct_achieved": 147.7,
+      "surplus_km": 33.4,
+      "total_runs": 16,
+      "total_elev_m": 818,
+      "avg_pace": "5:51 /km",
+      "longest_run_km": 10.0,
+      "weekly_km": [
+        21.9,
+        23.7,
+        23.7,
+        27.9,
+        6.2
+      ],
+      "tag": "\ud83d\udcaa Double-Century Seeker & 818m Elev",
+      "analysis": "Unbeatable consistency: 21.9 km, 23.7 km, 23.7 km, and 27.9 km, topping 100 km total.",
+      "shoutout": "The epitome of discipline! Week after week, you banked 22 to 28 km like clockwork, taking on London Pride 10K, climbing 818 m, and breaking through the 100 km barrier (103.4 km). Fantastic grit and momentum!"
+    },
+    {
+      "rank": 11,
+      "name": "Scott Brough",
+      "target_km": 75.0,
+      "total_km": 107.8,
+      "pct_achieved": 143.7,
+      "surplus_km": 32.8,
+      "total_runs": 13,
+      "total_elev_m": 662,
+      "avg_pace": "5:59 /km",
+      "longest_run_km": 10.3,
+      "weekly_km": [
+        17.0,
+        30.4,
+        17.7,
+        32.6,
+        10.1
+      ],
+      "tag": "\ud83d\ude80 Pride 10K Hero & 144% Achieved",
+      "analysis": "Alternated solid maintenance with huge breakthrough weeks (30.4 km W2, 32.6 km W4).",
+      "shoutout": "What an energetic, spirited month! From showing up in force at London Pride 10K to launching huge 30 km+ surges in Weeks 2 and 4, you effortlessly shattered your 75 km target to reach 107.8 km. Outstanding dedication!"
+    },
+    {
+      "rank": 12,
+      "name": "Mark Blakeman",
+      "target_km": 150.0,
+      "total_km": 215.0,
+      "pct_achieved": 143.3,
+      "surplus_km": 65.0,
+      "total_runs": 18,
+      "total_elev_m": 1166,
+      "avg_pace": "5:43 /km",
+      "longest_run_km": 42.7,
+      "weekly_km": [
+        54.0,
+        53.1,
+        42.9,
+        59.3,
+        5.7
+      ],
+      "tag": "\u2b50 3rd Major Star Hunter & +65.0 km Surplus",
+      "analysis": "Averaged 50+ km every week (54.0, 53.1, 42.9, 59.3), completed Berlin Marathon in 42.7 km.",
+      "shoutout": "A breathtaking masterclass in marathon endurance! With four consecutive 50 km+ weeks, 1,166 m of climbing, and a stellar Berlin Marathon, you earned your 3rd Major star and banked 215.0 km. Chasing that Boston BQ with true champion spirit!"
+    },
+    {
+      "rank": 13,
+      "name": "Thomas Glave",
+      "target_km": 200.0,
+      "total_km": 282.1,
+      "pct_achieved": 141.1,
+      "surplus_km": 82.1,
+      "total_runs": 24,
+      "total_elev_m": 1343,
+      "avg_pace": "7:21 /km",
+      "longest_run_km": 42.6,
+      "weekly_km": [
+        74.5,
+        90.0,
+        0.0,
+        86.8,
+        30.8
+      ],
+      "tag": "\ud83d\udc51 The Distance King \u2022 282.1 km Logged",
+      "analysis": "Monster weeks: 74.5 km (W1), 90.0 km (W2), 86.8 km (W4), and 30.8 km (W5). Marathon long run of 42.6 km.",
+      "shoutout": "Hail the Distance King of Swiftember! Logging 282.1 km across 24 runs and conquering 1,343 m of climbing, you set the standard for high-mileage mastery. An awe-inspiring achievement that pushed the entire club forward!"
+    },
+    {
+      "rank": 14,
+      "name": "Joe Pinder",
+      "target_km": 150.0,
+      "total_km": 208.2,
+      "pct_achieved": 138.8,
+      "surplus_km": 58.2,
+      "total_runs": 17,
+      "total_elev_m": 1324,
+      "avg_pace": "6:11 /km",
+      "longest_run_km": 42.6,
+      "weekly_km": [
+        52.6,
+        51.5,
+        39.5,
+        58.9,
+        5.7
+      ],
+      "tag": "\ud83e\uddd8 Calm, Composed & Berlin Finisher",
+      "analysis": "Triple 50 km+ weeks (52.6, 51.5, 58.9 km) culminating in a 42.6 km Berlin Marathon.",
+      "shoutout": "Cool, calm, and effortlessly powerful! You quietly laid down three 50 km+ weeks, conquered 1,324 m of elevation, and crossed the Berlin finish line with poise to bank 208.2 km (+58.2 km surplus). A truly majestic campaign!"
+    },
+    {
+      "rank": 15,
+      "name": "Jimmy Simpson",
+      "target_km": 75.0,
+      "total_km": 99.8,
+      "pct_achieved": 133.1,
+      "surplus_km": 24.8,
+      "total_runs": 16,
+      "total_elev_m": 684,
+      "avg_pace": "6:22 /km",
+      "longest_run_km": 12.3,
+      "weekly_km": [
+        19.8,
+        20.7,
+        19.1,
+        24.0,
+        16.2
+      ],
+      "tag": "\u26a1\ufe0f 16 Runs of Pure Energy & 99.8 km",
+      "analysis": "Consistent 20-24 km every single week, with a strong 16.2 km Week 5 wrap-up.",
+      "shoutout": "Rock-steady rhythm week in and week out! Logging 16 runs with unmatched dependability, you built up week after week to land at 99.8 km\u2014133% of your 75 km goal. A fantastic testament to steady, regular training!"
+    },
+    {
+      "rank": 16,
+      "name": "James Chaundy",
+      "target_km": 75.0,
+      "total_km": 99.8,
+      "pct_achieved": 133.1,
+      "surplus_km": 24.8,
+      "total_runs": 13,
+      "total_elev_m": 759,
+      "avg_pace": "5:36 /km",
+      "longest_run_km": 21.3,
+      "weekly_km": [
+        36.4,
+        10.6,
+        23.4,
+        27.8,
+        1.6
+      ],
+      "tag": "\ud83c\udfc3 Half Marathon Ace & 133% Smashed",
+      "analysis": "Kicked off with a huge 36.4 km Week 1, backed it up with 23-28 km in W3 and W4, including a 21.3 km half marathon.",
+      "shoutout": "A powerhouse opening week and brilliant long-distance execution! Your 21.3 km half marathon and consistent high-mileage weeks brought you to 99.8 km (133% of goal) with 759 m of climbing. Fantastic running!"
+    },
+    {
+      "rank": 17,
+      "name": "Bradley M \ud83c\udff3\ufe0f\u200d\ud83c\udf08\ud83d\udcaa\ud83c\udfc3\u200d\u2642\ufe0f",
+      "target_km": 20.0,
+      "total_km": 26.11,
+      "pct_achieved": 130.5,
+      "surplus_km": 6.1,
+      "total_runs": 5,
+      "total_elev_m": 126,
+      "avg_pace": "6:24 /km",
+      "longest_run_km": 10.1,
+      "weekly_km": [
+        3.01,
+        0.0,
+        10.0,
+        10.1,
+        3.0
+      ],
+      "tag": "\ud83d\udcaa Week 3 & 4 Power Surges",
+      "analysis": "Doubled down with back-to-back 10.0 km and 10.1 km weeks in the second half of September.",
+      "shoutout": "A brilliant mid-challenge surge! You ramped up your mileage right when it mattered, putting in back-to-back 10 km weeks to smash your 20 km pledge with 26.1 km (130.5%). That rainbow power and determination shone through!"
+    },
+    {
+      "rank": 18,
+      "name": "Michael Lakin",
+      "target_km": 100.0,
+      "total_km": 127.60000000000001,
+      "pct_achieved": 127.6,
+      "surplus_km": 27.6,
+      "total_runs": 5,
+      "total_elev_m": 563,
+      "avg_pace": "7:00 /km",
+      "longest_run_km": 42.7,
+      "weekly_km": [
+        32.1,
+        32.1,
+        20.7,
+        42.7,
+        0.0
+      ],
+      "tag": "\ud83d\udd25 Pure Grit & Berlin Marathon Finish",
+      "analysis": "Two 32.1 km weeks followed by a 42.7 km Berlin Marathon effort, achieving 127.6% of goal.",
+      "shoutout": "When the going gets tough, you simply push harder! Backing up two 32 km opening weeks with an inspiring 42.7 km finish through the Brandenburg Gate, you proved your indomitable spirit and racked up 127.6 km. Magnificent effort!"
+    },
+    {
+      "rank": 19,
+      "name": "Lex Hooper",
+      "target_km": 40.0,
+      "total_km": 50.32,
+      "pct_achieved": 125.8,
+      "surplus_km": 10.3,
+      "total_runs": 8,
+      "total_elev_m": 273,
+      "avg_pace": "6:39 /km",
+      "longest_run_km": 7.0,
+      "weekly_km": [
+        6.72,
+        18.1,
+        6.6,
+        18.9,
+        0.0
+      ],
+      "tag": "\ud83d\ude80 Mid-Month Surge & 126% Achieved",
+      "analysis": "Huge leap from 6.7 km in W1 to 18.1 km in W2 and 18.9 km in W4.",
+      "shoutout": "What an awesome progression! You launched massive 18 km+ weeks in Weeks 2 and 4, turning a 40 km pledge into a 50.3 km triumph. Smart pacing, great endurance, and a fantastic goal-smashing finish!"
+    },
+    {
+      "rank": 20,
+      "name": "John Simpson",
+      "target_km": 100.0,
+      "total_km": 123.0,
+      "pct_achieved": 123.0,
+      "surplus_km": 23.0,
+      "total_runs": 14,
+      "total_elev_m": 789,
+      "avg_pace": "5:11 /km",
+      "longest_run_km": 15.0,
+      "weekly_km": [
+        9.3,
+        39.8,
+        32.3,
+        26.6,
+        15.0
+      ],
+      "tag": "\u26a1\ufe0f 5:11 /km Pacing & 123 km Logged",
+      "analysis": "Exploded in Week 2 with 39.8 km, maintaining 26-32 km through the second half with 15 km long runs.",
+      "shoutout": "Speed and stamina in perfect harmony! After an explosive 39.8 km Week 2, you kept the throttle pinned at a rapid 5:11 /km average pace, logging 123.0 km across 14 runs with 789 m of climbing. Pure class!"
+    },
+    {
+      "rank": 21,
+      "name": "Jack Dean",
+      "target_km": 200.0,
+      "total_km": 244.0,
+      "pct_achieved": 122.0,
+      "surplus_km": 44.0,
+      "total_runs": 22,
+      "total_elev_m": 1908,
+      "avg_pace": "5:09 /km",
+      "longest_run_km": 32.0,
+      "weekly_km": [
+        68.9,
+        39.9,
+        74.3,
+        54.4,
+        6.5
+      ],
+      "tag": "\ud83c\udfc3\u200d\u2642\ufe0f Chicago Marathon Bound \u2022 244.0 km",
+      "analysis": "Stacked monster weeks (68.9, 74.3, 54.4 km), 22 runs, 1,908 m elevation, and 5:09 /km avg pace.",
+      "shoutout": "A monumental training block! Training for the Chicago Marathon, you conquered 244.0 km across 22 runs with nearly 2,000 m of climbing and a sizzling 5:09 /km pace. Chicago is going to feel your power\u2014what a run of form!"
+    },
+    {
+      "rank": 22,
+      "name": "Ian Bush",
+      "target_km": 51.0,
+      "total_km": 60.7,
+      "pct_achieved": 119.0,
+      "surplus_km": 9.7,
+      "total_runs": 8,
+      "total_elev_m": 379,
+      "avg_pace": "5:57 /km",
+      "longest_run_km": 10.0,
+      "weekly_km": [
+        16.1,
+        14.8,
+        0.0,
+        24.9,
+        4.9
+      ],
+      "tag": "\ud83d\udcaa Ankle Rehab Victory & 119% Smashed",
+      "analysis": "Overcame ankle injury with structured progression, culminating in a 24.9 km Week 4.",
+      "shoutout": "A truly inspiring comeback story! Managing an ankle injury with immense care and patience, you steadily rebuilt confidence and peaked with a 25 km Week 4 to hit 60.7 km on your 51 km target. A triumphant return to form!"
+    },
+    {
+      "rank": 23,
+      "name": "Patrick Ryan",
+      "target_km": 50.0,
+      "total_km": 58.60000000000001,
+      "pct_achieved": 117.2,
+      "surplus_km": 8.6,
+      "total_runs": 8,
+      "total_elev_m": 548,
+      "avg_pace": "5:34 /km",
+      "longest_run_km": 10.3,
+      "weekly_km": [
+        8.5,
+        21.1,
+        15.3,
+        13.7,
+        0.0
+      ],
+      "tag": "\ud83c\udfd4 548m Climbing & 5:34 /km Speed",
+      "analysis": "Burst through the target with 21.1 km in Week 2 and balanced double-digit weeks throughout.",
+      "shoutout": "Smooth, rhythmic, and purposeful running! You paired swift 5:34 /km pacing with 548 m of elevation gain to cruise past your 50 km goal to 58.6 km. Great form, great momentum, and a thoroughly deserved finish!"
+    },
+    {
+      "rank": 24,
+      "name": "Gabriel Stirling",
+      "target_km": 100.0,
+      "total_km": 117.1,
+      "pct_achieved": 117.1,
+      "surplus_km": 17.1,
+      "total_runs": 20,
+      "total_elev_m": 692,
+      "avg_pace": "5:09 /km",
+      "longest_run_km": 13.4,
+      "weekly_km": [
+        23.5,
+        31.9,
+        29.8,
+        26.5,
+        5.4
+      ],
+      "tag": "\u26a1\ufe0f 5:09 /km Speed Demon & 20 Runs",
+      "analysis": "High frequency (20 runs), consistent 23-32 km weekly miles, and blazing speed.",
+      "shoutout": "Lightning fast and ultra-consistent! Lacing up 20 times across the challenge, you held a blistering 5:09 /km pace across 117.1 km, making the Top 5 Speed leaderboard. Speed, endurance, and consistency all in one!"
+    },
+    {
+      "rank": 25,
+      "name": "Alexander Brown",
+      "target_km": 200.0,
+      "total_km": 233.2,
+      "pct_achieved": 116.6,
+      "surplus_km": 33.2,
+      "total_runs": 19,
+      "total_elev_m": 1354,
+      "avg_pace": "5:39 /km",
+      "longest_run_km": 42.6,
+      "weekly_km": [
+        58.0,
+        57.6,
+        48.3,
+        63.6,
+        5.7
+      ],
+      "tag": "\ud83d\udcaa Comeback King & Berlin Marathoner",
+      "analysis": "Consistent 50 km+ weeks (58.0, 57.6, 48.3, 63.6 km), 1,354 m elev, 42.6 km marathon.",
+      "shoutout": "Overcoming tough obstacles in training, you picked yourself up and built an absolute fortress of mileage\u2014peaking with a 63.6 km week and conquering the Berlin Marathon. 233.2 km logged with immense heart and courage!"
+    },
+    {
+      "rank": 26,
+      "name": "Richard Wilkes",
+      "target_km": 125.0,
+      "total_km": 143.89999999999998,
+      "pct_achieved": 115.1,
+      "surplus_km": 18.9,
+      "total_runs": 9,
+      "total_elev_m": 685,
+      "avg_pace": "6:23 /km",
+      "longest_run_km": 42.6,
+      "weekly_km": [
+        38.0,
+        25.9,
+        32.3,
+        47.7,
+        0.0
+      ],
+      "tag": "\ud83e\udd50 Pastry-Fueled Berlin Conqueror",
+      "analysis": "Solid 38.0, 25.9, 32.3 km buildup followed by a 47.7 km Berlin Marathon week.",
+      "shoutout": "Proof that pastries and marathon miles make the ultimate winning combination! You powered through four demanding weeks and crossed the Berlin finish line in style, logging 143.9 km with 685 m of climbing. Pure joy and dedication!"
+    },
+    {
+      "rank": 27,
+      "name": "Bo Wang",
+      "target_km": 200.0,
+      "total_km": 228.3,
+      "pct_achieved": 114.1,
+      "surplus_km": 28.3,
+      "total_runs": 20,
+      "total_elev_m": 694,
+      "avg_pace": "5:11 /km",
+      "longest_run_km": 42.6,
+      "weekly_km": [
+        86.1,
+        44.0,
+        39.8,
+        52.7,
+        5.7
+      ],
+      "tag": "\u2b50 3rd Major Star & 86.1 km Week 1 Blast",
+      "analysis": "Blasted off with an 86.1 km opening week, 20 runs, 5:11 /km pace, and completed Berlin Marathon.",
+      "shoutout": "From an 86 km Week 1 thunderclap to securing your 3rd World Marathon Major star in Berlin, you logged 228.3 km with incredible determination and 5:11 /km pace. A fantastic milestone on your Major journey!"
+    },
+    {
+      "rank": 28,
+      "name": "Pete Hall",
+      "target_km": 75.0,
+      "total_km": 85.4,
+      "pct_achieved": 113.9,
+      "surplus_km": 10.4,
+      "total_runs": 11,
+      "total_elev_m": 464,
+      "avg_pace": "5:41 /km",
+      "longest_run_km": 12.0,
+      "weekly_km": [
+        16.9,
+        12.0,
+        21.3,
+        25.2,
+        10.0
+      ],
+      "tag": "\ud83c\udf1f Race Debut at Pride 10K & 85.4 km",
+      "analysis": "Built steadily from 16.9 km to a 25.2 km Week 4 peak, tackling his first official race.",
+      "shoutout": "What an unforgettable month for your running journey! You completed your first official race at London Pride 10K, tackled a bold 75 km pledge, and surged past it to 85.4 km with 11 solid runs. The sky is the limit!"
+    },
+    {
+      "rank": 29,
+      "name": "Helen Williams",
+      "target_km": 125.0,
+      "total_km": 141.5,
+      "pct_achieved": 113.2,
+      "surplus_km": 16.5,
+      "total_runs": 11,
+      "total_elev_m": 874,
+      "avg_pace": "6:40 /km",
+      "longest_run_km": 42.4,
+      "weekly_km": [
+        43.7,
+        28.1,
+        21.0,
+        48.7,
+        0.0
+      ],
+      "tag": "\ud83c\uddeb\ud83c\uddf7 Paris & Berlin Double \ud83c\udde9\ud83c\uddea Marathoner",
+      "analysis": "Second marathon of 2026! 43.7 km (W1), 28.1 km (W2), 48.7 km (W4 Berlin Marathon).",
+      "shoutout": "Two full marathons in a single year\u2014what an awe-inspiring achievement! Conquering Berlin on top of Paris earlier this year, you banked 141.5 km and 874 m of climbing, easily beating your 125 km pledge. True club royalty!"
+    },
+    {
+      "rank": 30,
+      "name": "Chris Bloxham",
+      "target_km": 35.0,
+      "total_km": 39.3,
+      "pct_achieved": 112.3,
+      "surplus_km": 4.3,
+      "total_runs": 5,
+      "total_elev_m": 253,
+      "avg_pace": "6:05 /km",
+      "longest_run_km": 9.9,
+      "weekly_km": [
+        9.1,
+        18.2,
+        0.0,
+        12.0,
+        0.0
+      ],
+      "tag": "\ud83c\udfaf Fortnight Target Hit & 39.3 km",
+      "analysis": "Banked 18.2 km in Week 2 with near-10 km efforts, comfortably hitting his 35 km goal.",
+      "shoutout": "Target locked and loaded early! With focused outings and a strong 18.2 km Week 2, you smoothly navigated past your 35 km target to 39.3 km. Efficient, well-managed, and right on the money!"
+    },
+    {
+      "rank": 31,
+      "name": "Farrell Baker",
+      "target_km": 100.0,
+      "total_km": 109.0,
+      "pct_achieved": 109.0,
+      "surplus_km": 9.0,
+      "total_runs": 15,
+      "total_elev_m": 559,
+      "avg_pace": "5:15 /km",
+      "longest_run_km": 11.7,
+      "weekly_km": [
+        23.6,
+        29.7,
+        22.6,
+        16.4,
+        16.7
+      ],
+      "tag": "\u26a1\ufe0f 5:15 /km Pace & Consistent Weekly Mileage",
+      "analysis": "15 runs, 23.6, 29.7, 22.6, 16.4, 16.7 km across all 5 weeks.",
+      "shoutout": "The definition of rhythm! You showed up every single week with 16 to 30 km, maintaining a crisp 5:15 /km pace across 15 runs and topping 109 km. A flawless, beautifully paced Swiftember campaign!"
+    },
+    {
+      "rank": 32,
+      "name": "Ian Allen \ud83c\udff3\ufe0f\u200d\ud83c\udf08",
+      "target_km": 200.0,
+      "total_km": 217.6,
+      "pct_achieved": 108.8,
+      "surplus_km": 17.6,
+      "total_runs": 21,
+      "total_elev_m": 1754,
+      "avg_pace": "6:02 /km",
+      "longest_run_km": 42.5,
+      "weekly_km": [
+        61.8,
+        41.5,
+        49.6,
+        59.0,
+        5.7
+      ],
+      "tag": "\ud83c\udfc3 Race Machine & 1,754m Mountain Climber",
+      "analysis": "21 runs, 61.8 km W1, 59.0 km W4, Berlin Marathon finish, 1,754 m climbing.",
+      "shoutout": "A running powerhouse who never slows down! Lacing up for 21 runs, you racked up 217.6 km, conquered Berlin, and scaled 1,754 m of elevation\u2014all while bringing incredible vibrancy to the club. Unmatched passion and energy!"
+    },
+    {
+      "rank": 33,
+      "name": "Dean Haycock",
+      "target_km": 25.0,
+      "total_km": 27.169999999999998,
+      "pct_achieved": 108.7,
+      "surplus_km": 2.2,
+      "total_runs": 4,
+      "total_elev_m": 127,
+      "avg_pace": "5:32 /km",
+      "longest_run_km": 9.9,
+      "weekly_km": [
+        0.0,
+        4.97,
+        8.0,
+        14.2,
+        0.0
+      ],
+      "tag": "\ud83d\udcc8 Master of Progression: 0 to 14.2 km Peak",
+      "analysis": "Progressed from 5 km in W2 to 8 km in W3 and a 14.2 km peak in W4.",
+      "shoutout": "A textbook progression curve! You stepped up your distance each week, capping it off with a 14.2 km surge in Week 4 to surpass your 25 km target. Great confidence, smart ramp-up, and a well-earned celebration!"
+    },
+    {
+      "rank": 34,
+      "name": "Chris W",
+      "target_km": 50.0,
+      "total_km": 53.6,
+      "pct_achieved": 107.2,
+      "surplus_km": 3.6,
+      "total_runs": 6,
+      "total_elev_m": 343,
+      "avg_pace": "6:06 /km",
+      "longest_run_km": 14.3,
+      "weekly_km": [
+        17.3,
+        0.0,
+        14.3,
+        22.0,
+        0.0
+      ],
+      "tag": "\ud83d\udd25 The Streak Master & 14.3 km Long Run",
+      "analysis": "Maintained his streak while logging 17.3 km (W1), 14.3 km (W3), and 22.0 km (W4).",
+      "shoutout": "Keeping the streak alive and blazing! You paired your daily consistency with strong weekend long runs, hitting 22 km in Week 4 to comfortably surpass your 50 km goal (53.6 km). Streak on, legend!"
+    },
+    {
+      "rank": 35,
+      "name": "Sam Lewis",
+      "target_km": 75.0,
+      "total_km": 80.0,
+      "pct_achieved": 106.7,
+      "surplus_km": 5.0,
+      "total_runs": 11,
+      "total_elev_m": 606,
+      "avg_pace": "5:49 /km",
+      "longest_run_km": 10.0,
+      "weekly_km": [
+        21.9,
+        21.2,
+        20.6,
+        16.3,
+        0.0
+      ],
+      "tag": "\ud83c\udfaf Metronomic Consistency (21k / 21k / 20k)",
+      "analysis": "Three consecutive ~21 km weeks across W1-W3, finishing on 80.0 km.",
+      "shoutout": "Unshakeable pacing discipline! You laid down 21.9 km, 21.2 km, and 20.6 km across the opening three weeks, hitting your 75 km target with time to spare (80.0 km). Calm, steady, and thoroughly effective!"
+    },
+    {
+      "rank": 36,
+      "name": "Benjamin Lane",
+      "target_km": 100.0,
+      "total_km": 106.5,
+      "pct_achieved": 106.5,
+      "surplus_km": 6.5,
+      "total_runs": 11,
+      "total_elev_m": 680,
+      "avg_pace": "4:58 /km",
+      "longest_run_km": 21.6,
+      "weekly_km": [
+        17.3,
+        40.1,
+        18.0,
+        26.1,
+        5.0
+      ],
+      "tag": "\u26a1\ufe0f 4:58 /km Sub-5 Pacing & Pride 10K Champion",
+      "analysis": "1st Swift in London Pride 10K, Week 3 Speed Demon, 40.1 km Week 2 surge, 21.6 km long run.",
+      "shoutout": "Pure speed! Leading the Swifts at London Pride 10K and holding an average pace of 4:58 /km across 106.5 km, you showed supreme class. A half marathon long run and a 40 km peak week made this an unforgettable campaign!"
+    },
+    {
+      "rank": 37,
+      "name": "James S",
+      "target_km": 75.0,
+      "total_km": 79.8,
+      "pct_achieved": 106.4,
+      "surplus_km": 4.8,
+      "total_runs": 12,
+      "total_elev_m": 547,
+      "avg_pace": "5:20 /km",
+      "longest_run_km": 10.3,
+      "weekly_km": [
+        19.9,
+        17.6,
+        20.7,
+        15.3,
+        6.3
+      ],
+      "tag": "\ud83d\udc5f 12 Runs of Regularity & 5:20 /km Speed",
+      "analysis": "Four consecutive ~18-20 km weeks, finishing on 79.8 km on a 75 km goal.",
+      "shoutout": "Reliable, swift, and composed! Averaging 5:20 /km across 12 well-paced runs, you kept the weekly totals between 15 and 21 km to cross your 75 km goal with ease. A wonderfully balanced Swiftember!"
+    },
+    {
+      "rank": 38,
+      "name": "Matthew Rushton",
+      "target_km": 150.0,
+      "total_km": 159.2,
+      "pct_achieved": 106.1,
+      "surplus_km": 9.2,
+      "total_runs": 12,
+      "total_elev_m": 809,
+      "avg_pace": "5:42 /km",
+      "longest_run_km": 42.7,
+      "weekly_km": [
+        58.6,
+        37.9,
+        15.0,
+        47.7,
+        0.0
+      ],
+      "tag": "\ud83d\ude80 Berlin Marathon Debut & 159.2 km Total",
+      "analysis": "58.6 km Week 1, caught up rapidly during training, conquered Berlin in 42.7 km.",
+      "shoutout": "What an entrance onto the marathon stage! A massive 58.6 km Week 1 gave you the runway to conquer the Berlin Marathon and bag 159.2 km total. You rose to the challenge brilliantly and ran with supreme pride!"
+    },
+    {
+      "rank": 39,
+      "name": "Alice Wilkinson",
+      "target_km": 125.0,
+      "total_km": 132.6,
+      "pct_achieved": 106.1,
+      "surplus_km": 7.6,
+      "total_runs": 10,
+      "total_elev_m": 727,
+      "avg_pace": "8:38 /km",
+      "longest_run_km": 83.0,
+      "weekly_km": [
+        14.1,
+        83.0,
+        10.0,
+        13.1,
+        12.4
+      ],
+      "tag": "\ud83e\udd85 Endurance Titan \u2022 83.0 km Ultra Conqueror",
+      "analysis": "Conquered a 50-mile Ultra Marathon in Week 2, logging 83.0 km in a single run.",
+      "shoutout": "Our Endurance Titan! Conquering an 83 km 50-mile Ultra Marathon on September 12th was one of the defining moments of Swiftember 2026. Banking 132.6 km total to beat your 125 km pledge, your mental grit and physical endurance are heroic!"
+    },
+    {
+      "rank": 40,
+      "name": "Christopher Bainbridge",
+      "target_km": 250.0,
+      "total_km": 264.7,
+      "pct_achieved": 105.9,
+      "surplus_km": 14.7,
+      "total_runs": 25,
+      "total_elev_m": 1231,
+      "avg_pace": "6:18 /km",
+      "longest_run_km": 42.6,
+      "weekly_km": [
+        75.3,
+        61.6,
+        61.3,
+        66.5,
+        0.0
+      ],
+      "tag": "\ud83d\udc51 Top Swiftember Berliner \u2022 264.7 km",
+      "analysis": "25 runs, 75.3 km W1, 61+ km every week, 1,231 m elevation, completed Berlin Marathon.",
+      "shoutout": "The tireless workhorse! Battling through training setbacks, you bounced back to log 264.7 km across 25 runs\u2014the highest total among all Berlin runners. Four relentless 60-75 km weeks and a glorious marathon finish. Take a bow!"
+    },
+    {
+      "rank": 41,
+      "name": "Tim Reeves",
+      "target_km": 150.0,
+      "total_km": 158.0,
+      "pct_achieved": 105.3,
+      "surplus_km": 8.0,
+      "total_runs": 10,
+      "total_elev_m": 1033,
+      "avg_pace": "6:35 /km",
+      "longest_run_km": 42.8,
+      "weekly_km": [
+        47.1,
+        37.0,
+        20.3,
+        47.9,
+        5.7
+      ],
+      "tag": "\ud83c\udf1f Marathon Debutant & +1,033m Elevation",
+      "analysis": "First full marathon! 47.1 km W1, 37.0 km W2, 47.9 km W4, 158.0 km total on 150 km target.",
+      "shoutout": "Tackling your very first full marathon with 158 km banked and over 1,000 m of climbing! You poured enormous heart and sweat into this training block, and your 42.8 km Berlin finish is an achievement you'll cherish forever!"
+    },
+    {
+      "rank": 42,
+      "name": "Barry Cassidy",
+      "target_km": 100.0,
+      "total_km": 104.7,
+      "pct_achieved": 104.7,
+      "surplus_km": 4.7,
+      "total_runs": 11,
+      "total_elev_m": 431,
+      "avg_pace": "5:12 /km",
+      "longest_run_km": 21.1,
+      "weekly_km": [
+        29.6,
+        37.0,
+        0.0,
+        12.0,
+        26.1
+      ],
+      "tag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc73\udb40\udc63\udb40\udc74\udb40\udc7f Glasgow Half Marathon Ready & 5:12 /km",
+      "analysis": "Bounced back from injury with 29.6 km, 37.0 km, and a 26.1 km Week 5 with 21.1 km half marathon.",
+      "shoutout": "A masterful recovery and sharpening phase! Managing your return from injury with supreme discipline, you signed off Week 5 with a blistering 21.1 km half marathon effort to hit 104.7 km at 5:12 /km pace. Ready to fly in Glasgow!"
+    },
+    {
+      "rank": 43,
+      "name": "Adam Bown",
+      "target_km": 200.0,
+      "total_km": 208.1,
+      "pct_achieved": 104.0,
+      "surplus_km": 8.1,
+      "total_runs": 21,
+      "total_elev_m": 1727,
+      "avg_pace": "4:45 /km",
+      "longest_run_km": 21.2,
+      "weekly_km": [
+        55.4,
+        33.5,
+        50.5,
+        48.1,
+        20.6
+      ],
+      "tag": "\u26a1\ufe0f Speed Demon Winner \u2022 4:45 /km & 208.1 km",
+      "analysis": "Fastest weighted average pace in the club (4:45 /km) over 208 km with 1,727 m elevation.",
+      "shoutout": "Swift by name, swift by nature! Clocking 208.1 km across 21 runs while averaging an astonishing 4:45 /km pace and scaling 1,727 m of hills, you claimed the official Speed Demon crown. Absolutely electric running from start to finish!"
+    },
+    {
+      "rank": 44,
+      "name": "Daniel Bridge",
+      "target_km": 65.0,
+      "total_km": 67.5,
+      "pct_achieved": 103.8,
+      "surplus_km": 2.5,
+      "total_runs": 8,
+      "total_elev_m": 393,
+      "avg_pace": "5:28 /km",
+      "longest_run_km": 12.0,
+      "weekly_km": [
+        20.2,
+        9.9,
+        32.4,
+        0.0,
+        5.0
+      ],
+      "tag": "\ud83d\ude80 Week 3 Surge & Pride 10K Supporter",
+      "analysis": "Stepped up from 20 km in W1 to a 32.4 km peak in W3, finishing on 67.5 km.",
+      "shoutout": "Great tenacity and tactical pacing! Your 32.4 km peak in Week 3 did the heavy lifting, taking you past your 65 km target with 67.5 km total and 393 m of climbing. A fantastic month of running and club spirit!"
+    },
+    {
+      "rank": 45,
+      "name": "James Horne",
+      "target_km": 24.0,
+      "total_km": 24.9,
+      "pct_achieved": 103.7,
+      "surplus_km": 0.9,
+      "total_runs": 3,
+      "total_elev_m": 47,
+      "avg_pace": "5:15 /km",
+      "longest_run_km": 10.0,
+      "weekly_km": [
+        0.0,
+        8.7,
+        6.2,
+        10.0,
+        0.0
+      ],
+      "tag": "\u26a1\ufe0f 5:15 /km Precision & 100% Target Hit",
+      "analysis": "Hit 8.7 km, 6.2 km, and 10.0 km across 3 targeted runs to reach 24.9 km on 24 km goal.",
+      "shoutout": "Precision engineering! You targeted 24 km and delivered 24.9 km at a rapid 5:15 /km average pace, completing exactly what you set out to achieve with no fuss and total focus. Spot on!"
+    },
+    {
+      "rank": 46,
+      "name": "Matt Mackinnon-Coleman",
+      "target_km": 100.0,
+      "total_km": 102.4,
+      "pct_achieved": 102.4,
+      "surplus_km": 2.4,
+      "total_runs": 13,
+      "total_elev_m": 874,
+      "avg_pace": "5:25 /km",
+      "longest_run_km": 10.3,
+      "weekly_km": [
+        16.3,
+        30.1,
+        25.4,
+        24.3,
+        6.3
+      ],
+      "tag": "\ud83c\udfd4 874m Elevation & 102.4 km Century",
+      "analysis": "Consistent 24-30 km weeks in W2-W4, 13 runs, 5:25 /km average pace.",
+      "shoutout": "A century of kilometers backed by serious hill power! Clocking 102.4 km across 13 runs with 874 m of elevation gain and a swift 5:25 /km pace, you made joining the Century Club look easy. Tremendous effort!"
+    },
+    {
+      "rank": 47,
+      "name": "Jake Colbourn",
+      "target_km": 200.0,
+      "total_km": 204.4,
+      "pct_achieved": 102.2,
+      "surplus_km": 4.4,
+      "total_runs": 27,
+      "total_elev_m": 3074,
+      "avg_pace": "7:01 /km",
+      "longest_run_km": 81.9,
+      "weekly_km": [
+        22.2,
+        109.0,
+        43.8,
+        26.3,
+        3.1
+      ],
+      "tag": "\ud83c\udfd4 Mountain Goat & Frequency Champion (27 Runs)",
+      "analysis": "Most runs in the club (27), 81.9 km Ultra, 3,074 m elevation (club record), 204.4 km total.",
+      "shoutout": "Our undisputed Mountain Goat and run frequency champion! Logging 27 runs, conquering an 81.9 km 50-mile Ultra, and climbing a staggering 3,074 m of elevation, your endurance and resilience this month were nothing short of superhuman!"
+    },
+    {
+      "rank": 48,
+      "name": "Lee Singleton",
+      "target_km": 100.0,
+      "total_km": 102.0,
+      "pct_achieved": 102.0,
+      "surplus_km": 2.0,
+      "total_runs": 13,
+      "total_elev_m": 863,
+      "avg_pace": "6:14 /km",
+      "longest_run_km": 17.6,
+      "weekly_km": [
+        22.9,
+        27.2,
+        25.6,
+        17.9,
+        8.4
+      ],
+      "tag": "\ud83d\udcaa Inspiring Comeback & 102.0 km Century",
+      "analysis": "Overcame seizure recovery, ran London Pride 10K, balanced 22-27 km weekly to hit 102.0 km.",
+      "shoutout": "One of the most inspiring achievements of Swiftember! Pushing through recovery from last year's seizure, you laced up 13 times, conquered London Pride 10K, and crested the 100 km mountain with 102.0 km and 863 m of elevation. True Swifts courage!"
+    },
+    {
+      "rank": 49,
+      "name": "Laura Rafailov",
+      "target_km": 100.0,
+      "total_km": 101.8,
+      "pct_achieved": 101.8,
+      "surplus_km": 1.8,
+      "total_runs": 14,
+      "total_elev_m": 666,
+      "avg_pace": "6:56 /km",
+      "longest_run_km": 10.0,
+      "weekly_km": [
+        20.9,
+        29.7,
+        23.0,
+        16.2,
+        12.0
+      ],
+      "tag": "\ud83c\udf38 Century Finisher & London Pride 10K",
+      "analysis": "Consistent four weeks of 20-30 km, finishing strong with 12.0 km in W5 to break 100 km.",
+      "shoutout": "Century conquered in style! From joining the Pride 10K squad to steadily banking 20 to 30 km each week, you crossed the finish line at 101.8 km with 666 m of climbing. Fantastic focus and wonderful club spirit!"
+    },
+    {
+      "rank": 50,
+      "name": "Neesa",
+      "target_km": 50.0,
+      "total_km": 50.87,
+      "pct_achieved": 101.7,
+      "surplus_km": 0.9,
+      "total_runs": 2,
+      "total_elev_m": 0,
+      "avg_pace": "--",
+      "longest_run_km": 38.0,
+      "weekly_km": [
+        12.87,
+        38.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tag": "\ud83d\udcaa Gym S&C Powerhouse & 38 km Mega-Run",
+      "analysis": "Combined gym S&C with an incredible 38.0 km long run in Week 2 to lock in 50.9 km.",
+      "shoutout": "Strength and power in action! Balancing heavy gym strength and conditioning work, you unleashed a monumental 38.0 km run in Week 2, locking in your 50 km target before mid-month. That strength training paid immense dividends!"
+    },
+    {
+      "rank": 51,
+      "name": "Tom dawson",
+      "target_km": 45.0,
+      "total_km": 45.6,
+      "pct_achieved": 101.3,
+      "surplus_km": 0.6,
+      "total_runs": 5,
+      "total_elev_m": 180,
+      "avg_pace": "6:27 /km",
+      "longest_run_km": 11.1,
+      "weekly_km": [
+        0.0,
+        24.1,
+        21.5,
+        0.0,
+        0.0
+      ],
+      "tag": "\u26a1\ufe0f Back-to-Back 20k+ Weeks & 45.6 km Total",
+      "analysis": "Delivered 24.1 km in W2 and 21.5 km in W3 to hit 101.3% of his 45 km pledge.",
+      "shoutout": "Two decisive, high-impact weeks! You delivered back-to-back 20 km+ weeks in Weeks 2 and 3, effortlessly hitting 45.6 km to secure your Swiftember goal. Efficient, composed, and job done!"
+    },
+    {
+      "rank": 52,
+      "name": "Phil Deeley",
+      "target_km": 69.0,
+      "total_km": 69.7,
+      "pct_achieved": 101.0,
+      "surplus_km": 0.7,
+      "total_runs": 14,
+      "total_elev_m": 408,
+      "avg_pace": "6:19 /km",
+      "longest_run_km": 9.0,
+      "weekly_km": [
+        25.9,
+        23.8,
+        9.1,
+        10.9,
+        0.0
+      ],
+      "tag": "\ud83d\udc5f 14 Runs of Dedication & 69.7 km Total",
+      "analysis": "Consistent opening fortnight (25.9 km, 23.8 km) backed by 14 runs across the month.",
+      "shoutout": "Fourteen runs of pure commitment! You laid down two strong 25 km weeks early on, maintaining focus throughout the month to reach 69.7 km on your 69 km pledge with 408 m of climbing. Superb dedication!"
+    },
+    {
+      "rank": 53,
+      "name": "James Evans",
+      "target_km": 10.0,
+      "total_km": 10.1,
+      "pct_achieved": 101.0,
+      "surplus_km": 0.1,
+      "total_runs": 2,
+      "total_elev_m": 70,
+      "avg_pace": "6:26 /km",
+      "longest_run_km": 5.1,
+      "weekly_km": [
+        0.0,
+        0.0,
+        0.0,
+        10.1,
+        0.0
+      ],
+      "tag": "\ud83c\udfaf Clutch Week 4 Double & 101% Goal Hit",
+      "analysis": "Two focused 5 km runs in Week 4 to hit 10.1 km on 10 km pledge.",
+      "shoutout": "Clutch performance under pressure! When Week 4 arrived, you stepped up with two crisp 5 km runs, hitting 10.1 km and sealing your 100% completion badge with precision. Fantastic execution!"
+    },
+    {
+      "rank": 54,
+      "name": "Joshua Burnett",
+      "target_km": 95.0,
+      "total_km": 95.9,
+      "pct_achieved": 100.9,
+      "surplus_km": 0.9,
+      "total_runs": 8,
+      "total_elev_m": 642,
+      "avg_pace": "6:09 /km",
+      "longest_run_km": 43.1,
+      "weekly_km": [
+        18.7,
+        53.5,
+        6.4,
+        17.3,
+        0.0
+      ],
+      "tag": "\ud83c\udfc3 Marathon+ Hero (43.1 km) & 95.9 km Century",
+      "analysis": "Unleashed a massive 53.5 km Week 2 including a 43.1 km marathon-plus distance long run.",
+      "shoutout": "A breathtaking marathon effort! In Week 2 you unleashed an epic 43.1 km long run as part of a 53.5 km week, ultimately logging 95.9 km on your 95 km target. That long-run grit was unforgettable!"
+    },
+    {
+      "rank": 55,
+      "name": "Joshua Savage",
+      "target_km": 200.0,
+      "total_km": 201.4,
+      "pct_achieved": 100.7,
+      "surplus_km": 1.4,
+      "total_runs": 18,
+      "total_elev_m": 2759,
+      "avg_pace": "5:28 /km",
+      "longest_run_km": 42.6,
+      "weekly_km": [
+        52.1,
+        45.2,
+        33.8,
+        64.6,
+        5.7
+      ],
+      "tag": "\ud83d\udc51 Club Chair Grit & Berlin Marathoner",
+      "analysis": "18 runs, 201.4 km logged, 2,759 m elevation, conquered Berlin Marathon.",
+      "shoutout": "Leading from the front! You might complain in the club chat, but on the roads you delivered 201.4 km, scaled an enormous 2,759 m of elevation, and conquered the Berlin Marathon with true grit. A proud achievement for our club chair!"
+    },
+    {
+      "rank": 56,
+      "name": "Josh Heer",
+      "target_km": 10.0,
+      "total_km": 10.0,
+      "pct_achieved": 100.0,
+      "surplus_km": 0.0,
+      "total_runs": 1,
+      "total_elev_m": 49,
+      "avg_pace": "6:36 /km",
+      "longest_run_km": 10.0,
+      "weekly_km": [
+        0.0,
+        0.0,
+        0.0,
+        10.0,
+        0.0
+      ],
+      "tag": "\ud83c\udfaf The Perfect 10 km Bullseye (100.0%)",
+      "analysis": "Executed a flawless 10.0 km run to hit exactly 100.0% of his pledge.",
+      "shoutout": "The ultimate bullseye! You promised 10.0 km and delivered exactly 10.0 km on the dot at 6:36 /km pace. No wasted motion, no fuss\u2014pure, perfect completion. Welcome to the Finisher Roll of Honor!"
+    }
+  ]
 }
